@@ -27,7 +27,7 @@ usethis::use_git_remote(
 # or there is another option as:
 usethis::use_git_remote(
   "origin",
-  "https:://github.com/tk51/r-playground.git",
+  "https://github.com/tk51/r-playground.git",
   overwrite = TRUE
 ) # tk51/....git - put the repo name for work instead of "coding-demo.git"
 
