@@ -53,5 +53,5 @@ gh::gh_whoami() # short notice
 usethis::gh_token_help() # a bit longer notice
 usethis::git_sitrep() # long notice
 
-# if there are problems with environment, tokens can be stored in a file
-usethis::edit_r_environ()
+# if there are problems with environment, tokens can be saved in a file
+usethis::edit_r_environ() # open and delete the stored ones, as they break
