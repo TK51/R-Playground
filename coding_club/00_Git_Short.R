@@ -20,3 +20,13 @@ usethis::create_github_token()
 gitcreds::gitcreds_set() 
 
 credentials::set_github_pat()
+
+### terminal activities for committing updates to GitHub
+# - git status
+# - git add .
+# - git commit -m "your-message-about-the-update"
+# - git push
+
+### terminal specific hint-command
+# - git remote set-url origin https://github.com/TK51/R-Playground.git
+# - git remote show origin

@@ -55,3 +55,14 @@ usethis::git_sitrep() # long notice
 
 # if there are problems with environment, tokens can be saved in a file
 usethis::edit_r_environ() # open and delete the stored ones, as they break
+
+##### GitHub Terminal Activities ###########################################
+### terminal activities for committing updates to GitHub
+# - git status
+# - git add .
+# - git commit -m "your-message-about-the-update"
+# - git push
+
+### terminal specific hint-command
+# - git remote set-url origin https://github.com/TK51/R-Playground.git
+# - git remote show origin
