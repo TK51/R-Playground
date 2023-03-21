@@ -20,6 +20,3 @@ usethis::create_github_token()
 gitcreds::gitcreds_set() 
 
 credentials::set_github_pat()
-
-# palyground2
-# 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
