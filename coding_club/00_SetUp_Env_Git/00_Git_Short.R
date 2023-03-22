@@ -8,7 +8,7 @@ usethis::git_remotes()
     "origin",
     "https://github.com/tk51/r-playground.git",
     overwrite = TRUE
-  ) # tk51/---.git - put the repo name for work instead of "coding-demo.git"
+  ) # tk51/---.git - put the repo name for work instead of "r-playground.git"
 
 # check the active project directory
 usethis::git_remotes()
