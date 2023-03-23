@@ -16,8 +16,8 @@ usethis::git_remotes()
 
 # create NEW project from RStudio - paste URL from GitHub here
 usethis::create_from_github(
-  "https://github.com/TK51/coding-demo.git",
-  destdir = "~/home/tmp/coding-demo/"
+  "https://github.com/TK51/coding-demo.git", # coding-demo = example
+  destdir = "/home/t51/tmp"
 )
 
 # additional check commands
