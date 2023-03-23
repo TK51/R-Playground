@@ -15,6 +15,7 @@ usethis::create_project(
 # if there is a Git pane in Environments section - set up is OK
 # if not, make or verify Git repo
 usethis::use_git()
+usethis::use_github()
 
 usethis::git_remotes()
 
