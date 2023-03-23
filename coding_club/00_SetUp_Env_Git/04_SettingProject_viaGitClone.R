@@ -18,6 +18,7 @@ usethis::create_from_github(
 # additional check commands
 gh_token_help()
 
+# credentials get and set in case of troubles with connection
 gitcreds::gitcreds_get()
 gitcreds::gitcreds_set()
 
