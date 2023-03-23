@@ -19,5 +19,6 @@ usethis::create_from_github(
 gh_token_help()
 
 gitcreds::gitcreds_get()
+gitcreds::gitcreds_set()
 
 usethis::create_github_token()
