@@ -4,3 +4,4 @@
 - as evidence of practice and some progress
 - as evidence of various scripting maneuvres
 - as reference to knowledge mastered
+- as something usefull for the future
