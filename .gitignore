@@ -56,3 +56,5 @@ vignettes/*.pdf
 *README_cache/
 #*README_files/
 .Rproj.user
+.Rdata
+.DS_Store
