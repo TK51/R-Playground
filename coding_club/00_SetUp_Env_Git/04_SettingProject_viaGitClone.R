@@ -22,4 +22,5 @@ gh_token_help()
 gitcreds::gitcreds_get()
 gitcreds::gitcreds_set()
 
+# create new token in case there are problems connecting via the old one
 usethis::create_github_token()
