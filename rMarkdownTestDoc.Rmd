@@ -1,10 +1,8 @@
 ---
-title: "R Markdown Test Document"
+title: "RMarkdown Test Document"
 author: "TK51"
 date: "2023-03-26"
-output: 
-  html_document:
-    keep_md: TRUE
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
