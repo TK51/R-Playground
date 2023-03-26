@@ -3,13 +3,13 @@
 getwd()
 
 # in case the working directory is different, set it manually to:
-setwd("/home/t51/DataAnalytics/R")
+setwd("/home/t51/DataAnalytics/R-Playground")
 
 # create folder for Coding Club activities - remove the hash below to execute
-dir.create("/home/t51/DataAnalytics/R/coding_club")
+dir.create("/home/t51/DataAnalytics/R-Playground/coding_club")
 
 # set the working directory to Coding Club folder
-setwd("/home/t51/DataAnalytics/R/coding_club")
+setwd("/home/t51/DataAnalytics/R-Playground/coding_club")
 
 # check if everything worked well with directory set-up
 getwd()
