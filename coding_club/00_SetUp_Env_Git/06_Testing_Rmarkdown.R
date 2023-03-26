@@ -2,7 +2,7 @@
 # check the working directory and if needed change via setwd("/home/...")
 getwd()
 
-# check the GitHub connectivity and make changes if needed
+# check the GitHub connectivity and make changes if needed...
 usethis::git_remotes()
 
 # check the token available
