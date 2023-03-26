@@ -21,8 +21,10 @@ gitcreds::gitcreds_get()
 # create token if needed
 usethis::create_github_token()
 
+# set the token into the register
 gitcreds::gitcreds_set() 
 
+# here is an optional command
 credentials::set_github_pat()
 
 ### terminal activities for committing updates to GitHub
