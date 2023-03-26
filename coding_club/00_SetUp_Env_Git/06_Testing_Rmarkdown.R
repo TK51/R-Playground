@@ -49,6 +49,29 @@ rmarkdown::render()
 ### Transform R Markdown into R Script
 # - save file as .Rmd -> .R
 
+# Transform the R markdown to R:
+  
+#  Anything that’s not R code? Like the YAML and the prose? Protect it with 
+# roxygen-style comments: start each line with #'.
 
+# Anything that is R code? Let it exist “as is” as top-level code. 
+# That means you’ll need to change the syntax of R chunk headers like so:
+  
+#  Before: ```{r setup, include = FALSE}
+# After: #+ r setup, include = FALSE
+  
+#  Replace the leading backticks and opening curly brace with #+.
+# Delete the trailing curly brace.
+# Delete the 3 backticks that end each chunk.
 
+# Render the R script through one of these methods:
+  
+#  Click on the “notebook” icon in RStudio to “Compile Report”.
+# In RStudio, do File > Knit Document.
+# In R, do rmarkdown::render("foo.R").
+
+getwd() # check the working directory before making the render
+
+# render the file mentioning it's name in that directory
+rmarkdown::render("/home/t51/DataAnalytics/R-Playground/markdown_workshop/foo.R") 
 
