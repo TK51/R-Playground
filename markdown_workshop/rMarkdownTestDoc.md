@@ -28,7 +28,9 @@ getwd()
 ``` r
 # load the dataset
 edidiv <- read.csv("/home/t51/DataAnalytics/R-Playground/coding_club/datasets/edidiv.csv")
+```
 
+``` r
 # check the dataset dimensions
 dim(edidiv)
 ```

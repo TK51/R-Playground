@@ -13,7 +13,7 @@ usethis::git_remotes()
   ) # tk51/---.git - put the repo name for work instead of "r-playground.git"
 
 # check the active project directory
-usethis::git_remotes()
+usethis::git_remotes()0
 
 # check the credentials set up
 gitcreds::gitcreds_get() 
@@ -33,6 +33,7 @@ credentials::set_github_pat()
 # - git commit -m "your-message-about-the-update"
 # - git push
 
-### terminal specific hint-command
+### terminal specific hint-command0
+
 # - git remote set-url origin https://github.com/TK51/R-Playground.git
 # - git remote show origin
