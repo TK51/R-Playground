@@ -14,6 +14,7 @@ setwd("/home/t51/DataAnalytics/R-Playground/coding_club")
 # check if everything worked well with directory set-up
 getwd()
 
+# install any needed packages...
 install.packages("tidyverse")
 install.packages("dplyr")
 

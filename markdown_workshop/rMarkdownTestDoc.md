@@ -35,6 +35,8 @@ edidiv <- read.csv("/home/t51/DataAnalytics/R-Playground/coding_club/datasets/ed
 dim(edidiv)
 ```
 
+    ## [1] 25684     5
+
 ``` r
 # check that the data was imported without any mistakes
 head(edidiv) # displays the first few rows
