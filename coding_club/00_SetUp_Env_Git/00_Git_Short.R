@@ -1,6 +1,8 @@
+# check the working directory
 getwd()
 setwd("/home/t51/DataAnalytics/R-Playground")
 
+# check the remote set up
 usethis::git_remotes()
 
 # or there is another option as:
@@ -13,6 +15,7 @@ usethis::git_remotes()
 # check the active project directory
 usethis::git_remotes()
 
+# check the credentials set up
 gitcreds::gitcreds_get() 
 
 usethis::create_github_token()
