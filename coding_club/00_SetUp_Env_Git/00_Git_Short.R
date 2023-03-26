@@ -18,6 +18,7 @@ usethis::git_remotes()
 # check the credentials set up
 gitcreds::gitcreds_get() 
 
+# create token if needed
 usethis::create_github_token()
 
 gitcreds::gitcreds_set() 
