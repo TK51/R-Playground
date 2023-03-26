@@ -26,4 +26,8 @@ gitcreds::gitcreds_set()
 ### terminal specific hint-command
 # - git remote set-url origin https://github.com/TK51/R-Playground.git
 # - git remote show origin
+
+### git useful commands
+# git config --global --list
+# git config --global credential.helper 'cache --timeout=10000000'
 ############################################################################
