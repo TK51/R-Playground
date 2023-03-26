@@ -26,8 +26,16 @@ getwd()
     ## [1] "/home/t51/DataAnalytics/R-Playground/markdown_workshop"
 
 ``` r
+# load the dataset
 edidiv <- read.csv("/home/t51/DataAnalytics/R-Playground/coding_club/datasets/edidiv.csv")
 
+# check the dataset dimensions
+dim(edidiv)
+```
+
+    ## [1] 25684     5
+
+``` r
 # check that the data was imported without any mistakes
 head(edidiv) # displays the first few rows
 ```
