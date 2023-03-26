@@ -3,10 +3,10 @@
 
 ### CREATE WORKING DIRECTORY ##################################################
 # create folder for Coding Club activities - remove the hash below to execute
-#dir.create("/home/t51/DataAnalytics/R/coding_club")
+#dir.create("/home/t51/DataAnalytics/R-Playground/coding_club")
 
 # set the working directory to coding_club/01_Intro_to_R folder
-setwd("/home/t51/DataAnalytics/R/coding_club/01_Intro_to_R")
+setwd("/home/t51/DataAnalytics/R-Playground/coding_club/01_Intro_to_R")
 
 # check if everything worked well with directory set-up
 getwd()
@@ -17,7 +17,7 @@ install.packages("dplyr")
 library(dplyr)
 
 ### IMPORT and CHECK DATA #####################################################
-edidiv <- read.csv("/home/t51/DataAnalytics/R/coding_club/datasets/edidiv.csv")
+edidiv <- read.csv("/home/t51/DataAnalytics/R-Playground/coding_club/datasets/edidiv.csv")
 
 # check that the data was imported without any mistakes
 head(edidiv) # displays the first few rows
@@ -227,12 +227,5 @@ barplot(wings$wingspan, names.arg = wings$bird_sp,
 dev.off()
 
 ##### WELL DONE!
-
-
-
-
-
-
-
 
 
