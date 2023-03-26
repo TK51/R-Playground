@@ -72,6 +72,13 @@ rmarkdown::render()
 
 getwd() # check the working directory before making the render
 
-# render the file mentioning it's name in that directory
-rmarkdown::render("/home/t51/DataAnalytics/R-Playground/markdown_workshop/foo.R") 
+#'render the file mentioning it's full path
+rmarkdown::render("/home/t51/DataAnalytics/R-Playground/markdown_workshop/foo.R")
 
+
+#'#############################################################################
+#' render the file mentioning it's full path - 
+#' **rmarkdown::render***("/path/to/your/foo.R")*
+#' 
+#' as mine is like that: - 
+#' **rmarkdown::render***("/.../markdown_workshop/foo.R")*

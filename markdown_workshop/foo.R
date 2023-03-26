@@ -16,3 +16,9 @@ summary(VADeaths)
 #+ dotchart
 dotchart(VADeaths, main = "Death Rates in Virginia - 1940")
 
+#'#############################################################################
+#' render the file mentioning it's full path - 
+#' **rmarkdown::render***("/path/to/your/foo.R")*
+#' 
+#' as mine is like that: - 
+#' **rmarkdown::render***("/.../markdown_workshop/foo.R")*

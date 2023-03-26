@@ -13,7 +13,7 @@ usethis::git_remotes()
   ) # tk51/---.git - put the repo name for work instead of "r-playground.git"
 
 # check the active project directory
-usethis::git_remotes()0
+usethis::git_remotes()
 
 # check the credentials set up
 gitcreds::gitcreds_get() 
