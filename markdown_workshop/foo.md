@@ -32,6 +32,9 @@ dotchart(VADeaths, main = "Death Rates in Virginia - 1940")
 
 ############################################################################# 
 
+for making a markdown file (.md) create a separate .R file and run the
+below:
+
 render the file mentioning it’s full path -
 **rmarkdown::render***(“/path/to/your/foo.R”)*
 
