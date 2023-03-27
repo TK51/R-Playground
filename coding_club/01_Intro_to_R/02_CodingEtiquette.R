@@ -182,6 +182,8 @@ calculate_avg_clicks, calculateAvgClicks  # Bad. The convention is that
 # Tools/Global Options/Code/Display/Show Margin/80 characters. 
 # -- When using pipes from the dplyr package, keep the pipe operator %>% at the 
 # end of the line and continue your pipe on a new line.
+# -- When using ggplot2, keep the + at the end of the line and continue 
+# adding on layers on a new line.
 
 # shortcuts ----
 # - Ctrl + Shift + O - outline pane
