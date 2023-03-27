@@ -72,7 +72,6 @@ calculate_avg_clicks , calculateAvgClicks  # Bad. The convention is that
 # -- When using ggplot2, keep the + at the end of the line and continue 
 # adding on layers on a new line.
 
-
 # general advice ----
 # - create folder "img" manually in working directory for images
 
