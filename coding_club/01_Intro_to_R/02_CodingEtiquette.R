@@ -18,7 +18,8 @@ setwd("/home/t51/DataAnalytics/R-Playground/coding_club")
 # - functions
 # - working directory
 # - loaded data
-# - The different sections of your analysis: logical development
+# - the different sections of your analysis: logical development
+# - the outputs of your analysis
 
 ####################################################################
 # examples ----
@@ -102,6 +103,85 @@ LPI_biome_summ <- LPI2 %>%  # use of pipe operator
 # call the object such that it will be displayed by just typing "barplot" after 
 # you’ve created the “barplot” object.
 
+# The outputs of your analysis ----
+# Remember to keep your filepath sensible not only when loading data in, but 
+# also when you are outputting files (e.g. .Rdata, .csv files and any figures 
+# you want saved). .csv files are more transferable and can be used across 
+# multiple platforms, whereas .Rdata files are more compressed and are quicker 
+# to work with. Saving graphs as .pdf files is better practice, since .pdf 
+# files are vector based and don’t decrease in quality when you zoom in or out. 
+# .png files, on the other hand, are easily inserted in text documents and 
+# presentations, so ideally you should save a .pdf and a .png file of your 
+# graph. It is also good practice to save image outputs in a subdirectory of 
+# your working directory, e.g. img/. Remember that you will have to create the 
+# folder img manually before saving plots to it:
+  
+png(file="img/biome_pop.png", 
+    width = 1000, height = 2000)  # Note that png() uses pixel values for width and height
+ggplot(LPI_biome_summ, aes(biome, color = biome, y = populations)) + geom_bar(stat = "identity") +
+  theme.LPI() +
+  ylab("Number of populations") +
+  xlab("Biome") +
+  theme(legend.position = "none")
+dev.off()  # This tells R you are done with the plotting and it can save the file
+
+pdf(file="img/biome_pop.pdf",  width = 13.33, height = 26.66)  # pdf() uses inches
+ggplot(LPI_biome_summ, aes(biome, color = biome, y = populations)) + geom_bar(stat = "identity") +
+  theme.LPI() +
+  ylab("Number of populations") +
+  xlab("Biome") +
+  theme(legend.position = "none")
+dev.off()
+
+# file naming ----
+# -- Object names should be concise and meaningful.Long object names are annoying 
+# to type. More letters = higher chance you’ll make a typo.
+# -- Variable names should be nouns. e.g. abundance richness
+# -- Function names should be verbs. e.g. calc.sp.richness
+# -- Use an underscore to separate words within a script file. e.g. 
+# LPI_analysis_Apr_2017.R
+# -- The preferred form for object/variable names is all lower case letters 
+# and words separated with underscores e.g. (object_name$variable_name).
+# -- For functions, all lower case letters and words separated by dots e.g. 
+# (function.name).
+
+# - example: Object names
+avg_clicks  # Good.
+avg.clicks  # Acceptable.
+avg_Clicks  # Not okay.
+
+# - example: Function names
+calculate.avg.clicks  # This is what we are aiming for.
+CalculateAvgClicks  # Not that bad, but mixing capital and lowercase letters 
+# can lead to typos
+calculate_avg_clicks, calculateAvgClicks  # Bad. The convention is that 
+# functions are defined using dots, not underscores.
+
+# spacing ----
+# -- Place spaces around all infix operators (=, +, -, <-, etc.). The same rule 
+# applies when using = in function calls. Always put a space after a comma, 
+# and never before, just like in normal prose.
+# -- Don’t place a space before left parentheses, except in a function call.
+# -- Extra spacing (i.e., more than one space in a row) is ok if it improves 
+# alignment of equal signs or assignments (<-).
+# -- Do not place spaces around code in parentheses or square brackets (unless 
+# there’s a comma, in which case see above).
+# -- Inline commenting: If you are commenting inline with code, place two spaces
+# after the code, followed by #, a single space and then your text, e.g. 
+# summary(model)<space><space>#<space>comment.
+
+# curly braces ----
+# -- An opening curly brace should never go on its own line and should always 
+# be followed by a new line. A closing curly brace should always go on its own 
+# line, unless it’s followed by else. Always indent the code inside curly braces.
+
+# line length ----
+# -- The official convention is to limit your code to 80 characters per line. 
+# -- How do you know what’s 80 characters though? RStudio can place a handy line 
+# in your editor as a reminder! Go to 
+# Tools/Global Options/Code/Display/Show Margin/80 characters. 
+# -- When using pipes from the dplyr package, keep the pipe operator %>% at the 
+# end of the line and continue your pipe on a new line.
 
 # shortcuts ----
 # - Ctrl + Shift + O - outline pane
