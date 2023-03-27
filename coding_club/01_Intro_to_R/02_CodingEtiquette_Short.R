@@ -75,11 +75,66 @@ calculate_avg_clicks , calculateAvgClicks  # Bad. The convention is that
 # adding on layers on a new line.
 
 # 4. Cleaning old scripts ----
+# Reformat your old code to add in spaces and limit line length
+install.packages("formatR")
+library("formatR")
+
+# Set working directory to wherever your messy script is
+tidy_source("messy_script_2017-02-25.R", file = "tidy_script_2017-02-25.R", 
+            width.cutoff = 100)  # could be set to 80 signs
+# -- If you don't specify file = "new_script.R", your script will get 
+# overwritten, dangerous!
+# -- If you don't specify a width cutoff point, tidy_source just adds in the 
+# spaces
+# -- 100 characters seems like a reasonable cutoff point
+
+# Reformat all the scripts in a directory
+# Set your working directory to wherever your messy scripts are
+
+# IMPORTANT this will override script files, so make a duplicate back up folder, in case tidy_dir messes up
+tidy_dir(path="whatever/your/path/is", recursive = TRUE)
+# recursive	- whether to look for R scripts in subdirectories of the directory specified under path
+
+# 5. Renaming old objects and variables ----
+
+# -- easy fix to renaming variables or objects - FIND and REPLACE, select 
+# IN SELECTION so not to rename the entire code
+# -- If you want to rename your variable names, that’s quickly done, too.
+
+names(dataframe) <- gsub(".", "_", names(dataframe), fixed = TRUE)
+# This code takes all of the variable names in the imaginary dataset `dataframe` 
+# and replaces `.` with `_`
+# Depending on the naming style you are using, you might want to go the other 
+# way around and use `.` in all variable names
+
+names(dataframe) <- tolower(names(dataframe))
+# This code makes all of the variable names in the imaginary dataset lowercase
+
+colnames(dataframe)[colnames(dataframe) == 'Old_Complicated_Name'] <- 'new.simple.name'
+# Renaming an individual column in the imaginary dataset
+
+# 6. RStudio addins ----
+install.packages('addinslist')  # to get a full list of RStudio plugins
+
+# -- Boxes around introductory sections of scripts have become a trendy 
+# addition to script files, definitely not an essential component, but if that 
+# appeals to you, you can add a box using this plugin, saving you the time of 
+# typing up many hashtags.
+
+# Insert a box around the introductory section of your script
+install.packages("devtools")
+devtools::install_github("ThinkRstat/littleboxes")
+
+# Afterwards select your introductory comments, click on Addins/ Little boxes 
+# and the box appears! Note that if you are also reformatting your code using 
+# formatR, reformat the code first, then add the box.
+# formatR messes up these boxes otherwise!
 
 
-# 5. Best practices ----
+# 7. Best practices ----
 # general advice ----
 # - create folder "img" manually in working directory for images
+# - back-up the files before any code cleaning
 
 # shortcuts ----
 # - Ctrl + Shift + O - outline pane
