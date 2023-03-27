@@ -1,3 +1,4 @@
+# 1. Structure ----
 # the basic script structure ----
 # - the introduction
 # - libraries
@@ -8,7 +9,6 @@
 # - the outputs of your analysis
 
 # outline example ----
-
 # - the introduction ---
 # - libraries ---
 # - functions ---
@@ -20,6 +20,7 @@
 # - Visualizing the ...with ggplot2 package ---
 # - The outputs of your analysis ---
 
+# 2. Naming ----
 # file naming ----
 # -- Object names should be concise and meaningful.Long object names are annoying 
 # to type. More letters = higher chance you’ll make a typo.
@@ -44,6 +45,7 @@ CalculateAvgClicks  # Not that bad, but mixing capital and lowercase letters
 calculate_avg_clicks , calculateAvgClicks  # Bad. The convention is that 
 # functions are defined using dots, not underscores.
 
+# 3. Line Formatting ----
 # spacing ----
 # -- Place spaces around all infix operators (=, +, -, <-, etc.). The same rule 
 # applies when using = in function calls. Always put a space after a comma, 
@@ -72,6 +74,10 @@ calculate_avg_clicks , calculateAvgClicks  # Bad. The convention is that
 # -- When using ggplot2, keep the + at the end of the line and continue 
 # adding on layers on a new line.
 
+# 4. Cleaning old scripts ----
+
+
+# 5. Best practices ----
 # general advice ----
 # - create folder "img" manually in working directory for images
 
