@@ -1,5 +1,5 @@
 # introduction ---- 
-# the "introduction ----" can be omited for clarity
+# the "introduction ----" can be omitted for clarity
 # the outline is made with four "-" added after a comment
 # it brings the structure to the document and afterwards can be seen
 # in the outline pane switched in the upper right corner ob by
