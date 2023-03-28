@@ -1,11 +1,12 @@
 # 1. Structure ----
 # the basic script structure ----
 
-# - the introduction - possibly includes:
+# - the description/introduction - possibly includes:
 # --- the title
 # --- web-address of resource
 # --- date
 # --- author
+# - libraries
 # - functions
 # - working directory
 # - loaded data
