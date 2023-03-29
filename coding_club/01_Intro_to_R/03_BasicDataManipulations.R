@@ -12,7 +12,9 @@
 # set working directory
 # load the data
 # examine superficially the data loaded (head, str, dim...)
-
+# -- access variables via $ and [ , ]
+# -- in brackets first stands for row, the second for column
+# -- single value gives the whole row or the whole column
 
 #### 2. What is tidy data, and how do we achieve it? ----
 
