@@ -152,14 +152,32 @@ names(elongation_long)  # just to check the renamed column labels
 #### FILTER OBSERVATIONS
 
 # Let's keep observations from zones 2 and 3 only, and from years 2009 to 2011
-
 elong_subset <- filter(elongation_long, zone %in% c(2, 3), year %in% c("X2009", "X2010", "X2011")) # you can use multiple different conditions separated by commas
 
 # For comparison, the base R equivalent would be (not assigned to an object here):
 elongation_long[elongation_long$zone %in% c(2,3) & elongation_long$year %in% c("X2009", "X2010", "X2011"), ]
 
+#### SELECT COLUMNS
 
+# Let's ditch the zone column just as an example
+elong_no.zone <- dplyr::select(elongation_long, indiv, year, length)   # or alternatively
+elong_no.zone <- dplyr::select(elongation_long, -zone) # the minus sign removes the column
 
+# For comparison, the base R equivalent would be (not assigned to an object here):
+elongation_long[ , -1]  # removes first column
+
+# A nice hack! select() lets you rename and reorder columns on the fly
+elong_no.zone <- dplyr::select(elongation_long, YeaR = year, Shrub.ID = indiv, Growth = length)
+head(elong_no.zone)  # new name = old name
+
+# Neat, uh?
+
+#### CREATE A NEW COLUMN
+
+elong_total <- mutate(elongation, total.growth = X2007 + X2008 + X2009 + X2010 + X2011 + X2012)
+head(elong_total)   # adding total
+elong_total2 <- mutate(elong_total, avg.growth = total.growth / 6)
+head(elong_total2)  # adding average
 
 
 
