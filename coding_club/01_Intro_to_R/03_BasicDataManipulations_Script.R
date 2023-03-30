@@ -180,12 +180,12 @@ head(elong_total)   # adding total
 elong_total2 <- mutate(elong_total, avg.growth = total.growth / 6)
 head(elong_total2)  # adding average
 
-# GROUP DATA
+#### GROUP DATA
 
 elong_grouped <- group_by(elongation_long, indiv)   # grouping our dataset by individual
 head(elong_grouped)
 
-# SUMMARISING OUR DATA
+#### SUMMARISING OUR DATA
 
 summary1 <- summarise(elongation_long, total.growth = sum(length))
 summary2 <- summarise(elong_grouped, total.growth = sum(length))
@@ -193,9 +193,48 @@ summary3 <- summarise(elong_grouped, total.growth = sum(length),
                       mean.growth = mean(length),
                       sd.growth = sd(length))
 
-head(summary1)  # just a total
-head(summary2)  # row total for each observation
-head(summary3)  # row parameters grouped by each observation
+head(summary1)  # the sum of all growth increments in the dataset 
+head(summary2)  # a breakdown of total growth per individual
+head(summary3)  # a breakdown of various stats per individual
+
+#### MAKE JOINS for DATASETS
+
+# Load the treatments associated with each individual
+
+treatments <- read.csv("./datasets/EmpetrumTreatments.csv", header = TRUE, sep = ";")
+head(treatments)
+dim(treatments)
+
+# Join the two data frames by ID code. The column names are spelled differently,
+# so we need to tell the function which columns represent a match. We have two 
+# columns that contain the same information in both datasets: zone and individual ID.
+
+experiment <- left_join(elongation_long, treatments, 
+                        by = c("indiv" = "Indiv", "zone" = "Zone"))
+head(experiment)
+
+# We see that the new object has the same length as our first data frame, which 
+#is what we want. And the treatments corresponding to each plant have been added!
+
+# The equivalent base R function is merge() and actually works very well, too:
+experiment2 <- merge(elongation_long, treatments, 
+                     by.x = c("zone", "indiv"), by.y = c("Zone", "Indiv"))  
+# same result!
+head(experiment2)
+
+# make another boxplot
+boxplot(length ~ Treatment, data = experiment)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
