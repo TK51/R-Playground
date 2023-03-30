@@ -179,8 +179,18 @@ head(elong_total)   # adding total
 elong_total2 <- mutate(elong_total, avg.growth = total.growth / 6)
 head(elong_total2)  # adding average
 
+# GROUP DATA
 
+elong_grouped <- group_by(elongation_long, indiv)   # grouping our dataset by individual
+head(elong_grouped)
 
+# SUMMARISING OUR DATA
+
+summary1 <- summarise(elongation_long, total.growth = sum(length))
+summary2 <- summarise(elong_grouped, total.growth = sum(length))
+summary3 <- summarise(elong_grouped, total.growth = sum(length),
+                      mean.growth = mean(length),
+                      sd.growth = sd(length))
 
 
 
