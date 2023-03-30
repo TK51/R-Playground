@@ -54,7 +54,7 @@ drags <- dragons
 
 names(drags)                  # returns the names of the columns
 
-names(drags)[6] <- "turmeric" # change the name from "paprika" to "turnmeric"
+names(drags)[6] <- "turmeric" # change the name from "paprika" to "turmeric"
 
 ### CREATING A FACTOR
 
@@ -73,7 +73,18 @@ levels(drags$species)  # shows the different factor levels
 # in this case there's nothing to change, but the command below could be used:
 # levels(drags$species) <- c("A", "B", "C")   # you can overwrite the original levels with new names
 
+#### TIDY DATA ----
+library(tidyr)              # load the package
 
+drags_long <- gather(drags, spice, length,                           # in this order: data frame, key, value
+                          c("jalapeno", "turmeric", "tabasco", "wasabi"))        # we need to specify which columns to gather
+head(drags_long)
+
+boxplot(length ~ species, data = drags_long,
+        xlab = "Year", ylab = "Elongation (cm)",
+        main = "Annual growth of Empetrum hermaphroditum")
+
+# --- progress here ----
 
 
 
