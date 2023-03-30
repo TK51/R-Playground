@@ -81,7 +81,7 @@ elong2[1,4] <- 5.7
 elong2[elong2$ID == 373, ]$X2008 <- 5.7   # completely equivalent to option 1
 
 
-## CREATING A FACTOR
+### CREATING A FACTOR
 
 # Let's check the classes
 str(elong2)
@@ -92,7 +92,7 @@ elong2$zone <- as.factor(elong2$zone)    # converting and overwriting original c
 str(elong2)                              # now zone is a factor with 6 levels
 
 
-## CHANGING A FACTOR'S LEVELS
+### CHANGING A FACTOR'S LEVELS
 
 levels(elong2$zone)  # shows the different factor levels
 
