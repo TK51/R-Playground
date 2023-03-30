@@ -117,13 +117,46 @@ elongation_wide <- spread(elongation_long, Year, Length)
 elongation_long2 <- gather(elongation, Year, Length, c(3:8))
 head(elongation_long2)
 
+# Once you have the data in the right format, it’s much easier to analyse them 
+# and visualize the results.
+head(elongation_wide)  # isn't good for boxplot
+head(elongation_long)  # is good for boxplot via length attribute
 
+boxplot(Length ~ Year, data = elongation_long,
+        xlab = "Year", ylab = "Elongation (cm)",
+        main = "Annual growth of Empetrum hermaphroditum")
 
+#### THE MOST COMMON & USEFUL dplyr FUNCTIONS ----
 
+# first, install and initialize the package
+install.packages("dplyr")  # install the package
+library(dplyr)              # load the package
 
+#### rename() variables
+# This lets you change the name(s) of a column or columns. 
+# -- the first argument is the data frame, 
+# -- the second (and third, etc.) takes the form New name = Old name.
 
+elongation_long <- rename(elongation_long, zone = Zone, 
+                          indiv = Indiv, year = Year, length = Length)     # changes the names of the columns (getting rid of capital letters) and overwriting our data frame
 
+# As we saw earlier, the base R equivalent would have been
+names(elongation_long) <- c("zone", "indiv", "year", "length")
+names(elongation_long)  # just to check the renamed column labels
 
+#### filter() rows and select() columns
+# The filter() function works great for sub-setting rows with logical operations. 
+# The select() function lets you specify which columns to keep.
+# -- use the notation dplyr::select() to avoid clashes with other packages
+
+#### FILTER OBSERVATIONS
+
+# Let's keep observations from zones 2 and 3 only, and from years 2009 to 2011
+
+elong_subset <- filter(elongation_long, zone %in% c(2, 3), year %in% c("X2009", "X2010", "X2011")) # you can use multiple different conditions separated by commas
+
+# For comparison, the base R equivalent would be (not assigned to an object here):
+elongation_long[elongation_long$zone %in% c(2,3) & elongation_long$year %in% c("X2009", "X2010", "X2011"), ]
 
 
 
