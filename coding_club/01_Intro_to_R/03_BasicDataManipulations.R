@@ -15,8 +15,14 @@
 # -- access variables via $ and [ , ]
 # -- in brackets first stands for row, the second for column
 # -- single value gives the whole row or the whole column
+# modify the data:
+# -- creating intermediary objects
+# -- renaming the columns using names()
+# -- creating factors & changing factor levels (as.factor() & levels() ...)
 
 #### 2. What is tidy data, and how do we achieve it? ----
+# getting the tidyr package initialized
+# deciding on long or wide data appearance - gather() vs spread()
 
 #### 3. Explore the most common and useful functions of dplyr ----
 
