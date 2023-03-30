@@ -37,7 +37,8 @@ elongation[6, ]$Indiv   # returns the value in the column Indiv for the sixth ob
 elongation[elongation$Indiv == 603, ]
 
 ### USING LOGICAL OPERATORS
-# Subsetting with one condition
+
+# Sub-setting with one condition
 
 elongation[elongation$Zone < 4, ]    # returns only the data for zones 2-3
 elongation[elongation$Zone <= 4, ]   # returns only the data for zones 2-3-4
@@ -47,7 +48,7 @@ elongation[elongation$Zone <= 4, ]   # returns only the data for zones 2-3-4
 elongation[!elongation$Zone >= 5, ]   # the ! means exclude
 
 
-# Subsetting with two conditions
+# Sub-setting with two conditions
 elongation[elongation$Zone == 2 | elongation$Zone == 7, ]    # returns only data for zones 2 and 7
 elongation[elongation$Zone == 2 & elongation$Indiv %in% c(300:400), ]  # returns data for shrubs in zone 2 whose ID numbers are between 300 and 400
 
@@ -101,8 +102,8 @@ levels(elong2$zone) <- c("A", "B", "C", "D", "E", "F")   # you can overwrite the
 
 #### TIDY DATA, and how do we achieve it? ----
 
-install.packages("tidyr")  # install the package
-library(tidyr)             # load the package
+#install.packages("tidyr")  # install the package
+library(tidyr)              # load the package
 
 
 elongation_long <- gather(elongation, Year, Length,                           # in this order: data frame, key, value
@@ -129,7 +130,7 @@ boxplot(Length ~ Year, data = elongation_long,
 #### THE MOST COMMON & USEFUL dplyr FUNCTIONS ----
 
 # first, install and initialize the package
-install.packages("dplyr")  # install the package
+#install.packages("dplyr")  # install the package
 library(dplyr)              # load the package
 
 #### rename() variables
@@ -192,8 +193,9 @@ summary3 <- summarise(elong_grouped, total.growth = sum(length),
                       mean.growth = mean(length),
                       sd.growth = sd(length))
 
-
-
+head(summary1)  # just a total
+head(summary2)  # row total for each observation
+head(summary3)  # row parameters grouped by each observation
 
 
 
