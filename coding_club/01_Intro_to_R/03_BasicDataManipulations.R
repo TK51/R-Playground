@@ -23,7 +23,7 @@
 #### 2. TIDYR: What is tidy data, and how do we achieve it? ----
 # getting the tidyr package initialized
 # deciding on long or wide data appearance - gather() vs spread()
-# getting the data in the right format, it can be visualized then
+# getting the data in the right format, it can be visualized then...
 
 #### 3. DPLYR: Explore the most common and useful functions of dplyr ----
 # -- rename() variables
