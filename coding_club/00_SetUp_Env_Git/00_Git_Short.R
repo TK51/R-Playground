@@ -27,6 +27,9 @@ gitcreds::gitcreds_set()
 # here is an optional command
 credentials::set_github_pat()
 
+# check the stored PAT = personal access token
+usethis::edit_r_environ()
+
 ### terminal activities for committing updates to GitHub
 # - git status
 # - git add .
