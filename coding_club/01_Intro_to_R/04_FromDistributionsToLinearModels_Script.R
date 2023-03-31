@@ -48,7 +48,11 @@ theme.clean <- function() {
 }
 
 # make a boxplot to examine the data
+# idea - see the the influence of distance between trees to the yield cropped
+
 apples$spacing2 <- as.factor(apples$spacing) # set spacing int as factor
+# This turns the previously numeric spacing variable into a 3-level categorical 
+# variable, with 6, 10 and 14 being the levels.
 
 (apples.p <- ggplot(apples, aes(spacing2, yield)) +
     geom_boxplot(fill = "#CD3333", alpha = 0.8, colour = "#8B2323") +
@@ -56,7 +60,7 @@ apples$spacing2 <- as.factor(apples$spacing) # set spacing int as factor
     theme(axis.text.x = element_text(size = 12, angle = 0)) +
     labs(x = "Spacing (m)", y = "Yield (kg)"))
 
-apples.p
+apples.p  # call the object to visualize the plot
 
 
 
