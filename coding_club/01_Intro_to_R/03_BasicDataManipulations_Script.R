@@ -9,6 +9,10 @@
 getwd()
 setwd("./coding_club")
 
+#### Libraries ----
+library(tidyr)
+library(dplyr)
+
 #### Data source ----
 # Load the elongation data
 elongation <- read.csv("./datasets/EmpetrumElongation.csv", header = TRUE)   
