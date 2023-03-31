@@ -24,7 +24,26 @@
 
 #### 2. Model structure selection ----
 
-# 
+# Another important aspect of modelling to consider is how many terms, i.e. 
+# explanatory variables, you want your model to include. It’s a good idea to 
+# draft out your model structure before you even open your R session. Let your 
+# hypotheses guide you! Think about what it is you want to examine and what the 
+# potential confounding variables are, i.e. what else might influence your 
+# response variable, aside from the explanatory variable you are most interested in?
+
+# A simple model is usually preferred to a complex model, but if you have strong 
+# reasons for including a term in your model, then it should be there (whether 
+# it ends up having an effect or not). Once you have carefully selected the 
+# variables whose effects you need to quantify or account for, you can move onto 
+# running your models.
+
+# DANGER!!!
+# if your model has a lot of variables, you are also in danger of overfitting
+
+# Another thing to think about is collinearity among your explanatory variables. 
+# If two variables in your dataset are very correlated with each other, chances 
+# are they will both explain similar amounts of variation in your response 
+# variable - but the same variation, not different or complementary aspects of it!
 
 #### 3. Linear models practice ----
 
