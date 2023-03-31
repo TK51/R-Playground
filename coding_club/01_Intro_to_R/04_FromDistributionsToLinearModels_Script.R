@@ -62,6 +62,16 @@ apples$spacing2 <- as.factor(apples$spacing) # set spacing int as factor
 
 apples.p  # call the object to visualize the plot
 
+# From the boxplot, we can see that yield is pretty similar across the different 
+# spacing distances. Even though there is a trend towards higher yield at higher 
+# spacing, the range in the data across the categories almost completely overlap. 
+# From looking at this boxplot alone, one might think our hypothesis of higher 
+# yield at higher spacing is not supported. 
+
+#Let’s run a model to explicitly test this.
+apples.m <- lm(yield ~ spacing2, data = apples)
+summary(apples.m)
+
 
 
 
