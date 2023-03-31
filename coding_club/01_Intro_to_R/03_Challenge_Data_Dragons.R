@@ -106,14 +106,21 @@ boxplot(length ~ species, data = drags_long,
 drags_long <- mutate(drags_long, plume.m = length / 100)
 head(drags_long)  # getting the length in meters
 
+# Create a subset for each specie of dragons
+unique(dragons$species)          # get the names of unique dragons
 
+horntail <- drags_long[drags_long$species == "hungarian_horntail", ] # base R filtering
+shortsnout <- filter(drags_long, species == "swedish_shortsnout")    # dplyr filtering
+green <- filter(drags_long, species == "welsh_green") # the dplyr way of filtering
 
-
+dim(horntail)
+dim(shortsnout)
+dim(green)
 
 # --- progress here ----
 
 
-#### THE SOLUTION
+#### THE SOLUTION ----
 ## Load data
 
 dragons <- read.csv('dragons.csv', header = TRUE)
