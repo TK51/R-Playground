@@ -117,7 +117,18 @@ dim(horntail)
 dim(shortsnout)
 dim(green)
 
-# --- progress here ----
+# Make the boxplots for each sub-set of species
+boxplot(plume.m ~ spice, data = horntail,
+        xlab = "Spice", ylab = "Length of fire plume, m",
+        main = "Hungarian Horntail")
+
+boxplot(plume.m ~ spice, data = green,
+        xlab = "Spice", ylab = "Length of fire plume, m",
+        main = "Welsh Green")
+
+boxplot(plume.m ~ spice, data = shortsnout,
+        xlab = "Spice", ylab = "Length of fire plume, m",
+        main = "Swedish Shortsnout")
 
 
 #### THE SOLUTION ----
@@ -162,22 +173,24 @@ shortsnout <- dragons_long[dragons_long$species == 'swedish_shortsnout', ]   # m
 
 
 # Make the boxplots
+# you need not have used this, but it splits your plotting device into 3 columns 
+# where the plots will appear, so all the plots will be side by side.
 
-par(mfrow=c(1, 3))      # you need not have used this, but it splits your plotting device into 3 columns where the plots will appear, so all the plots will be side by side.
+par(mfrow=c(1, 3))      
 
-boxplot(plume.m ~ spice, data = horntail,
-        xlab = 'Spice', ylab = 'Length of fire plume (m)',
-        main = 'Hungarian Horntail')
-
-
-boxplot(plume.m ~ spice, data = green,
-        xlab = 'Spice', ylab = 'Length of fire plume (m)',
-        main = 'Welsh Green')
-
-
-boxplot(plume.m ~ spice, data = shortsnout,
-        xlab = 'Spice', ylab = 'Length of fire plume (m)',
-        main = 'Swedish Shortsnout')
+  boxplot(plume.m ~ spice, data = horntail,
+          xlab = 'Spice', ylab = 'Length of fire plume (m)',
+          main = 'Hungarian Horntail')
+  
+  
+  boxplot(plume.m ~ spice, data = green,
+          xlab = 'Spice', ylab = 'Length of fire plume (m)',
+          main = 'Welsh Green')
+  
+  
+  boxplot(plume.m ~ spice, data = shortsnout,
+          xlab = 'Spice', ylab = 'Length of fire plume (m)',
+          main = 'Swedish Shortsnout')
 
 
 
