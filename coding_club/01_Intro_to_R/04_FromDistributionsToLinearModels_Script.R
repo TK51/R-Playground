@@ -30,7 +30,7 @@ summary(apples)
 #### Data exploration ----
 # Check the data by visualizing it
 
-# first, define a ggplot2 theme for consistent graph formatting
+# first, define a ggplot2 theme for creation of consistent graph formatting
 theme.clean <- function() {
   theme_bw()+
     theme(axis.text.x = element_text(size = 12, angle = 45, vjust = 1, hjust = 1),
@@ -46,6 +46,17 @@ theme.clean <- function() {
           legend.text = element_text(size = 12, face = "italic"),          
           legend.position = "right")
 }
+
+# make a boxplot to examine the data
+apples$spacing2 <- as.factor(apples$spacing) # set spacing int as factor
+
+(apples.p <- ggplot(apples, aes(spacing2, yield)) +
+    geom_boxplot(fill = "#CD3333", alpha = 0.8, colour = "#8B2323") +
+    theme.clean() +  
+    theme(axis.text.x = element_text(size = 12, angle = 0)) +
+    labs(x = "Spacing (m)", y = "Yield (kg)"))
+
+apples.p
 
 
 
