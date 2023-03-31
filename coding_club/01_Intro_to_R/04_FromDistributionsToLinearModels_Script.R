@@ -4,8 +4,15 @@
 # 2023_03_31
 # Taras Khamardiuk (https://www.kaggle.com/taraskhamardiuk)
 
-#### Libraries ----
+#### Description ----
+# Here, a few different types of models are to be explored. 
+# The work starts with a sample dataset about apple yield in relation to 
+# different factors. The dataset is part of the agridat package.
 
+#### Libraries ----
+install.packages("agridat")
+library(agridat)
+library(ggplot2)
 
 #### Working directory ----
 # Set working directory
@@ -13,9 +20,51 @@ getwd()
 setwd("./coding_club")
 
 #### Data source ----
-# Load the elongation data
-
-
+# Loading the dataset from agridat
+apples <- agridat::archbold.apple
+dim(apples)
+head(apples)
+str(apples)
+summary(apples)
 
 #### Data exploration ----
-# Check import and preview data
+# Check the data by visualizing it
+
+# first, define a ggplot2 theme for consistent graph formatting
+theme.clean <- function() {
+  theme_bw()+
+    theme(axis.text.x = element_text(size = 12, angle = 45, vjust = 1, hjust = 1),
+          axis.text.y = element_text(size = 12),
+          axis.title.x = element_text(size = 14, face = "plain"),             
+          axis.title.y = element_text(size = 14, face = "plain"),             
+          panel.grid.major.x = element_blank(),                                          
+          panel.grid.minor.x = element_blank(),
+          panel.grid.minor.y = element_blank(),
+          panel.grid.major.y = element_blank(),  
+          plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), units = , "cm"),
+          plot.title = element_text(size = 20, vjust = 1, hjust = 0.5),
+          legend.text = element_text(size = 12, face = "italic"),          
+          legend.position = "right")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

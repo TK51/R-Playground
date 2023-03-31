@@ -47,7 +47,10 @@
 
 #### 3. Linear models practice ----
 
-# 
+# We will now explore a few different types of models. Create a new script and 
+# add in your details. We will start by working with a sample dataset about apple 
+# yield in relation to different factors. 
+# The dataset is part of the agridat package.
 
 #### 4. Generalized linear models practice ----
 
