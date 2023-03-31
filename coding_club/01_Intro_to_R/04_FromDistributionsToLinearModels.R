@@ -13,7 +13,14 @@
 
 #### 1. Data distribution types ----
 
-# 
+### Get familiar with different data distributions
+# Here is a brief summary of the data distributions you might encounter most often.
+
+# -- Gaussian - Continuous data (normal distribution and homoscedasticity assumed)
+# -- Poisson - Count abundance data (integer values, zero-inflated data, left-skewed data)
+# -- Binomial - Binary variables (TRUE/FALSE, 0/1, presence/absence data)
+
+# Continuous - Gaussian, Discrete - Poisson, Binary - Binomial
 
 #### 2. Model structure selection ----
 
