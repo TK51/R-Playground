@@ -22,7 +22,7 @@ gitcreds::gitcreds_get()
 usethis::create_github_token()
 
 # set the token into the register
-gitcreds::gitcreds_set() 
+gitcreds::gitcreds_set()
 
 # here is an optional command
 credentials::set_github_pat()
