@@ -13,6 +13,7 @@
 install.packages("agridat")
 library(agridat)
 library(ggplot2)
+library(dplyr)
 
 #### Working directory ----
 # Set working directory
@@ -106,6 +107,66 @@ summary(apples.m)
 # might be of reporting significant effects of your variables, especially if 
 # they confirm your hypotheses, always take the time to assess your model with 
 # a critical eye!
+
+# More practice: another model
+sheep <- agridat::ilri.sheep   # load the data
+
+library(dplyr)
+sheep <- filter(sheep, ewegen == "R")   # there are confounding variables in this dataset that we don't want to take into account. We'll only consider lambs that come from mothers belonging to the breed "R".
+
+head(sheep)  # overview of the data; we'll focus on weanwt (wean weight) and weanage
+
+sheep.m1 <- lm(weanwt ~ weanage, data = sheep)   # run the model
+summary(sheep.m1)                                # study the output
+
+# MODEL EXPLANATION:
+
+# In the apple model, our predictor spacing was a CATEGORICAL variable. Here, 
+# our predictor weanage is a CONTINUOUS variable.
+
+# Here, the intercept is the value of Y when X is 0. In many models this is not 
+# of interest and sometimes doesn’t make a ton of sense, but in our case you 
+# could potentially argue that it’s the weight of a newborn lamb. 
+
+# hte weight prediction formula: lamb weight = 2.60 + 0.08(age).
+
+# So far, so good? Let’s read one extra output where things get a little bit 
+# more complex. Our model, with weanageas the sole predictor, currently only 
+# explains about 20% of the variation in the weight at weaning. 
+
+# What if the sex of the lamb also influences weight gain? 
+# Let’s run a new model to test this:
+sheep.m2 <- lm(weanwt ~ weanage*sex, data = sheep)
+summary(sheep.m2)
+
+# Let’s write the equations. For a female, which happens to be the reference 
+# group in the model, it’s fairly simple:
+
+### Female weight = 3.66 + 0.06(age) : 
+# The weight at 100 days would be 3.66 + 0.06(100) = 9.66 kg.
+
+# For a male, it’s a little more complicated as you need to add the differences 
+# in intercept and slopes due to the sex level being male:
+  
+### Male weight = 3.66 + [-2.52] + 0.06(age) + [0.03(age)] : 
+# The weight at 100 days would be 3.66 - 2.52 + (0.06+0.03)(100) = 10.14 kg.
+
+# It always makes a lot more sense when you can visualize the relationship, too:
+  
+(sheep.p <- ggplot(sheep, aes(x = weanage, y = weanwt)) +
+    geom_point(aes(colour = sex)) +                                # scatter plot, coloured by sex
+    labs(x = "Age at weaning (days)", y = "Wean weight (kg)") +
+    stat_smooth(method = "lm", aes(fill = sex, colour = sex)) +    # adding regression lines for each sex
+    scale_colour_manual(values = c("#FFC125", "#36648B")) +
+    scale_fill_manual(values = c("#FFC125", "#36648B")) +
+    theme.clean() )
+
+sheep.p  # call the object to get the visualization
+
+### MODEL OUTCOME:
+# Our model tells us that weight at weaning increases significantly with weaning 
+# date, and there is only a marginal difference between the rate of males’ and 
+# females’ weight gain. The plot shows all of this pretty clearly.
 
 
 
