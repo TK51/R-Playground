@@ -72,7 +72,7 @@ apples.p  # call the object to visualize the plot
 apples.m <- lm(yield ~ spacing2, data = apples)
 summary(apples.m)
 
-#
+# 
 
 
 
