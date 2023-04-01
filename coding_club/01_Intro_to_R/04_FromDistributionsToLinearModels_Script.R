@@ -80,6 +80,32 @@ summary(apples.m)
 # the further away trees are from one another, the less they are limiting each 
 # other’s growth.
 
+### SUMMARY EXPLANATION:
+# -- Estimate
+# A very important thing to understand is that the estimates for the other 
+# categories are presented relative to the reference level. So, for the 
+# 10-m spacing category, the estimated value from the model is not 35.9, 
+# but 35.9 + 120.6 = 156.5. A look at our boxplot will make this easy to verify.
+
+# -- Multiple R-squared value & Adjusted R-squared value
+# These values refer to how much of the variation in the yield variable is 
+# explained by our predictor spacing2. The values go from 0 to 1, with 1 meaning 
+# that our model variables explain 100% of the variation in the examined variable. 
+# - R-squared values tend to increase as you add more terms to your model, 
+# but you also need to be wary of overfitting. 
+# - Adjusted R-squared value takes into account how many terms your model has 
+# and how many data points are available in the response variable.
+
+### MODEL OUTCOME:
+# So now, can we say this is a good model? It certainly tells us that spacing 
+# has a significant effect on yield, but maybe not a very important one compared 
+# to other possible factors influencing yield, as spacing only explains 
+# around 15% of the variation in yield. Imagine all the other things that could 
+# have an impact on yield that we have not studied: fertilisation levels, 
+# weather conditions, water availability, etc. So, no matter how excited you 
+# might be of reporting significant effects of your variables, especially if 
+# they confirm your hypotheses, always take the time to assess your model with 
+# a critical eye!
 
 
 
