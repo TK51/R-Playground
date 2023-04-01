@@ -55,7 +55,8 @@
 #### 4. Generalized linear models practice ----
 
 # A model with a Poisson distribution
-
+# When variable represents count abundance data, i.e. integer values so 
+# a Poisson distribution is appropriate here
 
 #### 5. Challenge ----
 

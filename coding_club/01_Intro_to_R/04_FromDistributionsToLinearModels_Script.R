@@ -202,7 +202,7 @@ plot(apples.m)  # you will have to press Enter in the command line to view the p
 # - a scale-location plot (square roots of standardized residuals versus fitted values)
 # - a plot of residuals versus leverage that adds bands corresponding to Cook’s distances of 0.5 and 1.
 
-### GENERALIZED LINEAR MODELS
+### GENERALIZED LINEAR MODELS ----
 ### A model with a Poisson distribution
 
 # get in the new dataset for further activities
@@ -217,12 +217,36 @@ shag$year <- as.numeric(shag$year)  # transform year from character into numeric
 
 shag.hist  # visualize the histogram
 
+# Our pop variable represents count abundance data, i.e. integer values (whole 
+# European Shags!) so a Poisson distribution is appropriate here
+shag.m <- glm(pop ~ year, family = poisson, data = shag)
+summary(shag.m)
 
+# From the summary of our model we can see that European Shag abundance 
+# varies significantly based on the predictor year. Let’s visualise how E
+# uropean Shag abundance has changed through the years:
 
+(shag.p <- ggplot(shag, aes(x = year, y = pop)) +
+    geom_point(colour = "#483D8B") +
+    geom_smooth(method = glm, colour = "#483D8B", fill = "#483D8B", alpha = 0.6) +
+    scale_x_continuous(breaks = c(1975, 1980, 1985, 1990, 1995, 2000, 2005)) +
+    theme.clean() +
+    labs(x = " ", y = "European Shag abundance"))
 
+shag.p  # call the object to visualize the data
 
+### A model with a binomial distribution ----
+# import the dataset for experiments
+Weevil_damage <- read.csv("datasets/Weevil_damage.csv")
+str(Weevil_damage)
+summary(Weevil_damage)
 
+# Making block a factor (a categorical variable)
+Weevil_damage$block <- as.factor(Weevil_damage$block)
 
+# Running the model
+weevil.m <- glm(damage_T_F ~ block, family = binomial, data = Weevil_damage)
+summary(weevil.m)
 
 
 
