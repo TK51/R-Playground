@@ -68,11 +68,17 @@ apples.p  # call the object to visualize the plot
 # From looking at this boxplot alone, one might think our hypothesis of higher 
 # yield at higher spacing is not supported. 
 
-#Let’s run a model to explicitly test this.
+# Let’s run a model to explicitly test this.
 apples.m <- lm(yield ~ spacing2, data = apples)
 summary(apples.m)
 
-# 
+# Check out the summary output of our model:
+#Turns out that yield does significantly differ between the three spacing 
+# categories, so we can reject the null hypothesis of no effect of spacing on 
+# apple yield. It looks like apple yield is indeed higher when the distance 
+# between trees is higher, which is in line with our original ecological thoughts: 
+# the further away trees are from one another, the less they are limiting each 
+# other’s growth.
 
 
 
