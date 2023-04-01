@@ -74,7 +74,7 @@ apples.m <- lm(yield ~ spacing2, data = apples)
 summary(apples.m)
 
 # Check out the summary output of our model:
-#Turns out that yield does significantly differ between the three spacing 
+# Turns out that yield does significantly differ between the three spacing 
 # categories, so we can reject the null hypothesis of no effect of spacing on 
 # apple yield. It looks like apple yield is indeed higher when the distance 
 # between trees is higher, which is in line with our original ecological thoughts: 
@@ -168,7 +168,9 @@ sheep.p  # call the object to get the visualization
 # date, and there is only a marginal difference between the rate of males’ and 
 # females’ weight gain. The plot shows all of this pretty clearly.
 
-
+# ANOVA (Analysis of Variance) = linear regression
+anova(apples.m)     # anova - see how you get the same p-value as in
+summary(apples.m)   # linear model
 
 
 
