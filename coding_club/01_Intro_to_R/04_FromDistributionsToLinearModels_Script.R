@@ -172,9 +172,50 @@ sheep.p  # call the object to get the visualization
 anova(apples.m)     # anova - see how you get the same p-value as in
 summary(apples.m)   # linear model
 
+### CHECKING ASSUMPTIONS
+# In addition to checking whether this model makes sense from an ecological 
+# perspective, we should check that it actually meets the assumptions of a linear model:
+# -- 1- are the residuals, which describe the difference between the observed 
+# and predicted value of the dependent variable, normally distributed?
+# -- 2- are the data homoscedastic? (i.e. is the variance in the data around 
+# the same at all values of the predictor variable)
+# -- 3- are the observations independent?
 
+# Checking that the residuals are normally distributed
+apples.resid <- resid(apples.m)              # Extracting the residuals
+shapiro.test(apples.resid)                   # Using the Shapiro-Wilk test
+# The null hypothesis of normal distribution is accepted: there is no significant 
+# difference (p > 0.05) from a normal distribution
 
+# Checking for homoscedasticity
+bartlett.test(apples$yield, apples$spacing2)
+bartlett.test(yield ~ spacing2, data = apples)  # Note that these two ways of writing the code give the same results
+# The null hypothesis of homoscedasticity is accepted
 
+# We can examine the model fit further by looking at a few plots:
+
+plot(apples.m)  # you will have to press Enter in the command line to view the plots
+
+# This will produce a set of four plots:
+# - Residuals versus fitted values
+# - a Q-Q plot of standardized residuals
+# - a scale-location plot (square roots of standardized residuals versus fitted values)
+# - a plot of residuals versus leverage that adds bands corresponding to Cook’s distances of 0.5 and 1.
+
+### GENERALIZED LINEAR MODELS
+### A model with a Poisson distribution
+
+# get in the new dataset for further activities
+shag <- read.csv("datasets/shagLPI.csv", header = TRUE)
+str(shag)
+summary(shag)
+
+shag$year <- as.numeric(shag$year)  # transform year from character into numeric variable
+
+# Making a histogram to assess data distribution
+(shag.hist <- ggplot(shag, aes(pop)) + geom_histogram() + theme.clean())
+
+shag.hist  # visualize the histogram
 
 
 

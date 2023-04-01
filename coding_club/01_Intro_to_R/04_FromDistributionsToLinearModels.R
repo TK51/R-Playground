@@ -54,7 +54,8 @@
 
 #### 4. Generalized linear models practice ----
 
-# 
+# A model with a Poisson distribution
+
 
 #### 5. Challenge ----
 
