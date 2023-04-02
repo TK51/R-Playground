@@ -86,8 +86,48 @@ vulture <- na.omit(vulture)
 head(vulture)
 dim(vulture)  # 336 by 10 - excluding N/A values
 
+#### Data visualization ----
 
+# HISTOGRAMS ----
 
+# With base R graphics
+base_hist <- hist(vulture$abundance)
+
+# The same with ggplot, we need to specify the type of graph using geom_histogram()
+
+# With ggplot2: creating graph with no brackets
+vulture_hist <- ggplot(vulture, aes(x = abundance))  +
+  geom_histogram() 
+
+# Calling the object to display it in the plot viewer
+vulture_hist
+
+# With brackets: you create and display the graph at the same time
+(vulture_hist <- ggplot(vulture, aes(x = abundance))  +
+    geom_histogram())
+
+# For another way to check whether your data is normally distributed, you can 
+# either create density plots using package ggpubr and command ggdensity(), 
+# OR use functions qqnorm() and qqline()
+
+# The default ggplot settings (right) are not ideal: there is lots of unnecessary 
+# grey space behind the histogram, the axis labels are quite small, and the bars 
+# blend with each other. Lets beautify the histogram a bit! 
+# This is where the true power of ggplot2 shines.
+
+(vulture_hist <- ggplot(vulture, aes(x = abundance)) +                
+    geom_histogram(binwidth = 250, colour = "#8B5A00", fill = "#CD8500") +    # Changing the binwidth and colours
+    geom_vline(aes(xintercept = mean(abundance)),                       # Adding a line for mean abundance
+               colour = "red", linetype = "dashed", size=1) +           # Changing the look of the line
+    theme_bw() +                                                        # Changing the theme to get rid of the grey background
+    ylab("Count\n") +                                                   # Changing the text of the y axis label
+    xlab("\nGriffon vulture abundance")  +                              # \n adds a blank line between axis and text
+    theme(axis.text = element_text(size = 12),                          # Changing font size of axis labels and title
+          axis.title.x = element_text(size = 14, face = "plain"),       # face="plain" is the default, you can change it to italic, bold, etc. 
+          panel.grid = element_blank(),                                 # Removing the grey grid lines
+          plot.margin = unit(c(1,1,1,1), units = , "cm")))              # Putting a 1 cm margin around the plot
+
+# We can see from the histogram that the data are very skewed - a typical distribution of count abundance data
 
 
 
