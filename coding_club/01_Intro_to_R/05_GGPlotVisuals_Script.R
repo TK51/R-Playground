@@ -57,13 +57,34 @@ View(LPI2)
 # Now that the years are rows, not columns, we need them to be proper numbers, 
 # so we will transform them using parse_number() from the readr package
 
+LPI2$year <- parse_number(LPI2$year)
 
+# When manipulating data it's always good check if the variables have stayed 
+# how we want them
 
+str(LPI2)  # examine the structure of the data - year became numeric
 
+# Abundance is also a character variable, when it should be numeric, let's fix that
+# change the abundance from character to numeric
+LPI2$abundance <- as.numeric(LPI2$abundance)
 
+# the set is huge, let's focus on how the population of only one species has changed
 
+# check the species available
+unique(LPI2$Common.Name)
 
+# set the filter to an exact specie "Griffon vulture / Eurasian griffon"
+vulture <- filter(LPI2, Common.Name == "Griffon vulture / Eurasian griffon")
+head(vulture)
+dim(vulture)  # 1755 by 10 - including N/A values
 
+# There are a lot of NAs in this dataframe, so we will get rid of the empty 
+# rows using na.omit()
+
+# get rid of empty rows using na.omit()
+vulture <- na.omit(vulture)
+head(vulture)
+dim(vulture)  # 336 by 10 - excluding N/A values
 
 
 
