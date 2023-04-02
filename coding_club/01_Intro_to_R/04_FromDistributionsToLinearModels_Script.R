@@ -248,7 +248,7 @@ Weevil_damage$block <- as.factor(Weevil_damage$block)
 weevil.m <- glm(damage_T_F ~ block, family = binomial, data = Weevil_damage)
 summary(weevil.m)
 
-
+# 
 
 
 
