@@ -17,13 +17,28 @@
 # 4. Learn to arrange graphs in a panel and to save files
 # 5. Challenge yourself!
 
-#### Libraries ----
-library(ggplot2)
+#### 1. Good data visualization and ggplot2 syntax ----
 
-#### Working directory ----
-# Set working directory
-getwd()
-setwd("./coding_club")
+#### What good graphs have in common.
+# - 1.	Appropriate plot type for results
+# - 2.	Plot is well organised
+# - 3.	X and Y axes use correct units
+# - 4.	X and Y axes easy to read
+# - 5.	Clear informative legend
+# - 
+# - 
+# - 
+# - 
+# - 
 
-#### Data source ----
-# Loading the dataset from agridat
+#### 2. Decide on the right type of plot ----
+#### 3. Making different plots with ggplot2 ----
+#### 3a. Histograms ---- 
+# to visualise data distribution
+#### 3b. Scatter plot ----
+# to examine population change over time
+#### 3c. Boxplot ----
+# to examine whether vulture abundance differs between Croatia and Italy
+#### 3d. Barplot ----
+# to compare species richness of a few European countries
+#### 4. Using facets and creating panels ----
