@@ -248,7 +248,34 @@ Weevil_damage$block <- as.factor(Weevil_damage$block)
 weevil.m <- glm(damage_T_F ~ block, family = binomial, data = Weevil_damage)
 summary(weevil.m)
 
-# 
+# MODEL OUTPUT
+# t looks like the probability of a pine tree enduring damage from weevils does 
+# vary significantly based on the block in which the tree was located. 
+# Greater estimates still mean bigger influence of your variables, just keep 
+# in mind that it’s not a linear relationship! 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
