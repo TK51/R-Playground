@@ -130,6 +130,13 @@ vulture_hist
 # We can see from the histogram that the data are very skewed - a typical 
 # distribution of count abundance data
 
+# Hist DESCRIPTION ----
+# Histogram of Griffon vulture abundance in populations included in the LPI 
+# dataset. Red line shows mean abundance. Isn’t it a much better plot already?
+
+
+
+
 
 
 
