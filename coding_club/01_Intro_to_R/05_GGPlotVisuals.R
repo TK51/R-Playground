@@ -32,9 +32,13 @@
 # - 10.	Concise and informative caption
 
 #### 2. Decide on the right type of plot ----
-# A very key part of making any data visualisation is making sure that it is 
+# A very key part of making any data visualization is making sure that it is 
 # appropriate to your data type (e.g. discrete vs continuous), and fits your 
 # purpose, i.e. what you are trying to communicate!
+
+## - Distribution: histogram, density, boxplot
+## - Comparison: boxplot, bar plot, dot plot
+## - Relationship: scatter plot
 
 #### 3. Making different plots with ggplot2 ----
 #### 3a. Histograms ---- 
