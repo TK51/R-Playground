@@ -127,7 +127,8 @@ vulture_hist
           panel.grid = element_blank(),                                 # Removing the grey grid lines
           plot.margin = unit(c(1,1,1,1), units = , "cm")))              # Putting a 1 cm margin around the plot
 
-# We can see from the histogram that the data are very skewed - a typical distribution of count abundance data
+# We can see from the histogram that the data are very skewed - a typical 
+# distribution of count abundance data
 
 
 
