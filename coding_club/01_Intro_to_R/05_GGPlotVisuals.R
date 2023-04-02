@@ -25,11 +25,11 @@
 # - 3.	X and Y axes use correct units
 # - 4.	X and Y axes easy to read
 # - 5.	Clear informative legend
-# - 
-# - 
-# - 
-# - 
-# - 
+# - 6.	Plot is not cluttered
+# - 7.	Clear and consistent colour scheme
+# - 8.	Plot is the right dimensions
+# - 9.	Measures of uncertainty where appropriate
+# - 10.	Concise and informative caption
 
 #### 2. Decide on the right type of plot ----
 #### 3. Making different plots with ggplot2 ----
