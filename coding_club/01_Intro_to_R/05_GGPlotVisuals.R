@@ -18,10 +18,7 @@
 # 5. Challenge yourself!
 
 #### Libraries ----
-install.packages("agridat")
-library(agridat)
 library(ggplot2)
-library(dplyr)
 
 #### Working directory ----
 # Set working directory

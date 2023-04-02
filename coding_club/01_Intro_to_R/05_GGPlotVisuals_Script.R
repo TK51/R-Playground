@@ -7,7 +7,6 @@
 # Taras Khamardiuk (https://www.kaggle.com/taraskhamardiuk)
 
 #### Description ----
-#### Description ----
 # 1. Get familiar with the ggplot2 syntax
 # 2. Decide on the right type of plot
 # 3. Practice making different plots with ggplot2
