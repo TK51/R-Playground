@@ -73,11 +73,15 @@
 # element_text(size = ..., face = ..., angle = ...) lets you control all kinds 
 # of text properties.
 
-# Also useful to remember is that layers are added on top of each other as you progress into the code, which means that elements written later may hide or overwrite previous elements.
+# Also useful to remember is that layers are added on top of each other as 
+# you progress into the code, which means that elements written later may hide 
+# or overwrite previous elements.
+
+# colourpicker can be used via install.packages("colourpicker")
 
 #### 3. Making different plots with ggplot2 ----
 #### 3a. Histograms ---- 
-# to visualise data distribution
+# to visualize data distribution
 #### 3b. Scatter plot ----
 # to examine population change over time
 #### 3c. Boxplot ----

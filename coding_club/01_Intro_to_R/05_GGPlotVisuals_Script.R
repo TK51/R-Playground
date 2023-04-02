@@ -27,6 +27,9 @@ library(dplyr)
 library(readr)
 library(gridExtra)
 
+# colourpicker can be used via install.packages("colourpicker")
+library(colourpicker)
+
 #### Working directory ----
 # Set working directory
 getwd()
