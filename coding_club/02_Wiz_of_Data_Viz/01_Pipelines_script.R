@@ -284,8 +284,41 @@ unique(trees.five$Genus)  # check the filtered names
           legend.text = element_text(size = 12))
 )
 
-f
+# Now, let’s say we want to save a separate map for each genus (so 5 maps in total). 
 
+# You could filter the data frame five times for each individual genus, and copy 
+# and paste the plotting code five times too, but imagine we kept all 17 genera! 
+# This is where pipes and dplyr come to the rescue again. (If you’re savvy with 
+# ggplot2, you’ll know that facetting is often a better option, but sometimes 
+# you do want to save things as separate files.) The do() function allows us to 
+# use pretty much any R function within a pipe chain, provided that we supply the 
+# data as data = . where the function requires it.
+
+# Plotting a map for each genus
+tree.plots <-  
+  trees.five  %>%      # the data frame
+  group_by(Genus) %>%  # grouping by genus
+  do(plots =           # the plotting call within the do function
+       ggplot(data = .) +
+       geom_point(aes(x = Easting, y = Northing, size = Height.cat), alpha = 0.5) +
+       labs(title = paste("Map of", .$Genus, "at Craigmillar Castle", sep = " ")) +
+       theme_bw() +
+       theme(panel.grid = element_blank(),
+             axis.text = element_text(size = 14),
+             legend.text = element_text(size = 12),
+             plot.title = element_text(hjust = 0.5),
+             legend.position = "bottom")               # option of positioning
+  )
+
+# You can view the graphs before saving them
+tree.plots$plots  # to view them use arrows in the Plots window
+
+# Saving the plots to file
+tree.plots %>%              # the saving call within the do function
+  do(.,
+     ggsave(.$plots, 
+            filename = paste(getwd(), "/", "map-", .$Genus, ".png", sep = ""), 
+            device = "png", height = 12, width = 16, units = "cm"))
 
 
 
