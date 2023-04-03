@@ -16,8 +16,8 @@
 # Tutorial STEPS
 # 1. An introduction to pipes
 # 2. Discover more functions of dplyr
-# ---summarise_all()
-# ---case_when()
+# --- summarise_all()
+# --- case_when()
 # 3. Rename and reorder factor levels or create categorical variables
 # 4. Advanced piping
 # 5. Challenge yourself!
