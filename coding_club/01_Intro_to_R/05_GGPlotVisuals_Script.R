@@ -293,7 +293,7 @@ dev.off() # to clean up the plot section
 # wide range of abundance values in the data. You can use “fixed” when you want 
 # to constrain all axis values.
 
-# Facetted graph DESCRIPTION ----
+# Facetted DESCRIPTION ----
 # Population change of Griffon vulture across the world, from the LPI dataset.
 
 # Note: 
@@ -326,7 +326,7 @@ grid.arrange(vulture_hist, vulture_scatter, vulture_boxplot, ncol = 1)
   
   ncol = 1)) # ncol determines how many columns you have
 
-# Dimensiton changes ----
+# Dimention changes ----
 # If you want to change the width or height of any of your pictures, you can add 
 # either ` widths = c(1, 1, 1) or heights = c(2, 1, 1)` for example, to the end 
 # of your grid arrange command. In these examples, this would create three plots 
@@ -346,6 +346,11 @@ grid.arrange(vulture_hist, vulture_scatter, vulture_boxplot, ncol = 1)
 getwd()
 ggsave(panel, file = "vulture_panel2.png", width = 6, height = 12) 
 
+# Panel DESCRIPTION ----
+# Examining Griffon vulture populations from the LPI dataset. (a) shows 
+# histogram of abundance data distribution, (b) shows a boxplot comparison of 
+# abundance in Croatia and Italy, and (c) shows population trends between 1970 
+# and 2014 in Croatia and Italy.
 
 
 
