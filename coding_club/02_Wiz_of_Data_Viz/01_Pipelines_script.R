@@ -7,12 +7,10 @@
 # Taras Khamardiuk (https://www.kaggle.com/taraskhamardiuk)
 
 #### Description ----
-
 # Tutorial AIMS:
 # 1. Chain together multiple lines of codes with pipes %>%
 # 2. Use dplyr to its full potential
 # 3. Automate advanced tasks like plotting without writing a loop
-
 # Tutorial STEPS
 # 1. An introduction to pipes
 # 2. Discover more functions of dplyr
@@ -20,17 +18,14 @@
 # --- case_when()
 # 3. Rename and reorder factor levels or create categorical variables
 # 4. Advanced piping
-# 5. Challenge yourself!
+# 5. Challenge yourself! - separate file (01_PipelinesChallenge.R)
+
+# clean the slate and start from the clear page
+rm(list = ls())
 
 #### Libraries ----
-library(ggplot2)
-library(tidyr)
-library(dplyr)
-library(readr)
-library(gridExtra)
-
-# colourpicker can be used via install.packages("colourpicker")
-library(colourpicker)
+library(dplyr)     # for data manipulation
+library(ggplot2)   # for making graphs
 
 #### Working directory ----
 # Set working directory
