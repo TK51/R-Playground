@@ -188,21 +188,113 @@ plot(vultureITCR$year, vultureITCR$abundance, col = c("#1874CD", "#EEB422"))
 # To create additional space between an axis title and the axis itself, use \n 
 # when writing your title, and it will act as a line break.
 
+# BOXPLOT ---- 
+# to examine whether vulture abundance differs between Croatia and Italy
 
+# Box plots are very informative as they show the median and spread of your data, 
+# and allow you to quickly compare values among groups. If some boxes don’t 
+# overlap with one another, you probably have significant differences, and it’s 
+# worth to investigate further with statistical tests.
 
+(vulture_boxplot <- ggplot(vultureITCR, aes(Country.list, abundance)) + geom_boxplot())
 
+# Beautifying
+(vulture_boxplot <- ggplot(vultureITCR, aes(Country.list, abundance)) + 
+    geom_boxplot(aes(fill = Country.list)) +
+    theme_bw() +
+    scale_fill_manual(values = c("#EE7600", "#00868B")) +               # Adding custom colours
+    scale_colour_manual(values = c("#EE7600", "#00868B")) +             # Adding custom colours
+    ylab("Griffon vulture abundance\n") +                             
+    xlab("\nCountry")  +
+    theme(axis.text = element_text(size = 12),
+          axis.title = element_text(size = 14, face = "plain"),                     
+          panel.grid = element_blank(),                                 # Removing the background grid lines               
+          plot.margin = unit(c(1,1,1,1), units = , "cm"),               # Adding a margin
+          legend.position = "none"))                                    # Removing legend - not needed with only 2 factors
 
+# Boxplot DESCRIPTION ----
+# Griffon vulture abundance in Croatia and Italy.
 
+# BARPLOT ----
+# to compare species richness of a few European countries
 
+# We are now going to calculate how many species are found in the LPI dataset 
+# for some European countries, and plot the species richness.
 
+# Calculating species richness using pipes %>% from the dplyr package
+richness <- LPI2 %>% filter (Country.list %in% c("United Kingdom", "Spain", "France", "Netherlands", "Italy")) %>%
+  group_by(Country.list) %>%
+  mutate(richness = (length(unique(Common.Name)))) # create new column based on how many unique common names (or species) there are in each country 
 
+# Plotting the species richness
+(richness_barplot <- ggplot(richness, aes(x = Country.list, y = richness)) +
+    geom_bar(position = position_dodge(), stat = "identity", colour = "black", fill = "#00868B") +
+    theme_bw() +
+    ylab("Species richness\n") +                             
+    xlab("Country")  +
+    theme(axis.text.x = element_text(size = 12, angle = 45, vjust = 1, hjust = 1),  # Angled labels, so text doesn't overlap
+          axis.text.y = element_text(size = 12),
+          axis.title = element_text(size = 14, face = "plain"),                      
+          panel.grid = element_blank(),                                          
+          plot.margin = unit(c(1,1,1,1), units = , "cm")))
 
+# Barplot DESCRIPTION ----
+# Species richness in five European countries (based on LPI data).
 
+# FACETS and PANELS ----
+# Sometimes, displaying all the data on one graph makes it too cluttered. 
+# If we wanted to examine the population change of vultures across all the 
+# countries, rather than Italy and Croatia, we would have 10 populations on the 
+# same graph:
 
+# Plot the population change for all countries
+(vulture_scatter_all <- ggplot(vulture, aes (x = year, y = abundance, colour = Country.list)) +
+   geom_point(size = 2) +                                               # Changing point size
+   geom_smooth(method = "lm", aes(fill = Country.list)) +               # Adding linear model fit, colour-code by country
+   theme_bw() +
+   ylab("Griffon vulture abundance\n") +                             
+   xlab("\nYear")  +
+   theme(axis.text.x = element_text(size = 12, angle = 45, vjust = 1, hjust = 1),     # making the years at a bit of an angle
+         axis.text.y = element_text(size = 12),
+         axis.title = element_text(size = 14, face = "plain"),                        
+         panel.grid = element_blank(),                                   # Removing the background grid lines               
+         plot.margin = unit(c(1,1,1,1), units = , "cm"),                 # Adding a 1cm margin around the plot
+         legend.text = element_text(size = 12, face = "italic"),         # Setting the font for the legend text
+         legend.title = element_blank(),                                 # Removing the legend title
+         legend.position = "right"))   
 
+# That’s cluttered! 
+# Can you really figure out what populations are doing? 
+# By adding a facetting layer, we can split the data in multiple facets 
+# representing the different countries. This is done using facet_wrap().
 
+# Plot the population change for countries individually
+(vulture_scatter_facets <- ggplot(vulture, aes (x = year, y = abundance, colour = Country.list)) +
+    geom_point(size = 2) +                                               # Changing point size
+    geom_smooth(method = "lm", aes(fill = Country.list)) +               # Adding linear model fit, colour-code by country
+    facet_wrap(~ Country.list, scales = "free_y") +                      # THIS LINE CREATES THE FACETTING
+    theme_bw() +
+    ylab("Griffon vulture abundance\n") +                             
+    xlab("\nYear")  +
+    theme(axis.text.x = element_text(size = 12, angle = 45, vjust = 1, hjust = 1),     # making the years at a bit of an angle
+          axis.text.y = element_text(size = 12),
+          axis.title = element_text(size = 14, face = "plain"),                        
+          panel.grid = element_blank(),                                   # Removing the background grid lines               
+          plot.margin = unit(c(1,1,1,1), units = , "cm"),                 # Adding a 1cm margin around the plot
+          legend.text = element_text(size = 12, face = "italic"),         # Setting the font for the legend text
+          legend.title = element_blank(),                                 # Removing the legend title
+          legend.position = "right"))   
 
+dev.off() # to clean up the plot section
 
+# Some useful arguments to include in facet_wrap()are nrow = or ncol = , 
+# specifying the number of rows or columns, respectively. You can also see that
+# we used scales = "free_y", to allow different y axis values because of the 
+# wide range of abundance values in the data. You can use “fixed” when you want 
+# to constrain all axis values.
+
+# Facetted graph DESCRIPTION ----
+# Population change of Griffon vulture across the world, from the LPI dataset.
 
 
 c("#EEB422", "#FFFFFF", "#FFFFFF")

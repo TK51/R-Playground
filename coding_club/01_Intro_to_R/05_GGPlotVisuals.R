@@ -89,6 +89,12 @@
 # To create additional space between an axis title and the axis itself, use \n 
 # when writing your title, and it will act as a line break.
 
+# Repeating a lot of the same code - same font size, same margins can be avoided
+# by creating custom themes. Less repetition makes for tidier code and it’s 
+# important to have consistent formatting across graphs for the same project, 
+# so create your own theme - you can then reuse this theme in all your ggplots!
+
+
 #### 3. Making different plots with ggplot2 ----
 #### 3a. Histograms ---- 
 # to visualize data distribution
@@ -99,3 +105,10 @@
 #### 3d. Barplot ----
 # to compare species richness of a few European countries
 #### 4. Using facets and creating panels ----
+# to avoid repeatitive graphs...
+
+# Some useful arguments to include in facet_wrap()are nrow = or ncol = , 
+# specifying the number of rows or columns, respectively. You can also see that
+# we used scales = "free_y", to allow different y axis values because of the 
+# wide range of abundance values in the data. You can use “fixed” when you want 
+# to constrain all axis values.
