@@ -87,7 +87,9 @@ trees.genus <- trees.genus %>%
 ggplot(trees.genus) +
   geom_point(aes(x = Easting, y = Northing, colour = Quadrant)) +
   theme_bw()
-# It did work, but there is a NA value (check the legend)! Probably this point has the exact integer value of middle Easting, and should be attributed to one side or the other (your choice).
+# It did work, but there is a NA value (check the legend)! Probably this point 
+# has the exact integer value of middle Easting, and should be attributed to 
+# one side or the other (your choice).
 
 #
 trees.genus <- trees.genus %>%
@@ -97,16 +99,19 @@ trees.genus <- trees.genus %>%
     Easting > lon & Northing > lat ~ 'NE',
     Easting > lon & Northing < lat ~ 'SE')
   )
-# To answer the first question, a simple pipeline combining group_by() and summarise() is what we need.
+# To answer the first question, a simple pipeline combining group_by() and 
+# summarise() is what we need.
 
 #
 sp.richness <- trees.genus %>%
   group_by(Quadrant) %>%
   summarise(richness = length(unique(LatinName)))
 
-#There we are! We have 7, 15, 8 and 21 species for the NE, NW, SE, and SW corners respectively!
+#There we are! We have 7, 15, 8 and 21 species for the NE, NW, SE, and SW 
+# corners respectively!
   
-#There are different ways to calculate the proportion of Acer trees, here is one (maybe base R would have been less convoluted in this case!):
+#There are different ways to calculate the proportion of Acer trees, here is 
+# one (maybe base R would have been less convoluted in this case!):
   
 #
 acer.percent <- trees.genus %>%
@@ -116,14 +121,16 @@ acer.percent <- trees.genus %>%
   mutate(total = sum(n)) %>%       # sum the total of trees in a new column
   filter(Genus == 'Acer') %>%      # keep only acer
   mutate(percent = n/total)        # calculate the proportion
+  
 
 # We can make a plot representing the %
 
 ggplot(acer.percent) +
-  geom_col(aes(x = Quadrant, y = percent)) +
+  geom_col(aes(x = Quadrant, y = percent, fill = Quadrant)) +
   labs(x = 'Quadrant', y = 'Proportion of Acer') +
   theme_bw()
-#And finally, we can use our manipulation skills to subset the data frame to Acer only and change the age factor, and then use our pipes to create the four plots.
+# And finally, we can use our manipulation skills to subset the data frame to Acer
+# only and change the age factor, and then use our pipes to create the four plots.
 
 
 # Create an Acer-only data frame
