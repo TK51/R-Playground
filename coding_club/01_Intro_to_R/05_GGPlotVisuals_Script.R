@@ -241,7 +241,7 @@ richness <- LPI2 %>% filter (Country.list %in% c("United Kingdom", "Spain", "Fra
 # Barplot DESCRIPTION ----
 # Species richness in five European countries (based on LPI data).
 
-# FACETS and PANELS ----
+# FACETS ----
 # Sometimes, displaying all the data on one graph makes it too cluttered. 
 # If we wanted to examine the population change of vultures across all the 
 # countries, rather than Italy and Croatia, we would have 10 populations on the 
@@ -296,12 +296,55 @@ dev.off() # to clean up the plot section
 # Facetted graph DESCRIPTION ----
 # Population change of Griffon vulture across the world, from the LPI dataset.
 
+# Note: 
+# some of these population trends do weird things, possibly because there are 
+# many sub-populations being monitored within a country (e.g. Italy), so in 
+# practice we probably would not fit a single regression line per country.
 
-c("#EEB422", "#FFFFFF", "#FFFFFF")
+# PANELS ----
+# And finally, sometimes you want to arrange multiple figures together to create 
+# a panel. We will do this using grid.arrange() from the package gridExtra.
 
+grid.arrange(vulture_hist, vulture_scatter, vulture_boxplot, ncol = 1)
 
+# This doesn't look right - the graphs are too stretched, the legend and text 
+# are all messed up, the white margins are too big
 
+# Fixing the problems - adding ylab() again overrides the previous settings
+(panel <- grid.arrange(
+  vulture_hist + ggtitle("(a)") + ylab("Count") + xlab("Abundance") +   # adding labels to the different plots
+    theme(plot.margin = unit(c(0.2, 0.2, 0.2, 0.2), units = , "cm")),
+  
+  vulture_boxplot + ggtitle("(b)") + ylab("Abundance") + xlab("Country") +
+    theme(plot.margin = unit(c(0.2, 0.2, 0.2, 0.2), units = , "cm")),
+  
+  vulture_scatter + ggtitle("(c)") + ylab("Abundance") + xlab("Year") +
+    theme(plot.margin = unit(c(0.2, 0.2, 0.2, 0.2), units = , "cm")) +
+    theme(legend.text = element_text(size = 12, face = "italic"),     
+          legend.title = element_blank(),                                   
+          legend.position = c(0.85, 0.85)), # changing the legend position so that it fits within the panel
+  
+  ncol = 1)) # ncol determines how many columns you have
 
+# Dimensiton changes ----
+# If you want to change the width or height of any of your pictures, you can add 
+# either ` widths = c(1, 1, 1) or heights = c(2, 1, 1)` for example, to the end 
+# of your grid arrange command. In these examples, this would create three plots 
+# of equal width, and the first plot would be twice as tall as the other two, 
+#respectively. This is helpful when you have different sized figures or if you 
+# want to highlight the most important figure in your panel.
+
+# To get around the too stretched/too squished panel problems, we will save the 
+# file and give it exact dimensions using ggsave from the ggplot2 package. The 
+# default width and height are measured in inches. If you want to swap to pixels 
+# or centimeters, you can add units = "px" or units = "cm" inside the ggsave() 
+# brackets, e.g. 
+# ggsave(object, filename = "mymap.png", width = 1000, height = 1000, units = "px". 
+# The file will be saved to wherever your working directory is which you can 
+# check by running getwd() in the console.
+
+getwd()
+ggsave(panel, file = "vulture_panel2.png", width = 6, height = 12) 
 
 
 
