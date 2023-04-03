@@ -119,7 +119,7 @@ vulture_hist
 # This is where the true power of ggplot2 shines.
 
 (vulture_hist <- ggplot(vulture, aes(x = abundance)) +                
-    geom_histogram(binwidth = 250, colour = "#8B5A00", fill = "#CD8500") +    # Changing the binwidth and colours
+    geom_histogram(binwidth = 250, colour = "#8B5A00", fill = "#FAB941") +    # Changing the binwidth and colours
     geom_vline(aes(xintercept = mean(abundance)),                       # Adding a line for mean abundance
                colour = "red", linetype = "dashed", size=1) +           # Changing the look of the line
     theme_bw() +                                                        # Changing the theme to get rid of the grey background
@@ -137,7 +137,54 @@ vulture_hist
 # Histogram of Griffon vulture abundance in populations included in the LPI 
 # dataset. Red line shows mean abundance. Isn’t it a much better plot already?
 
+# SCATTER PLOT ----
+# to examine population change over time
 
+# Let’s say we are interested in how the Griffon vulture populations have 
+# changed between 1970 and 2017 in Croatia and in Italy.
+
+# Filtering the data to get records only from Croatia and Italy using 
+# the `filter()` function from the `dplyr` package
+vultureITCR <- filter(vulture, Country.list %in% c("Croatia", "Italy"))
+
+# Using default base graphics
+plot(vultureITCR$year, vultureITCR$abundance, col = c("#1874CD", "#EEB422"))
+
+# Using default ggplot2 graphics
+(vulture_scatter <- ggplot(vultureITCR, aes(x = year, y = abundance, colour = Country.list)) +  # linking colour to a factor inside aes() ensures that the points' colour will vary according to the factor levels
+    geom_point())
+
+# like with the histogram, the graph above needs a bit more work.
+(vulture_scatter <- ggplot(vultureITCR, aes (x = year, y = abundance, colour = Country.list)) +
+    geom_point(size = 2) +                                               # Changing point size
+    geom_smooth(method = "lm", aes(fill = Country.list)) +               # Adding linear model fit, colour-code by country
+    theme_bw() +
+    scale_fill_manual(values = c("#EE7600", "#00868B")) +                # Adding custom colours for solid geoms (ribbon)
+    scale_colour_manual(values = c("#EE7600", "#00868B"),                # Adding custom colours for lines and points
+                        labels = c("Croatia", "Italy")) +                # Adding labels for the legend
+    ylab("Griffon vulture abundance\n") +                             
+    xlab("\nYear")  +
+    theme(axis.text.x = element_text(size = 12, angle = 45, vjust = 1, hjust = 1),     # making the years at a bit of an angle
+          axis.text.y = element_text(size = 12),
+          axis.title = element_text(size = 14, face = "plain"),                        
+          panel.grid = element_blank(),                                   # Removing the background grid lines               
+          plot.margin = unit(c(1,1,1,1), units = , "cm"),                 # Adding a 1cm margin around the plot
+          legend.text = element_text(size = 12, face = "italic"),         # Setting the font for the legend text
+          legend.title = element_blank(),                                 # Removing the legend title
+          legend.position = c(0.9, 0.9)))                                 # Setting legend position - 0 is left/bottom, 1 is top/right
+
+# Scat DESCRIPTION ----
+# Population trends of Griffon vulture in Croatia and Italy. Data points 
+# represent raw data with a linear model fit and 95% confidence intervals. 
+# Abundance is measured in number of breeding individuals.
+
+
+
+
+
+
+
+c("#EEB422", "#FFFFFF", "#FFFFFF")
 
 
 
