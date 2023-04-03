@@ -40,11 +40,19 @@
 # the tidyverse functions “know” that the object that is passed through the pipe 
 # is the data = argument of that function.
 
+# Important notes: 
+# Pipes only work on data frame objects, and functions outside the tidyverse 
+# often require that you specify the data source with a full stop dot .. 
+# But as we will see later, you can still do advanced things while keeping these 
+# limitations in mind!
+
 # 2. Discover more functions of dplyr ----
 
-# --- summarise_all()
+# a, -  summarise_all() ----
+# - quickly generate a summary dataframe
 
-# --- case_when()
+# b. - case_when() ----
+# - a favourite for re-classifying values or factors
 
 # 3. Rename and reorder factor levels or create categorical variables ----
 
