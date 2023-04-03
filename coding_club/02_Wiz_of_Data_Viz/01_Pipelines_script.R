@@ -31,8 +31,7 @@ library(tidyr)
 #### Working directory ----
 # Set working directory
 getwd()
-setwd("./02_Wiz_of_Data_Viz")
-# it used to be setwd("./coding_club")
+setwd(".coding_club")
 
 #### Data source ----
 # Loading the dataset from dataset folder
@@ -314,6 +313,11 @@ tree.plots <-
 # You can view the graphs before saving them
 tree.plots$plots  # to view them use arrows in the Plots window
 
+# get the right directory for plots to be saved at
+getwd()
+setwd("./02_Wiz_of_Data_Viz")
+
+
 # Saving the plots to file
 tree.plots %>%              # the saving call within the do function
   do(.,
@@ -322,8 +326,9 @@ tree.plots %>%              # the saving call within the do function
                              "/", "map-", .$Genus, ".png", sep = ""), 
             device = "png", height = 12, width = 16, units = "cm"))
 
-
-
+# get back to originally set working directory
+setwd("../")  # moves you back - one step up
+getwd()       # check if moved up correctly  
 
 
 
