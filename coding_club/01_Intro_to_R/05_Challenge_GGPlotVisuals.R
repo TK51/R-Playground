@@ -20,7 +20,7 @@ library(tidyr)
 library(dplyr)
 library(readr)
 library(gridExtra)
-library(egg)
+library(egg) # lines up plots together regardless of whether they have a legend or not
 
 # colourpicker can be used via install.packages("colourpicker")
 library(colourpicker)
@@ -97,8 +97,6 @@ dim(arctic)
 )
 
 #Align together in a panel - here I use the egg package that lines up plots together regardless of whether they have a legend or not
-
-library(egg)
 
 ggarrange(arctic.scatter + labs(title = 'Population change over time'), 
           arctic.box + labs(title = 'Population size across countries'))
