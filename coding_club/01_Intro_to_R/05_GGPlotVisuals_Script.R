@@ -326,7 +326,7 @@ grid.arrange(vulture_hist, vulture_scatter, vulture_boxplot, ncol = 1)
   
   ncol = 1)) # ncol determines how many columns you have
 
-# Dimention changes ----
+# Dimension changes ----
 # If you want to change the width or height of any of your pictures, you can add 
 # either ` widths = c(1, 1, 1) or heights = c(2, 1, 1)` for example, to the end 
 # of your grid arrange command. In these examples, this would create three plots 

@@ -165,6 +165,17 @@ acer.plots <- acer %>%
 # View the plots (use the arrows on the Plots viewer)
 acer.plots$plots
 
+#### T. K. Trials - facets
+# Plot the quadrants in a single page
+(acer.quads <- ggplot(data = acer) +
+  geom_bar(aes(x = AgeGroup, fill = AgeGroup)) +
+  facet_wrap(~ Quadrant) +
+  theme_bw())
+
+# save the plot
+getwd()
+ggsave(acer.quads, file = "02_Wiz_of_Data_Viz/acer.quadrants.png", width = 12, height = 12) 
+
 
 
 
