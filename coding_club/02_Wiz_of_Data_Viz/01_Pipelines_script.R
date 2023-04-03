@@ -330,8 +330,48 @@ tree.plots %>%              # the saving call within the do function
 setwd("../")  # moves you back - one step up
 getwd()       # check if moved up correctly  
 
+# The do() function allows to use a lot of external functions within dplyr pipe 
+# chains. However, it is sometimes tricky to use and is becoming deprecated. 
 
+#### Sticking things together with paste()
 
+# Did you notice how we used the paste() function to define the filename= 
+# argument of the last piece of code? (We did the same to define the titles t
+# hat appear on the graphs.) It’s a useful function that lets you combine text
+# strings as well as outputs from functions or object names in the environment. 
+# Let’s take apart that last piece of code here:
+  
+# paste command
+paste(getwd(), '/', 'map-', .$Genus, '.png', sep = '')
+
+# --- getwd(): 
+# You are familiar with this call: try it in the console now! It writes the path 
+# to your working directory, i.e. the root folder where we want to save the plots.
+# --- ’/’: we want to add a slash after the directory folder and before writing 
+# the name of the plot
+# --- ‘map-‘: a custom text bit that will be shared by all the plots. 
+# We’re drawing maps after all!
+# --- ’.$Genus’: accesses the Genus name of the tree.plots object, so each plot 
+# will bear a different name according to the tree genus.
+# --- ‘.png’: the file extension; we could also have chosen a pdf, jpg, etc.
+# --- ‘sep = ‘’’: we want all the previous bits to be pasted together with 
+# nothing separating them
+
+# So, in the end, the whole string could read something like: 
+# ‘C:/Coding_Club/map-Acer.png’.
+
+#### 5. Challenge yourself! ----
+# The Craigmillar Castle team would like a summary of the different species 
+# found within its grounds, but broken down in four quadrants (NE, NW, SE, SW). 
+# You can start from the trees.genus object created earlier.
+
+# 1. Can you calculate the species richness (e.g. the number of different species) 
+# in each quadrant?
+# 2. They would also like to know how abundant the genus Acer is (as a % of the 
+# total number of trees) in each quadrant.
+# 3. Finally, they would like, for each quadrant separately, a bar plot showing 
+# counts of Acer trees in the different age classes, ordered so they read from 
+# Young (lumping together juvenile and semi-mature trees), Middle Aged, and Mature.
 
 
 

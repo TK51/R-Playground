@@ -38,7 +38,7 @@ LPI <- read.csv("datasets/LPIdata_CC.csv")
 # By adding 9:53, we select columns 9 to 53, the ones for the different years of monitoring
 LPI2 <- gather(LPI, "year", "abundance", 9:53)
 
-# SOLUTION ---
+# SOLUTION ----
 
 # two Arctic animals are chosen
 arctic <- filter(LPI2, Common.Name %in% c('Reindeer / Caribou', 'Beluga whale'))
