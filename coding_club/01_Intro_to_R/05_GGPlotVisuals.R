@@ -79,6 +79,16 @@
 
 # colourpicker can be used via install.packages("colourpicker")
 
+# GOOD TO KNOW - special characters or superscript
+# If your axis labels need to contain special characters or superscript, you can 
+# get ggplot2 to plot that, too. It might require some googling regarding your 
+# specific case, but for example, this code 
+# ylabs(expression(paste('Grain yield',' ','(ton.', ha^-1, ')', sep=''))) 
+# will create a y axis with a label reading Grain yield (ton. ha-1).
+
+# To create additional space between an axis title and the axis itself, use \n 
+# when writing your title, and it will act as a line break.
+
 #### 3. Making different plots with ggplot2 ----
 #### 3a. Histograms ---- 
 # to visualize data distribution
