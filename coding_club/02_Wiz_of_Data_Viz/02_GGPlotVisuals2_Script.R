@@ -211,7 +211,15 @@ species_counts <- magic_veg %>%
 # group (i.e. the factor levels). In the following example, our dataframe has 
 # “Hogsmeade” and “Narnia” specified, which is lucky as they would reflect 
 # correctly in the legend built by ggplot. However, if it they had simply been 
-# listed as “group1” and “group2” in the original data file, we would want to have more informative labels. We can do that by manipulating labels = c("xxx", "xxx"). In the example below, we change the labels from the default (taking from the dataframe) of “Hogsmeade” and “Narnia” to “HOGSMEADE” and “NARNIA” just for demonstration purposes. Important: Make sure you list the new label names in the same order as your factors are listed in the dataset, otherwise you risk assigning the wrong group to the values! Use levels(dataframe$factorname)to see the factors in order (usually alphabetical).
+# listed as “group1” and “group2” in the original data file, we would want to 
+# have more informative labels. We can do that by manipulating 
+# labels = c("xxx", "xxx"). In the example below, we change the labels from the 
+# default (taking from the dataframe) of “Hogsmeade” and “Narnia” to “HOGSMEADE” 
+# and “NARNIA” just for demonstration purposes. 
+# **Important:** Make sure you list the new label names in the same order as your 
+# factors are listed in the dataset, otherwise you risk assigning the wrong group 
+# to the values! Use levels(dataframe$factorname)to see the factors in order 
+# (usually alphabetical).
 
 Copy contents
 (hist <- ggplot(species_counts, aes(x = plot, y = Species_number, fill = land)) +
@@ -233,6 +241,29 @@ Copy contents
           legend.position = "bottom", 
           legend.box.background = element_rect(color = "#555a57", size = 0.3)))
 
+# Let’s cover some more of the theme() elements we’ve used in the examples above:
+  
+# --legend.title allows you to change the font size of the legend, or its formatting 
+# (e.g. bold).
+# -- The legend.position can be defined with accepted positions such as "bottom", 
+# but you can also do legend.position = c(0.1, 0.8), which would bring the legend 
+# to the top left hand corner (corresponding to the x and y values on the graph). 
+# This is a neat trick in some cases, where you have lots of blank space within 
+# your plot itself and want to fine-tune the legend position.
+# -- Finally, we’ve used legend.box.background = element_rect() to create a light
+# grey rectangle that surrounds the legend. If you don’t want this, you can just 
+# remove that line of code.
+
+# To save a plot, we use the function ggsave() where you can specify the 
+# dimensions and resolution of your plot. You could also change the file ending 
+# with .png to .pdf to save your image as a PDF document. Note that this file 
+# will be saved into your working directory. (If you’ve forgotten where that is, 
+#3 you can find it by running the code getwd().)
+
+# Note: If you want your file to be saved in a specific folder that is within your working directory (for example, into an “images” folder), you can change the code from ggsave("magical-land-sp-richness.png") to ggsave("images/magical-land-sp-richness.png"). (Make sure you’ve created the folder first or you’ll run into an error!)
+
+# sava the graph
+ggsave("./02_Wiz_of_Data_Viz/magical-sp-rich-hist.png", width = 7, height = 5, dpi = 300)
 
 
 
