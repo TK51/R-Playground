@@ -343,7 +343,20 @@ names(magic.palette) <- levels(more_magic$land)                                 
           legend.position = "bottom", 
           legend.box.background = element_rect(color = "grey", size = 0.3)))
 
+# Shades and gradients
+# So far we’ve used scale_colour_manual() and scale_fill_manual() to define 
+# custom colours for factor levels. But what if your variable is continuous 
+# rather than categorical, so that you can’t possibly assign a colour to every 
+# value? You might then want the colour scheme to go from light to dark according 
+# to the values, and scale_colour_gradient() (and its friend 
+# scale_fill_gradient()) are there for you (and might be useful for the challenge 
+# too, cough cough).
 
+# You can learn more about these functions here; basically, you just have to 
+# set your low = and high = colour values and the function will do the rest 
+# for you. We love it!
+
+#### 3. Customise boxplots in ggplot2 ----
 
 
 
