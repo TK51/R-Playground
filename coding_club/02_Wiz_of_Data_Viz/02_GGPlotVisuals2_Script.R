@@ -265,7 +265,7 @@ species_counts <- magic_veg %>%
 # ggsave("images/magical-land-sp-richness.png"). 
 # (Make sure you’ve created the folder first or you’ll run into an error!)
 
-# sava the graph
+# save the graph
 ggsave("./02_Wiz_of_Data_Viz/magical-sp-rich-hist.png", 
        width = 7, height = 5, dpi = 300)
 
@@ -322,7 +322,8 @@ names(magic.palette) <- levels(more_magic$land)                                 
           legend.box.background = element_rect(color = "grey", size = 0.3)))
 
 
-# See how consistent the colour scheme is if you drop some factors (using filter in the first line)
+# See how consistent the colour scheme is if you drop some factors (using 
+# filter in the first line)
 
 (hist <- ggplot(filter(more_magic, land %in% c("Hogsmeade", "Oz", "The Shire")), aes(x = land, y = counts, fill = land)) +
     geom_histogram(stat = "identity", position = "dodge") + 
