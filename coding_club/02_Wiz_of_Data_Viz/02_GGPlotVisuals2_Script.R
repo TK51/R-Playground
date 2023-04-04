@@ -145,6 +145,72 @@ species_counts <- magic_veg %>%
          axis.title = element_text(size = 12, face = "italic"), 
          plot.title = element_text(size = 14, hjust = 0.5, face = "bold")))
 
+#### 1b. Change the plot background ----
+# All our graphs at the moment still have a grey background, and honestly, we’re 
+# not a fan of it. It also has both major and minor grid lines for both 
+# the y and x axes, which we might want to remove to have a clear plain white 
+# background for the plot. Adding theme_bw() to our plot removes the grey 
+# background and replaces it with a white one. There are various other themes 
+# built into RStudio, but we personally think this is the cleanest one.
+
+# To remove the grid lines, we add the code panel.grid = element_blank() within 
+# the theme() command. Just like text.axis encompasses both text.axis.x 
+# and text.axis.y, panel.grid encompasses several options: panel.grid.major, 
+# which in turn governs panel.grid.major.x and panel.grid.major.y and the same 
+# for panel.grid.minor!
+  
+(hist <- ggplot(species_counts, aes(x = plot, y = Species_number, fill = land)) +
+    geom_histogram(stat = "identity", position = "dodge") + 
+    scale_x_continuous(breaks = c(1,2,3,4,5,6)) + 
+    scale_y_continuous(limits = c(0, 50)) +
+    labs(title = "Species richness by plot", 
+         x = "\n Plot number", y = "Number of species \n") + 
+    theme_bw() +
+    theme(panel.grid = element_blank(), 
+          axis.text = element_text(size = 12), 
+          axis.title = element_text(size = 12), 
+          plot.title = element_text(size = 14, hjust = 0.5, face = "bold")))
+
+#### 1c. Fix the legend and customise the colours ----
+# We will use the scale_...() functions to customise both the color code AND 
+# the legend at once.
+
+# The scale_fill_manual(values = c("your-colour-1", "your-colour-2", ...)) 
+# function lets you decide on custom colour values for solid elements 
+# (bars, boxplots, ribbons, etc.), and its counterpart scale_colour_manual() w
+# orks exactly the same for line elements (points in a scatter plot, regression 
+# lines, box or column outlines, etc.). You need to make sure you put in as many 
+# colours as there are factor levels in your data.
+
+# Need inspiration for your colours?
+# You can define colours using R’s built-in colour names or by specifying their 
+# Hex codes. The Colour Picker package is a great way to pick colours within the 
+# comfort of R Studio: see our previous tutorial for instructions on how to install it.
+
+# Also, notice how the name of our legend is now currently “land”: the title of 
+# that column in our dataframe species_counts. It is not very informative and 
+# not capitalized. We can change it to “Land of Magic,” by 
+# specifying name = "Land of Magic" in our function scale_fill_manual(). 
+# In some cases, we might not want to have a title for the legend at all, 
+# which you can do by specifying in scale_fill_manual, name = NULL.
+
+(hist <- ggplot(species_counts, aes(x = plot, y = Species_number, fill = land)) +
+    geom_histogram(stat = "identity", position = "dodge") + 
+    scale_x_continuous(breaks = c(1,2,3,4,5,6)) + 
+    scale_y_continuous(limits = c(0, 50)) +
+    scale_fill_manual(values = c("rosybrown1", "#deebf7"),     # specifying the colours
+                      name = "Land of Magic") +                # specifying title of legend
+    labs(title = "Species richness by plot", 
+         x = "\n Plot number", y = "Number of species \n") + 
+    theme_bw() +
+    theme(panel.grid = element_blank(), 
+          axis.text = element_text(size = 12), 
+          axis.title = element_text(size = 12), 
+          plot.title = element_text(size = 14, hjust = 0.5, face = "bold"), 
+          plot.margin = unit(c(0.5,0.5,0.5,0.5), units = , "cm"), 
+          legend.title = element_text(face = "bold"),
+          legend.position = "bottom", 
+          legend.box.background = element_rect(color = "grey", size = 0.3)))
 
 
 
