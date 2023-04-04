@@ -205,7 +205,33 @@ species_counts <- magic_veg %>%
           plot.margin = unit(c(0.5,0.5,0.5,0.5), units = , "cm"), 
           legend.title = element_text(face = "bold"),
           legend.position = "bottom", 
-          legend.box.background = element_rect(color = "grey", size = 0.3)))
+          legend.box.background = element_rect(color = "#555a57", size = 0.3)))
+
+# Another thing that we might sometimes want to change is the actual label of the
+# group (i.e. the factor levels). In the following example, our dataframe has 
+# “Hogsmeade” and “Narnia” specified, which is lucky as they would reflect 
+# correctly in the legend built by ggplot. However, if it they had simply been 
+# listed as “group1” and “group2” in the original data file, we would want to have more informative labels. We can do that by manipulating labels = c("xxx", "xxx"). In the example below, we change the labels from the default (taking from the dataframe) of “Hogsmeade” and “Narnia” to “HOGSMEADE” and “NARNIA” just for demonstration purposes. Important: Make sure you list the new label names in the same order as your factors are listed in the dataset, otherwise you risk assigning the wrong group to the values! Use levels(dataframe$factorname)to see the factors in order (usually alphabetical).
+
+Copy contents
+(hist <- ggplot(species_counts, aes(x = plot, y = Species_number, fill = land)) +
+    geom_histogram(stat = "identity", position = "dodge") + 
+    scale_x_continuous(breaks = c(1,2,3,4,5,6)) + 
+    scale_y_continuous(limits = c(0, 50)) +
+    scale_fill_manual(values = c("#c979a0", "#79C9A2"),,           # specifying the colours
+                      labels = c("HOGSMEADE", "NARNIA"),             # changing the site labels
+                      name = "Land of Magic") +                      # defining legend title
+    labs(title = "Species richness by plot", 
+         x = "\n Plot number", y = "Number of species \n") + 
+    theme_bw() +
+    theme(panel.grid = element_blank(), 
+          axis.text = element_text(size = 12), 
+          axis.title = element_text(size = 12), 
+          plot.title = element_text(size = 14, hjust = 0.5, face = "bold"), 
+          plot.margin = unit(c(0.5,0.5,0.5,0.5), units = , "cm"), 
+          legend.title = element_text(face = "bold"),
+          legend.position = "bottom", 
+          legend.box.background = element_rect(color = "#555a57", size = 0.3)))
 
 
 
