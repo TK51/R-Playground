@@ -182,11 +182,6 @@ species_counts <- magic_veg %>%
 # lines, box or column outlines, etc.). You need to make sure you put in as many 
 # colours as there are factor levels in your data.
 
-# Need inspiration for your colours?
-# You can define colours using R’s built-in colour names or by specifying their 
-# Hex codes. The Colour Picker package is a great way to pick colours within the 
-# comfort of R Studio: see our previous tutorial for instructions on how to install it.
-
 # Also, notice how the name of our legend is now currently “land”: the title of 
 # that column in our dataframe species_counts. It is not very informative and 
 # not capitalized. We can change it to “Land of Magic,” by 
@@ -198,8 +193,8 @@ species_counts <- magic_veg %>%
     geom_histogram(stat = "identity", position = "dodge") + 
     scale_x_continuous(breaks = c(1,2,3,4,5,6)) + 
     scale_y_continuous(limits = c(0, 50)) +
-    scale_fill_manual(values = c("rosybrown1", "#deebf7"),     # specifying the colours
-                      name = "Land of Magic") +                # specifying title of legend
+    scale_fill_manual(values = c("#c979a0", "#79C9A2"),     # specifying the colours
+                      name = "Land of Magic") +             # specifying title of legend
     labs(title = "Species richness by plot", 
          x = "\n Plot number", y = "Number of species \n") + 
     theme_bw() +
