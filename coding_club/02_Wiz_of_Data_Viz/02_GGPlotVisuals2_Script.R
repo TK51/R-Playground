@@ -90,8 +90,60 @@ species_counts <- magic_veg %>%
 # Remember that any aesthetics that are a function of your data (like fill here) 
 # need to be INSIDE the aes() brackets.
 
+# And if we want to make the columns to appear side by side rather than being 
+# stacked, you add position = "dodge" to the geom’s arguments.
 
+(hist <- ggplot(species_counts, aes(x = plot, y = Species_number, fill = land)) +
+    geom_histogram(stat = "identity", position = "dodge"))
 
+# Note how our figure only shows plot numbers 2, 4, and 6. If you want the axis 
+# to display every plot number, 1 - 6, you can run the following code using 
+# breaks = c(1,2,3,4,5,6) or using breaks = 1:6. We can also specify the limits 
+# of the plot axes - running the code below, you’ll be able to see that the limit 
+# of the y axis now extends to the value of 50! This helps us keep all our data 
+# within the axis labels that we have, in terms of the visualisation!
+  
+(hist <- ggplot(species_counts, aes(x = plot, y = Species_number, fill = land)) +
+    geom_histogram(stat = "identity", position = "dodge") + 
+    scale_x_continuous(breaks = c(1,2,3,4,5,6)) +  # or use breaks = 1:6
+    scale_y_continuous(limits = c(0, 50)))
+
+#### 1a. Add titles, subtitles, captions and axis labels ----
+# Now it’s time for us to add more information to our graphs, for example, 
+# the plot title, subtitle, caption and axis labels. This might not be so useful 
+# in this case, but here’s some guidance just in case you do require this in your 
+# own work.
+
+(hist <- ggplot(species_counts, aes(x = plot, y = Species_number, fill = land)) +
+    geom_histogram(stat = "identity", position = "dodge") +
+    scale_x_continuous(breaks = c(1,2,3,4,5,6)) + 
+    scale_y_continuous(limits = c(0, 50)) +
+    labs(title = "Species richness by plot", 
+         subtitle = "In the magical lands",
+         caption = "Data from the Ministry of Magic", 
+         x = "\n Plot number", y = "Number of species \n"))     # \n adds space before x and after y axis text
+
+#### Theme adding ----
+# You can also add in theme() elements to your plot, which let you customise 
+# even more aspects! We already introduced theme elements in our previous 
+# tutorial. Here, we’re showing you how to change the font sizes of the axis 
+# label (axis text), axis title and plot title. Other things you can play around 
+# with are:
+# -- italicise or bold the text with face = 'italic' or face = 'bold' respectively
+# -- center the title using hjust = 0.5
+# Note: if we wanted to specify different options for the x and y axis, we could 
+# use axis.text.x or axis.title.x and axis.text.y or axis.title.y and specify 
+# separate characteristics for each axis.
+
+(hist <- ggplot(species_counts, aes(x = plot, y = Species_number, fill = land)) +
+   geom_histogram(stat = "identity", position = "dodge") +
+   scale_x_continuous(breaks = c(1,2,3,4,5,6)) + 
+   scale_y_continuous(limits = c(0, 50)) +
+   labs(title = "Species richness by plot", 
+        x = "\n Plot number", y = "Number of species \n") + 
+   theme(axis.text = element_text(size = 12), 
+         axis.title = element_text(size = 12, face = "italic"), 
+         plot.title = element_text(size = 14, hjust = 0.5, face = "bold")))
 
 
 
