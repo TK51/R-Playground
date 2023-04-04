@@ -263,7 +263,8 @@ Copy contents
 # Note: If you want your file to be saved in a specific folder that is within your working directory (for example, into an “images” folder), you can change the code from ggsave("magical-land-sp-richness.png") to ggsave("images/magical-land-sp-richness.png"). (Make sure you’ve created the folder first or you’ll run into an error!)
 
 # sava the graph
-ggsave("./02_Wiz_of_Data_Viz/magical-sp-rich-hist.png", width = 7, height = 5, dpi = 300)
+ggsave("./02_Wiz_of_Data_Viz/magical-sp-rich-hist.png", 
+       width = 7, height = 5, dpi = 300)
 
 
 
