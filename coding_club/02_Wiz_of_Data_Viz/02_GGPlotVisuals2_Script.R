@@ -1,4 +1,4 @@
-#### BDATA VISUALISATION 2 - Script
+#### DATA VISUALISATION 2 - Script
 
 #### Intro ----
 # CUSTOMISING YOUR FIGURES - Data visualization tutorial
