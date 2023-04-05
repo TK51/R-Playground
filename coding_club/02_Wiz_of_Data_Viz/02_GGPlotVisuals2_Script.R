@@ -599,7 +599,7 @@ theme_coding <- function(){            # creating a new theme function
 (boxplot <- ggplot(yearly_counts, aes(x = plot, y = Species_number, fill = land)) +
     geom_boxplot() +
     scale_x_discrete(breaks = 1:6) +
-    scale_fill_manual(values = c("#deebf7", "rosybrown1"),
+    scale_fill_manual(values = c("#c979a0", "#79C9A2"),
                       breaks = c("Narnia","Hogsmeade"),
                       name = "Land of magic",
                       labels = c("Narnia", "Hogsmeade")) +
@@ -623,7 +623,7 @@ theme_coding <- function(){            # creating a new theme function
 (boxplot <- ggplot(yearly_counts, aes(x = plot, y = Species_number, fill = land)) +
     geom_boxplot() +
     scale_x_discrete(breaks = 1:6) +
-    scale_fill_manual(values = c("#deebf7", "rosybrown1"),
+    scale_fill_manual(values = c("#c979a0", "#79C9A2"),
                       breaks = c("Narnia","Hogsmeade"),
                       name = "Land of magic",
                       labels = c("Narnia", "Hogsmeade")) +
@@ -639,7 +639,7 @@ theme_coding <- function(){            # creating a new theme function
 (boxplot <- ggplot(yearly_counts, aes(x = plot, y = Species_number, fill = land)) +
     geom_boxplot() +
     scale_x_discrete(breaks = 1:6) +
-    scale_fill_manual(values = c("#deebf7", "rosybrown1"),
+    scale_fill_manual(values = c("#c979a0", "#79C9A2"),
                       breaks = c("Narnia","Hogsmeade"),
                       name = "Land of magic",
                       labels = c("Narnia", "Hogsmeade")) +
