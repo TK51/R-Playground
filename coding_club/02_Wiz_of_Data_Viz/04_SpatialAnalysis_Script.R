@@ -29,19 +29,19 @@ rm(list = ls())
 dev.off()
 
 #### Libraries ----
-install.packages("sp")
-install.packages("rgdal")
-install.packages("raster")
-install.packages("viridis")
-install.packages("viridisLite")
-install.packages("rasterVis")
+# install.packages("sp")
+# install.packages("rgdal")
+# install.packages("raster")
+# install.packages("viridis")
+# install.packages("viridisLite")
+# install.packages("rasterVis")
 
 library(sp)
-library(rgdal)
-library(raster)
+library(rgdal)         
+library(raster)          
 library(ggplot2)
 library(viridisLite)
-library(rasterVis)
+library(rasterVis)     
 
 # The sp package is central for spatial data analysis in R as it defines a set 
 # of classes to represent spatial data. Another important package for spatial 
