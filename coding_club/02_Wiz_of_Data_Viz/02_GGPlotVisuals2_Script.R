@@ -225,7 +225,7 @@ species_counts <- magic_veg %>%
     geom_histogram(stat = "identity", position = "dodge") + 
     scale_x_continuous(breaks = c(1,2,3,4,5,6)) + 
     scale_y_continuous(limits = c(0, 50)) +
-    scale_fill_manual(values = c("#c979a0", "#79C9A2"),,           # specifying the colours
+    scale_fill_manual(values = c("#c979a0", "#79C9A2"),           # specifying the colours
                       labels = c("HOGSMEADE", "NARNIA"),             # changing the site labels
                       name = "Land of Magic") +                      # defining legend title
     labs(title = "Species richness by plot", 
@@ -377,13 +377,13 @@ yearly_counts <- magic_veg %>%
     geom_boxplot())
 
 # This does a much nicer job of showing which plots are the most species rich. 
-# With the beautifying customisations we’ve just learnt, we can make the plot 
+# With the beautifying customization we’ve just learnt, we can make the plot 
 # much prettier!
   
 (boxplot <- ggplot(yearly_counts, aes(x = plot, y = Species_number, fill = land)) +
     geom_boxplot() +
     scale_x_discrete(breaks = 1:6) +
-    scale_fill_manual(values = c("rosybrown1", "#deebf7"),
+    scale_fill_manual(values = c("#c979a0", "#79C9A2"),
                       breaks = c("Hogsmeade","Narnia"),
                       name="Land of magic",
                       labels=c("Hogsmeade", "Narnia")) +
@@ -400,7 +400,8 @@ yearly_counts <- magic_veg %>%
           legend.box.background = element_rect(color = "grey", size = 0.3)))
 
 # Saving the boxplot
-ggsave("magical-sp-rich-boxplot1.png", width = 7, height = 5, dpi = 300)
+ggsave("./02_Wiz_of_Data_Viz/magical-sp-rich-boxplot1.png", 
+       width = 7, height = 5, dpi = 300)
 
 
 
