@@ -403,6 +403,63 @@ yearly_counts <- magic_veg %>%
 ggsave("./02_Wiz_of_Data_Viz/magical-sp-rich-boxplot1.png", 
        width = 7, height = 5, dpi = 300)
 
+# Box, bar, dot…?
+# Bar plots are very commonly used to show differences or ranking among groups. 
+# A problem with them, especially if used without a measure of uncertainty
+# (e.g. error bars), is that what they display is a range of values starting 
+# from 0. If the variable you are plotting can reasonably have values of zero, 
+# then that’s fine, but often it’s improbable. For instance, we wouldn’t imagine 
+# that our lands of magic could be completely devoid of any life form and 
+# therefore have a species richness of zero. Same holds true if you’re comparing 
+# body weight, plant height, and a great majority of ecological variables!
+  
+# An easy alternative is a dot plot, which you could have done by summarizing 
+# the species_counts data to get a mean and standard deviation of species counts 
+# for each land. You’d then use geom_point(aes(x = land, y = mean)) rather 
+# than geom_histogram(), and add your uncertainty with 
+# geom_errorbar(aes(x = land, ymin = mean - sd, ymax = mean + sd).
+
+# Create the summarised data
+summary <- species_counts %>%  group_by(land) %>% summarise(mean = mean(Species_number),
+                                                            sd = sd(Species_number))
+
+# Make a dot plot
+(dot <- ggplot(summary, aes(x = land, y = mean, colour = land)) +
+    geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd), width = 0.2) +
+    geom_point(size = 3) + 
+    scale_y_continuous(limits = c(0, 50)) +
+    scale_colour_manual(values = c('#CD5C5C', '#6CA6CD'), 
+                        labels = c('HOGSMEADE', 'NARNIA'), 
+                        name = 'Land of Magic') +                   
+    labs(title = 'Average species richness', 
+         x = '', y = 'Number of species \n') + 
+    theme_bw() +
+    theme(panel.grid = element_blank(), 
+          axis.text = element_text(size = 12), 
+          axis.title = element_text(size = 12), 
+          plot.title = element_text(size = 14, hjust = 0.5, face = 'bold'), 
+          plot.margin = unit(c(0.5,0.5,0.5,0.5), units = , 'cm'), 
+          legend.title = element_text(face = 'bold'),
+          legend.position = 'bottom', 
+          legend.box.background = element_rect(color = 'grey', size = 0.3)))
+
+# Boxplots, just like dot plots, give a more accurate idea of the range of 
+# values in your data: but remember that the thicker line in the box represents 
+# the median, not the mean!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
