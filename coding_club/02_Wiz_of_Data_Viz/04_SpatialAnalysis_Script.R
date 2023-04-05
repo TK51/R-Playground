@@ -29,8 +29,39 @@ rm(list = ls())
 dev.off()
 
 #### Libraries ----
-library(dplyr)  # For data manipulation
-library(ggplot2)  # For data visualisation
+install.packages("sp")
+install.packages("rgdal")
+install.packages("raster")
+install.packages("viridis")
+install.packages("viridisLite")
+install.packages("rasterVis")
+
+library(sp)
+library(rgdal)
+library(raster)
+library(ggplot2)
+library(viridisLite)
+library(rasterVis)
+
+# The sp package is central for spatial data analysis in R as it defines a set 
+# of classes to represent spatial data. Another important package for spatial 
+# analysis is the raster package.
+
+# A raster is a grid of equal size cells, or pixels in satellite images, and it 
+# is commonly used to represent spatially continuous data. The cells can have one 
+# or more values, or even no values for the variable of interest. In the trimmed 
+# multispectral image we will be using, each cell contains relfectance data for 
+# 12 spectral bands.
+
+# The raster package has functions that allow the creation, reading, manipulation 
+# and saving of raster data. The package rgdal is used to read or save spatial data 
+# files and the package raster uses it behind the scenes.
+
+# The package viridis is an aesthetically pleasing colour palette visible to 
+# people with colour blindness. We will use it to plot our results as well as ggplot.
+
+# First, we will use the raster package to read the satellite image file and 
+# inspect its properties.
 
 #### Working directory ----
 # Set working directory
@@ -38,8 +69,11 @@ getwd()
 setwd("./coding_club")
 
 #### Data source ----
-# Loading the dataset from dataset folder
-magic_veg <- read.csv(file = "datasets/magic_veg.csv")
+# Load data
+tay <- raster("datasets/taycrop.tif")
+
+# Get properties of the Tay raster
+tay
 
 #### Data exploration ----
 # We will first explore our dataset using the str() function, which shows what 
