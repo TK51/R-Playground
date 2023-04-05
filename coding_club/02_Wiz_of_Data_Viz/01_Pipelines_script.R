@@ -31,7 +31,7 @@ library(tidyr)
 #### Working directory ----
 # Set working directory
 getwd()
-setwd(".coding_club")
+setwd("./coding_club")
 
 #### Data source ----
 # Loading the dataset from dataset folder

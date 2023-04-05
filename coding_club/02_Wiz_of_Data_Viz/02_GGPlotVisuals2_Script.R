@@ -34,7 +34,7 @@ setwd("./coding_club")
 # Loading the dataset from dataset folder
 magic_veg <- read.csv(file = "datasets/magic_veg.csv")
 
-#### Data explaration ----
+#### Data exploration ----
 # We will first explore our dataset using the str() function, which shows what 
 # type each variable is. What is the dataset made of?
   
@@ -356,9 +356,51 @@ names(magic.palette) <- levels(more_magic$land)                                 
 # set your low = and high = colour values and the function will do the rest 
 # for you. We love it!
 
-#### 3. Customise boxplots in ggplot2 ----
+#### 3. Customize boxplots in ggplot2 ----
+# We could also plot the data using boxplots. Boxplots sometimes look better 
+# than bar plots, as they make more efficient use of space than bars and can 
+# reflect uncertainty in nice ways.
 
+# To make the boxplots, we will slightly reshape the dataset to take account of 
+# year as well. For more information on data manipulation using dplyr and 
+# pipes %>%, you can check out our data manipulation tutorial.
 
+yearly_counts <- magic_veg %>%
+  group_by(land, plot, year) %>%                             # We've added in year here
+  summarise(Species_number = length(unique(species))) %>%
+  ungroup() %>%
+  mutate(plot = as.factor(plot))
+# We first can plot the basic boxplot, without all the extra beautification 
+# we’ve just learnt about to look at the trends.
+
+(boxplot <- ggplot(yearly_counts, aes(plot, Species_number, fill = land)) +
+    geom_boxplot())
+
+# This does a much nicer job of showing which plots are the most species rich. 
+# With the beautifying customisations we’ve just learnt, we can make the plot 
+# much prettier!
+  
+(boxplot <- ggplot(yearly_counts, aes(x = plot, y = Species_number, fill = land)) +
+    geom_boxplot() +
+    scale_x_discrete(breaks = 1:6) +
+    scale_fill_manual(values = c("rosybrown1", "#deebf7"),
+                      breaks = c("Hogsmeade","Narnia"),
+                      name="Land of magic",
+                      labels=c("Hogsmeade", "Narnia")) +
+    labs(title = "Species richness by plot", 
+         x = "\n Plot number", y = "Number of species \n") + 
+    theme_bw() + 
+    theme() + 
+    theme(panel.grid = element_blank(), 
+          axis.text = element_text(size = 12), 
+          axis.title = element_text(size = 12), 
+          plot.title = element_text(size = 14, hjust = 0.5, face = "bold"), 
+          plot.margin = unit(c(0.5,0.5,0.5,0.5), units = , "cm"), 
+          legend.position = "bottom", 
+          legend.box.background = element_rect(color = "grey", size = 0.3)))
+
+# Saving the boxplot
+ggsave("magical-sp-rich-boxplot1.png", width = 7, height = 5, dpi = 300)
 
 
 
