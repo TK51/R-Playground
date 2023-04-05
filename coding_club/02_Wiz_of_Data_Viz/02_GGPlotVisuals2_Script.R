@@ -428,7 +428,7 @@ summary <- species_counts %>%  group_by(land) %>% summarise(mean = mean(Species_
     geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd), width = 0.2) +
     geom_point(size = 3) + 
     scale_y_continuous(limits = c(0, 50)) +
-    scale_colour_manual(values = c('#CD5C5C', '#6CA6CD'), 
+    scale_colour_manual(values = c("#c979a0", "#79C9A2"),
                         labels = c('HOGSMEADE', 'NARNIA'), 
                         name = 'Land of Magic') +                   
     labs(title = 'Average species richness', 
@@ -447,9 +447,120 @@ summary <- species_counts %>%  group_by(land) %>% summarise(mean = mean(Species_
 # values in your data: but remember that the thicker line in the box represents 
 # the median, not the mean!
 
+# Reordering factors
+# Remember how we learnt to recode and reorder factors in our advanced data 
+# manipulation tutorial? We often want to do this so that we can plot values in 
+# a specific order.
 
+# If we wanted to have Narnia come before Hogsmeade, we would first have to
+# reorder the data in the dataframe. From this point, after reordering the data, 
+# ggplot will always plot Narnia before Hogsmeade. Also, note how we’ve changed 
+# the order of things in scale_fill_manual - above we had it as “Hogsmeade”, 
+# then “Narnia”, and now we have “Narnia” come before “Hogsmeade” to also reorder 
+# the legend.
 
+# Reordering the data
+yearly_counts$land <- factor(yearly_counts$land, 
+                             levels = c("Narnia", "Hogsmeade"),
+                             labels = c("Narnia", "Hogsmeade"))
 
+# Plotting the boxplot 
+(boxplot <- ggplot(yearly_counts, aes(x = plot, y = Species_number, fill = land)) +
+    geom_boxplot() +
+    scale_x_discrete(breaks = 1:6) +
+    scale_fill_manual(values = c("#c979a0", "#79C9A2"),
+                      breaks = c("Narnia","Hogsmeade"),
+                      name = "Land of magic",
+                      labels = c("Narnia", "Hogsmeade")) +
+    labs(title = "Species richness by plot", 
+         x = "\n Plot number", y = "Number of species \n") + 
+    theme_bw() + 
+    theme() + 
+    theme(panel.grid = element_blank(), 
+          axis.text = element_text(size = 12), 
+          axis.title = element_text(size = 12), 
+          plot.title = element_text(size = 14, hjust = 0.5, face = "bold"), 
+          plot.margin = unit(c(0.5,0.5,0.5,0.5), units = , "cm"), 
+          legend.position = "bottom", 
+          legend.box.background = element_rect(color = "grey", size = 0.3)))
+
+#If we wanted to reorder the y axis of plot numbers, such that the boxplot for 
+# plot 6 comes before 1, then 2, 3, 4, 5, we can use the same principle. Again, 
+# from this point on, ggplot will always plot “6” before the rest.
+
+# Reordering the data 
+yearly_counts$plot <- factor(yearly_counts$plot, 
+                             levels = c("6", "1", "2", "3", "4", "5"),
+                             labels = c("6", "1", "2", "3", "4", "5"))
+
+# Plotting the boxplot 
+(boxplot2 <- ggplot(yearly_counts, aes(x = plot, y = Species_number, fill = land)) +
+    geom_boxplot() +
+    scale_x_discrete(breaks = 1:6) +
+    scale_fill_manual(values = c("#c979a0", "#79C9A2"),
+                      breaks = c("Narnia","Hogsmeade"),
+                      name = "Land of magic",
+                      labels = c("Narnia", "Hogsmeade")) +
+    labs(title = "Species richness by plot", 
+         x = "\n Plot number", y = "Number of species \n") + 
+    theme_bw() + 
+    theme() + 
+    theme(panel.grid = element_blank(), 
+          axis.text = element_text(size = 12), 
+          axis.title = element_text(size = 12), 
+          plot.title = element_text(size = 14, hjust = 0.5, face = "bold"), 
+          plot.margin = unit(c(0.5,0.5,0.5,0.5), units = , "cm"), 
+          legend.position = "bottom", 
+          legend.box.background = element_rect(color = "grey", size = 0.3)))
+
+#### 4. Plot regression lines onto your plots ----
+# We are now going to look at another aspect of the data: the plant heights, 
+# and how they might have changed over time. First, we need to do a little bit 
+# of data manipulation to extract just the heights:
+  
+heights <- magic_veg %>%
+  filter(!is.na(height)) %>%                    # removing NA values
+  group_by(year, land, plot, id) %>%
+  summarise(Max_Height = max(height)) %>%       # Calculating max height
+  ungroup() %>%                                 # Need to ungroup so that the pipe doesn't get confused
+  group_by(year, land, plot) %>%
+  summarise(Height = mean(Max_Height))          # Calculating mean max height
+# We can view this as a basic scatterplot in ggplot2:
+  
+(basic_mm_scatter <- ggplot(heights, aes(year, Height, colour = land)) +
+    geom_point() +
+    theme_bw())
+# We can see pretty clear trends over time, and so we can try to plot a simple 
+# straight line through this using stat_smooth in ggplot2, by specifying a linear 
+# model (lm) method. We did this briefly at the end of our first ggplot tutorial.
+
+(basic_mm_scatter_line <- ggplot(heights, aes(year, Height, colour = land)) +
+    geom_point() +
+    theme_bw() +
+    stat_smooth(method = "lm"))
+
+# However, perhaps this isn’t what we really want, because you can see the 
+# relationship isn’t linear. An alternative would be to use a different smoothing 
+# equation. Let’s try a quadratic fit - something slightly more complicated to 
+# produce than the standard fits provided by R. Thankfully, ggplot2 lets us 
+# customize to pretty much any type of fit we want, as we can add in an equation 
+# to tell it what to plot. There are also several different base fits available. 
+# You can check out some here.
+
+(improved_mm_scat <- ggplot(heights, aes(year, Height, colour = land)) +
+    geom_point() +
+    theme_bw() +
+    stat_smooth(method = "lm", formula = y ~ x + I(x^2)))
+
+# What about fancier stats?
+# Some of you might have picked up on the fact that our data are nested (species 
+# within plots within magic lands) and come from different years: therefore, 
+# a mixed-effects modelling approach might be better here. For an introduction 
+# to linear mixed effects modelling, check out our tutorial, where we show how 
+# to plot the model predictions.
+
+# For now, take some time to explore the different ggplot2 fits! For instance, 
+# method = "loess" gives a smoothed curve.
 
 
 
