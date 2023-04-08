@@ -135,6 +135,120 @@ norm <- rnorm(100, mean = 0, sd = 1)
 # You can run an individual chunk of code at any time by clicking on the small 
 # green arrow
 
+#### More on Code Chunks
+# It’s important to remember when you are creating an RMarkdown file that if you 
+# want to run code that refers to an object, for example:
+  
+```{r}
+print(dataframe)
+```
+# you must include instructions showing what dataframe is, just like in a normal
+#R script. For example:
+  
+```{r}
+A <- c("a", "a", "b", "b")
+B <- c(5, 10, 15, 20)
+dataframe <- data.frame(A, B)
+print(dataframe)
+```
+# Or if you are loading a dataframe from a .csv file, you must include the code 
+# in the .Rmd:
+  
+```{r}
+dataframe <- read.csv("~/Desktop/Code/dataframe.csv")
+```
+# Similarly, if you are using any packages in your analysis, you will have to 
+# load them in the .Rmd file using library() as in a normal R script.
+
+```{r}
+library(dplyr)
+```
+#### Hiding code chunks ----
+# If you don’t want the code of a particular code chunk to appear in the final 
+# document, but still want to show the output (e.g. a plot), then you can include 
+#echo = FALSE in the code chunk instructions.
+
+```{r, echo = FALSE}
+A <- c("a", "a", "b", "b")
+B <- c(5, 10, 15, 20)
+dataframe <- data.frame(A, B)
+print(dataframe)
+```
+# Similarly, you might want to create an object, but not include both the code 
+# and the output in the final .html file. To do this you can use, include = FALSE. 
+# Be aware though, when making reproducible research it’s often not a good idea 
+# to completely hide some part of your analysis:
+  
+```{r, include = FALSE}
+richness <-
+  edidiv %>%
+  group_by(taxonGroup) %>%
+  summarise(Species_richness = n_distinct(taxonName))
+```
+# In some cases, when you load packages into RStudio, various warning messages 
+# such as “Warning: package ‘dplyr’ was built under R version 3.4.4” might appear.
+# If you do not want these warning messages to appear, you can use warning = FALSE.
+
+```{r, warning = FALSE}
+library(dplyr)
+```
+# REMEMBER: 
+# R Markdown doesn’t pay attention to anything you have loaded in other R scripts, 
+# you MUST load all objects and packages in the R Markdown script.
+
+#### Inserting Figures ----
+# Inserting a graph into RMarkdown is easy, the more energy-demanding aspect 
+# might be adjusting the formatting.
+
+# By default, RMarkdown will place graphs by maximising their height, while 
+# keeping them within the margins of the page and maintaining aspect ratio. 
+# If you have a particularly tall figure, this can mean a really huge graph. In 
+# the following example we modify the dimensions of the figure we created above. 
+# To manually set the figure dimensions, you can insert an instruction into the 
+# curly braces:
+  
+```{r, fig.width = 4, fig.height = 3}
+A <- c("a", "a", "b", "b")
+B <- c(5, 10, 15, 20)
+dataframe <- data.frame(A, B)
+print(dataframe)
+boxplot(B~A,data=dataframe)
+```
+# Inserting Tables ----
+# Standard R Markdown
+# While R Markdown can print the contents of a data frame easily by enclosing 
+# the name of the data frame in a code chunk:
+  
+```{r}
+dataframe
+```
+# this can look a bit messy, especially with data frames with a lot of columns. 
+# Including a formal table requires more effort.
+
+# kable() function from knitr package
+# The most aesthetically pleasing and simple table formatting function I have 
+# found is kable() in the knitr package. The first argument tells kable to make 
+# a table out of the object dataframe and that numbers should have two significant 
+# figures. Remember to load the knitr package in your .Rmd file as well.
+
+```{r}
+library(knitr)
+kable(dataframe, digits = 2)
+```
+# pander function from pander package
+# If you want a bit more control over the content of your table you can use 
+# pander() in the pander package. Imagine I want the 3rd column to appear in italics:
+ 
+```{r}
+library(pander)
+plant <- c("a", "b", "c")
+temperature <- c(20, 20, 20)
+growth <- c(0.65, 0.95, 0.15)
+dataframe <- data.frame(plant, temperature, growth)
+emphasize.italics.cols(3)   # Make the 3rd column italics
+pander(dataframe)           # Create the table
+```
+
 # 7. Create a .pdf file from your .Rmd file ----
 
 

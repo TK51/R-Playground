@@ -57,10 +57,33 @@ The $ symbols tells R markdown to use LaTeX equation syntax.
 norm <- rnorm(100, mean = 0, sd = 1)
 ```
 
+```{r}
+A <- c("a", "a", "b", "b")
+B <- c(5, 10, 15, 20)
+dataframe <- data.frame(A, B)
+print(dataframe)
+```
 
+```{r, echo = FALSE}
+A <- c("a", "a", "b", "b")
+B <- c(5, 10, 15, 20)
+dataframe <- data.frame(A, B)
+print(dataframe)
+```
+
+```{r}
+library(dplyr)
+```
 
 ```{r}
 print("yey!")
+```
+```{r, fig.width = 4, fig.height = 3}
+A <- c("a", "a", "b", "b")
+B <- c(5, 10, 15, 20)
+dataframe <- data.frame(A, B)
+print(dataframe)
+boxplot(B~A,data=dataframe)
 ```
 
 
