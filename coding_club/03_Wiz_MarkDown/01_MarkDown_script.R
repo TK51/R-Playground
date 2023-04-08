@@ -25,7 +25,13 @@
 rm(list = ls())
 
 #### Libraries ----
+#install.packages("rmarkdown")          # - if you're missing one
+library(rmarkdown)
 
+#### Working directory ----
+# Set working directory
+getwd()
+setwd("./coding_club")
  
 
 
