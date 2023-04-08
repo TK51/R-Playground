@@ -130,7 +130,7 @@ plot(cropped_tay)
 # The bands can be plotted with different colour palettes to improve 
 # visualisation, such as viridis, and saved using the code below.
 
-png('tayplot.png', width = 4, height = 4, units = "in", res = 300)                	# to save plot
+png('02_Wiz_of_Data_Viz/tayplot.png', width = 4, height = 4, units = "in", res = 300)                	# to save plot
 image(b8, col= viridis_pal(option="D")(10), main="Sentinel 2 image of Loch Tay")
 dev.off()         									# to save plot
 # dev.off() is a function that "clears the slate" - it just means you are done using that specific plot
@@ -151,7 +151,7 @@ image(b8, col= viridis_pal(option="D")(10), main="Sentinel 2 image of Loch Tay")
 
 
 # this code specifies how we want to save the plot
-png('RGB.png', width = 5, height = 4, units = "in", res = 300)
+png('02_Wiz_of_Data_Viz/RGB.png', width = 5, height = 4, units = "in", res = 300)
 tayRGB <- stack(list(b4, b3, b2))              # creates raster stack
 plotRGB(tayRGB, axes = TRUE, stretch = "lin", main = "Sentinel RGB colour composite")
 dev.off()
@@ -188,19 +188,197 @@ gplot(b8) +
 
 ggsave("02_Wiz_of_Data_Viz/ggtay.png", scale = 1.5, dpi = 300) 		# to save plot
 
+# To visualise all the bands together, we can use facet_wrap in gplot. First, 
+# we will create a stack of all the bands, so just putting them all on top of 
+# each other, like layers in a cake.
+
+t <- stack(b1,b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12)
+# Now we are ready to make out facetted plots.
+
+gplot(t) +
+  geom_raster(aes(x = x, y = y, fill = value))+
+  scale_fill_viridis_c() +
+  facet_wrap(~variable) +
+  coord_quickmap()+
+  ggtitle("Sentinel 2 Loch tay, raster plots") +
+  xlab("Longitude") +
+  ylab("Latitude") +
+  theme_classic() +
+  theme(text = element_text(size=20),
+        axis.text.x = element_text(angle = 90, hjust = 1)) +
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggsave("02_Wiz_of_Data_Viz/allbands.png", scale = 1.5, dpi = 300) # to save plot
+dev.off()
+
+# Alternatively, for a quick visualisation, the original file can be loaded as a 
+# raster brick and plotted using ‘plot’.
+
+s_tay <- brick('datasets/taycrop.tif')
+plot(s_tay)
+
+# 3. Manipulate rasters: NDVI and KMN classification ----
+# The Normalised Difference Vegetation Index (NDVI) is a widely used vegetation 
+# index that quantifies vegetation presence, health or structure. It is calculated 
+# using the Near Infrared (NIR) and Red bandwith of the spectrum. Healthy 
+# vegetation reflects light strongly in the NIR part of the spectrum and absorbs 
+# light in red part of the visible spectrum for photosynthesis. A high ratio 
+# between light refected in the NIR part of the spectrum and light reflected in 
+# the red part of the spectrum would represent areas that potentially have healthy 
+# vegetation. It is worth noting that different plant species absorb light in the 
+# red part of the spectrum at different rates. The same plant will also absorb 
+# light in the red band differently depending on whether it is stressed or healthy, 
+# or the time of year. It is often used over large areas as an indication of land 
+# cover change.
+
+# The NDVI ratio is calculated using (NIR - Red) / (NIR + Red). For example, a 
+# pixel with an NDVI of less than 0.2 is not likely to be dominated by vegetation, 
+# and an NDVI of 0.6 and above is likely to be dense vegetation.
+
+# In R, we can calculate the NDVI by creating a function and using raster math 
+# operations where NIR = band 8 and Red = band 4 in Sentinel 2 images. We will 
+# first use the raster brick we created earlier from the original file.
+
+# NDVI
+
+# Created a VI function (vegetation index)
+VI <- function(img, k, i) {
+  bk <- img[[k]]
+  bi <- img[[i]]
+  vi <- (bk - bi) / (bk + bi)
+  return(vi)
+}
+
+# For Sentinel 2, the relevant bands to use are:
+# NIR = 8, red = 4
+
+# Now we are ready to apply our function to the raster we’ve been working with so far!
+
+ndvi <- VI(s_tay, 8, 4)
+# 8 and 4 refer to the bands we'll use
+
+png('02_Wiz_of_Data_Viz/ndviplot.png', width = 4, height = 4, units = "in", res = 300)
+plot(ndvi, col = rev(terrain.colors(10)), main = 'Sentinel 2, Loch Tay-NDVI')
+dev.off()
+
+# To find out the distribution of the pixel NDVI values, we can plot a histogram.
+
+# Create histogram of NDVI data
+
+png('02_Wiz_of_Data_Viz/ndvihist.png', width = 4, height = 4, units = "in", res = 300)
+hist(ndvi,
+     main = "Distribution of NDVI values",
+     xlab = "NDVI",
+     ylab= "Frequency",
+     col = "aquamarine3",
+     xlim = c(-0.5, 1),
+     breaks = 30,
+     xaxt = 'n')
+axis(side = 1, at = seq(-0.5,1, 0.05), labels = seq(-0.5,1, 0.05))
+dev.off()
+
+#### So what does this mean?
+# The histogram is strongly skewed to the right, towards highh NDVI values, 
+# indicating a highly vegetated area.
+
+# Now that we know that this area has lots of vegetation, we can also mask the 
+# pixels with an NDVI value of less than 0.4 (less likely to be vegetation) to 
+# highlight where the vegetated areas occur.
+
+# Mask cells that have NDVI of less than 0.4 (less likely to be vegetation)
+
+png('02_Wiz_of_Data_Viz/ndvimask.png', width = 4, height = 4, units = "in", res = 300)
+
+veg <- reclassify(ndvi, cbind(-Inf, 0.4, NA))
+# We are reclassifying our object and making all values between
+# negative infinity and 0.4 be NAs
+
+plot(veg, main = 'Veg cover')
+dev.off()
+
+# We still have a high vegetation cover, which is to be expected in this part of 
+# Scotland.
+
+#### How can we save the raster itself, not just plots?
+# We might want to export the NDVI raster we just created to use in QGIS or other 
+# software, or to save it for further use in R.
+
+# To save a raster object, use the writeraster function. Saving the data as
+# integers rather than floats requires less memory and processing for the 
+# computer to handle. A float is a term used to describe a variable with a 
+# fractional value or decimals, e.g. 0.002.
+
+writeRaster(x = ndvi,
+            
+            # where your file will go - update with your file path!
+            
+            filename="02_Wiz_of_Data_Viz/tay_ndvi_2018.tif", 	
+            format = "GTiff", 					# save as a tif
+            datatype = 'INT2S') 					# save as a INTEGER rather than a float
+
+# Raster operations also allow us to perform an unsupervised classification, or 
+# a clustering of the pixels, in the satellite image. In this context, 
+# unsupervised means that we are not using training data for the clustering.
+
+# This type of classification can be useful when not a lot is known about an 
+# area. In the example below, we are going to use the kmeans algorithm. The 
+# algorithm groups pixels that have similar spectral properties in the same 
+# cluster. We are going to create 10 clusters using the NDVI raster we have just 
+# created above, but first, we need to convert the raster into an array, which 
+# is the object format required for the classification.
 
 
+# convert the raster to vector/matrix ('getValues' converts the RasterLAyer to array) )
 
+nr <-getValues(ndvi)
+str(nr)
 
+# important to set the seed generator because `kmeans` initiates the centres in 
+# random locations the seed generator just generates random numbers
 
+set.seed(99)
 
+# create 10 clusters, allow 500 iterations, start with 5 random sets using 
+# 'Lloyd' method
 
+kmncluster <- kmeans(na.omit(nr), centers = 10, iter.max = 500,
+                     nstart = 5, algorithm = "Lloyd")
 
+# kmeans returns an object of class 'kmeans'
 
+str(kmncluster)
 
+# Kmeans returns an object with 9 elements. The length of the cluster element 
+# within kmncluster is 429936 which is the same as the length of nr created from 
+# the ndvi object. The cell values of kmncluster$cluster range between 1 to 10 
+# corresponding to the input number of clusters we provided in the kmeans() 
+# function. kmncluster$cluster indicates the cluster label for the corresponding 
+# pixel.
 
+# Our classification is now complete, and to visualise the results, we need to 
+# convert the kmncluster$cluster array back to a RasterLayer of the same 
+# dimension as the ndvi object.
 
+# First create a copy of the ndvi layer
+knr <- ndvi
 
+# Now replace raster cell values with kmncluster$cluster
+# array
+knr[] <- kmncluster$cluster
+
+# Alternative way to achieve the same result
+values(knr) <- kmncluster$cluster
+knr
+# We can see that knr is a RasterLayer with 429,936 cells, but we do not know 
+# which cluster (1-10) belongs what land cover or vegetation type. One way of 
+# attributing a class to a land cover type is by plotting the cluster 
+# side-by-side with a reference layer of land cover and using unique colours for 
+# each cluster. As we don’t have one for our example area, we can use the NDVI 
+# map we created earlier or the RGB plot.
+
+par(mfrow = c(1, 2))
+plot(ndvi, col = rev(terrain.colors(10)), main = "NDVI")
+plot(knr, main = "Kmeans", col = viridis_pal(option = "D")(10))
 
 
 
