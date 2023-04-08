@@ -380,9 +380,32 @@ par(mfrow = c(1, 2))
 plot(ndvi, col = rev(terrain.colors(10)), main = "NDVI")
 plot(knr, main = "Kmeans", col = viridis_pal(option = "D")(10))
 
+# If we want to plot our classification alongside the RGB rendering of the 
+# raster, and save the two plots, we can use the code below:
+  
+png('02_Wiz_of_Data_Viz/rgb_kmeans.png', width = 10, height = 8, units = "in", res = 300)
+par(mar = c(10.8, 5, 10.8, 2), mfrow = c(1, 2))
+plotRGB(tayRGB, axes = TRUE, stretch = "lin", main = "RGB")
+plot(knr, main = "Kmeans", yaxt = 'n', col = viridis_pal(option = "D")(10))
+dev.off()
 
+# A simple classification like this one is only to give an idea of land cover 
+# types. In the above example, we could deduce that cluster 8, in green, is 
+# water as it covers the Loch. We can also spot patterns in the vegetation cover 
+# in both the NDVI and kmeans cluster plots. We could deduce that the areas with 
+# the highest NDVI ratio are likely to be forest cover.
 
-
+# Exercise: Using the NDVI, RGB and kmeans plot, can you deduce other land cover
+# around the Loch Tay area?
+  
+#### Conclusion ----
+# In this introduction to remote sensing spatial analysis, we have covered how to:
+  
+# - Import a GeoTIFF file as a raster in R.
+# - Extract layers from a multi-layer raster objects and get the raster properties.
+# - Explore raster visulaisation of single and mutil-layered object with rasterVis, ggplot and base R.
+# - Explore raster manipulations by calculating and plotting the NDVI ratio of the pixels in our image.
+# - Perform an unsupervised image classification using the kmeans algorithm to cluster the pixels in 10 clusters.
 
 
 
