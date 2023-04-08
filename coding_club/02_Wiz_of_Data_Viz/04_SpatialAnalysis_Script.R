@@ -36,12 +36,13 @@ dev.off()
 # install.packages("viridisLite")
 # install.packages("rasterVis")
 
-library(sp)
-library(rgdal)         
-library(raster)          
+library(sp)           # central for spatial data analysis in R
+library(rgdal)        # read or save spatial data files - used by raster behind the scene
+library(raster)       # creation, reading, manipulation and saving of raster data  
 library(ggplot2)
 library(viridisLite)
 library(rasterVis)     
+library(viridis)      # aesthetically pleasing colour palette visible to people with colour blindness
 
 # The sp package is central for spatial data analysis in R as it defines a set 
 # of classes to represent spatial data. Another important package for spatial 
