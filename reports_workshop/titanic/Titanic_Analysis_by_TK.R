@@ -98,6 +98,7 @@ ggplot(data = train_fctrs, aes(x = Survived, fill = Sex)) + geom_bar(position = 
   theme(axis.text = element_text(size = 12), 
         axis.title = element_text(size = 12, face = "bold"), 
         plot.title = element_text(size = 14, hjust = 0.5, face = "bold"))
+
 ggplot(data = train_fctrs, aes(x = Pclass, fill = Survived)) + geom_bar() +
   scale_y_continuous(limits = c(0, 600)) +                # making visual limits
   scale_fill_manual(values = c("#c979a0", "#79C9A2")) +   # color code for sex categories

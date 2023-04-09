@@ -3,9 +3,9 @@ title: "Titanic Analysis"
 author: "Taras the Analyst"
 date: "2023-04-09"
 output:
+  html_document: default
   pdf_document:
     latex_engine: xelatex
-  html_document: default
 geometry: left = 1.5cm, right = 1cm, top = 1cm, bottom = 1cm, margin = 1.5cm
 ---
 
@@ -103,46 +103,70 @@ knitr::kable(list(k1, k2))
 # cross-checking the empty records for Embarked
 filter(full, full$Embarked == "")
 
-#kable(filter(full, full$Embarked == ""))
+# getting it into a bit more visually attractive way
+kable(filter(full, full$Embarked == ""))
 ```
 
-
-```
+```{r}
 # getting the digits of missing values
 paste("= N/A in full dataset:")  # that's added for some internal explanations
-table(is.na(full))  # showing aggregated "n/a" values within each column
-Cleaning & transforming the data
-# change the empty strings in Embarked to the first choice "C"
+pander(table(is.na(full)))  # showing aggregated "n/a" values within each column
+```
+## Cleaning & transforming the data
+
+#### Change the empty strings in Embarked to the first choice "C"
+```{r}
 full$Embarked[full$Embarked == ""] = "C"
-# see how many features can be transformed to factors
+```
+
+#### See how many features can be transformed to factors
+```{r}
 apply(full, 2, function(x) length(unique(x)))
-# move the attributes Survived, Pclass, Sex, Embarked to be factors
+```
+
+Move the attributes Survived, Pclass, Sex, Embarked to be factors
+
+```{r}
 cols <- as.factor(c("Survived", "Pclass", "Sex", "Embarked"))
 for (i in cols){
   full[, i] <- as.factor(full[, i])
 }
+```
 
-# Now let's look on the structure of the full data set
+#### Now let's look on the structure of the full data set
+```{r}
 str(full)
-# move the attributes Survived, Pclass, Sex, Embarked to be factors within train data set
+```
+Move the attributes Survived, Pclass, Sex, Embarked to be factors within train data set
+```{r}
 cols <- as.factor(c("Survived", "Pclass", "Sex", "Embarked"))
 for (i in cols){
   train[, i] <- as.factor(train[, i])
 }
+```
 
-# Now let's look on the structure of the train data set
+#### Now let's look on the structure of the train data set
 str(train)
-Analyse the cleaned data
-The data has been loaded & cleaned a little bit so far. Now, it’s time to look at the relationships between the different attributes within set.
 
-# check the correlations within factored attributes, so to see if there's something useful
+## Analyse the cleaned data
+The data has been loaded & cleaned a little bit so far. Now, it’s time to look at the relationships between the different attributes within set and to check the correlations within factored attributes, so to see if there's something useful.
+
+```{r}
 full_fctrs <- full[, c("Survived", "Pclass", "Sex", "Embarked")]
 train_fctrs <- train[, c("Survived", "Pclass", "Sex", "Embarked")]
-
+```
+```{r}
 dim(full_fctrs)  # check if the re-shaping went well resulted in 4 columns only
 dim(train_fctrs)
-str(train_fctrs)
-str(full_fctrs)
+```
+
+```{r}
+str(train_fctrs)  # getting the structure overview of train factors
+str(full_fctrs)   # getting the structure overview of test factors
+```
+
+#### Adding some visuals to clarify the picture
+```{r}
 # visualizing the numbers available so to get the general picture of the case
 ggplot(data = train_fctrs, aes(x = Survived, fill = Sex)) + geom_bar() +
   scale_y_continuous(limits = c(0, 600)) +              # making visual limits
@@ -154,6 +178,8 @@ ggplot(data = train_fctrs, aes(x = Survived, fill = Sex)) + geom_bar() +
   theme(axis.text = element_text(size = 12), 
         axis.title = element_text(size = 12, face = "bold"), 
         plot.title = element_text(size = 14, hjust = 0.5, face = "bold"))
+```
+```{r}
 # side-by-side comparison to make things more understandable - Survived by Sex
 ggplot(data = train_fctrs, aes(x = Survived, fill = Sex)) + geom_bar(position = "dodge") + 
   scale_y_continuous(limits = c(0, 600)) +                # making visual limits
@@ -165,6 +191,9 @@ ggplot(data = train_fctrs, aes(x = Survived, fill = Sex)) + geom_bar(position = 
   theme(axis.text = element_text(size = 12), 
         axis.title = element_text(size = 12, face = "bold"), 
         plot.title = element_text(size = 14, hjust = 0.5, face = "bold"))
+```
+```{r}
+# side-by-side comparison to make things more understandable - Survived by Sex
 ggplot(data = train_fctrs, aes(x = Pclass, fill = Survived)) + geom_bar() +
   scale_y_continuous(limits = c(0, 600)) +                # making visual limits
   scale_fill_manual(values = c("#c979a0", "#79C9A2")) +   # color code for sex categories
@@ -175,6 +204,9 @@ ggplot(data = train_fctrs, aes(x = Pclass, fill = Survived)) + geom_bar() +
   theme(axis.text = element_text(size = 12), 
         axis.title = element_text(size = 12, face = "bold"), 
         plot.title = element_text(size = 14, hjust = 0.5, face = "bold"))
+```
+
+```{r}
 # side-by-side comparison to make things more understandable - Survived by Class
 ggplot(data = train_fctrs, aes(x = Pclass, fill = Survived)) + geom_bar(position = "dodge") +
   scale_y_continuous(limits = c(0, 400)) +
@@ -186,6 +218,10 @@ ggplot(data = train_fctrs, aes(x = Pclass, fill = Survived)) + geom_bar(position
   theme(axis.text = element_text(size = 12), 
         axis.title = element_text(size = 12, face = "bold"), 
         plot.title = element_text(size = 14, hjust = 0.5, face = "bold"))
+```
+
+
+```
 # create a train-limited dataset, so the data from train is only considered in calculations
 
 LT = dim(train)[1]
