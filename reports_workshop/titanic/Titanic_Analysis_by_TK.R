@@ -233,7 +233,7 @@ ggplot(data = full[1:LT,],aes(x=Fare,fill=Survived))+geom_histogram(binwidth =20
         axis.title = element_text(size = 12, face = "bold"), 
         plot.title = element_text(size = 14, hjust = 0.5, face = "bold"))
 full$Fare[is.na(full$Fare)] <- mean(full$Fare,na.rm=T)
-sum(is.na(full$Age))
+sum(is.na(full$Fare))
 # seems like bigger fare gave better chance to survive
 # check the missing values for Age
 sum(is.na(full$Age))
