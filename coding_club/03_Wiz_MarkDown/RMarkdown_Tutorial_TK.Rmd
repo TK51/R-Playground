@@ -1,0 +1,100 @@
+---
+title: "RMarkdown_Tutorial_TK"
+author: "TK51"
+date: "2023-04-09"
+output:
+  pdf_document: default
+  html_document: default
+geometry: left = 0.5cm, right = 1cm, top = 1cm, bottom = 1cm
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# The Task
+
+Use this example R script to practice compiling an R Markdown file, using the 
+tutorial materials provided at: [ourcodingclub.github.io](ourcodingclub.github.io/2016/11/24/rmarkdown-1.html)
+
+Follow through the tutorial to make a well commented, easy to follow record of
+what is going on so that others can easily follow.
+
+## Preabmle
+
+### Loading packages
+```{r, message=FALSE, warning=FALSE}
+library(dplyr)   # for data manipulation
+library(pander)  # to create pretty tables
+```
+
+### Loading biodiversity data
+```{r, include=FALSE}
+setwd("/home/t51/DataAnalytics/R-Playground/coding_club")
+edidiv <- read.csv("datasets/edidiv.csv")
+```
+
+## Data exploration
+
+This data is a publicly available dataset of occurrence records for many animal, 
+plant, and fungi species, for 2000-2016 from the NBN Gateway
+
+### What is the species richness across taxonomic groups?
+
+Constructing a table of species richness in each taxonomic group
+
+```{r, results='asis'}
+richness <- 
+  edidiv %>%
+    group_by(taxonGroup) %>%
+    summarise(Species_richness = n_distinct(taxonName))
+
+pander(richness)
+```
+
+Creating a barplot of species richness in each taxonomic group
+```{r, fig.align="center", fig.width=15, fig.height=8}
+barplot(richness$Species_richness, 
+        names.arg = richness$taxonGroup, 
+        xlab = "Taxa", ylab = "Number of species", 
+        ylim = c(0,600)
+        ) 
+```
+### Determining what the most common species is in each taxonomic group 
+```{r}
+# Create a vector of most abundant species per taxa
+max_abund <-
+  edidiv %>%
+    group_by(taxonGroup) %>%
+    summarise(taxonName = names(which.max(table(taxonName))))
+
+max_abund
+```
+
+```{r}
+# Joining the two data frames together, using "taxonGroup" as the reference
+richness_abund <- inner_join(richness, max_abund, by = "taxonGroup")
+```
+
+```{r}
+# Renaming the headers of the tables, and viewing the data frame
+richness_abund <- rename(richness_abund, Most_abundant =  taxonName, Taxon = taxonGroup)
+
+richness_abund
+
+pander(richness_abund)
+```
+```{r}
+library(knitr)
+kable(richness_abund)
+```
+\pagebreak
+### Things to think about:
+
+  - Which bits of code need to be displayed in the final .html file?
+  - How can the formatting of the R markdown file be improved?
+
+Experiment with other demo R scripts in the repo, or your own scripts for further practice! 
+
+  - RMarkdown_Demo_1.R 
+  - RMarkdown_Demo_2.R 
+  - RMarkdown_Demo_3.R

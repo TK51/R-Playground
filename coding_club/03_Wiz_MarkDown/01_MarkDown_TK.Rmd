@@ -2,8 +2,13 @@
 title: "Test_RMkdwn"
 author: "TK51"
 date: "2023-04-08"
-output: html_document
+output:
+  pdf_document:
+  html_document: 
+geometry: left = 0.5cm, right = 1cm, top = 1cm, bottom = 1cm
 ---
+
+# YES, IT IS! The starter (2nd timeR)!
 
 ## Markdown syntax
 
@@ -93,6 +98,59 @@ dataframe
 library(knitr)
 kable(dataframe, digits = 2)
 ```
+
+```{r}
+library(pander)
+plant <- c("a", "b", "c")
+temperature <- c(20, 20, 20)
+growth <- c(0.65, 0.95, 0.15)
+dataframe <- data.frame(plant, temperature, growth)
+emphasize.italics.cols(3)   # Make the 3rd column italics
+pander(dataframe)           # Create the table
+```
+| Plant | Temp. | Growth |
+|:------|:-----:|-------:|
+| A     | 20    | 0.65   |
+| B     | 20    | 0.95   |
+| C     | 20    | 0.15   |
+
+\pagebreak
+```{r warning=FALSE}
+library(broom)
+library(pander)
+A <- c(20, 15, 10)
+B <- c(1, 2, 3)
+
+lm_test <- lm(A ~ B)            # Creating linear model
+
+table_obj <- tidy(lm_test)      # Using tidy() to create a new R object called table
+
+pander(table_obj, digits = 3)   # Using pander() to view the created table, with 3 sig figs 
+```
+
+\pagebreak
+```{r echo=FALSE}
+library(dplyr)
+library(pander)
+library(knitr)
+getwd()
+```
+```{r}
+edidiv <- read.csv("edidiv.csv")
+richness <-
+  edidiv %>%
+  group_by(taxonGroup) %>%
+  summarise(Species_richness = n_distinct(taxonName))
+
+richness
+
+pander(richness)
+
+kable(richness)
+```
+
+
+
 
 
 

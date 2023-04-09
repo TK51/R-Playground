@@ -70,7 +70,7 @@ emphasize.italics.cols(3) #Make the 3rd column italics
 pander(richness_abund) #Create a table
 ```
 
-
+kable(max_abund)
 
 
 

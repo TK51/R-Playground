@@ -28,9 +28,15 @@ rm(list = ls())
 #### Libraries ----
 #install.packages("rmarkdown")          # - if you're missing one
 #install.packages("knitr")              # - if you're missing one
+#install.packages("pander")             # - if you're missing one
+#install.packages("tinytex")
 library(rmarkdown)
 library(dplyr)
-library(knitr)
+library(knitr)  # kable() function for tables creation
+library(pander)
+library(broom)
+library(tidyr)
+library(tinytex)
 
 #### Working directory ----
 # Set working directory
@@ -251,8 +257,138 @@ emphasize.italics.cols(3)   # Make the 3rd column italics
 pander(dataframe)           # Create the table
 ```
 
-# 7. Create a .pdf file from your .Rmd file ----
+#### Manually creating tables using markdown syntax
+# You can also manually create small tables using markdown syntax. This should 
+# be put outside of any code chunks.
 
+#For example:
+
+| Plant | Temp. | Growth |
+|:------|:-----:|-------:|
+| A     | 20    | 0.65   |
+| B     | 20    | 0.95   |
+| C     | 20    | 0.15   |  # simply paste it into the .Rmd file and knit
+  
+  
+# The :-----: tells markdown that the line above should be treated as a header
+# and the lines below should be treated as the body of the table. 
+# Text alignment of the columns is set by the position of ::
+#   Syntax	Alignment
+#   `:----:`	Centre
+#   `:-----`	Left
+#   `-----:`	Right
+#   `------`	Auto
+
+#### Creating tables from model outputs
+# Using tidy() from the package broom, we are able to create tables of our model 
+# outputs, and insert these tables into our markdown file. The example below 
+# shows a simple example linear model, where the summary output table can be 
+# saved as a new R object and then added into the markdown file.
+
+```{r warning=FALSE}
+library(broom)
+library(pander)
+A <- c(20, 15, 10)
+B <- c(1, 2, 3)
+
+lm_test <- lm(A ~ B)            # Creating linear model
+
+table_obj <- tidy(lm_test)      # Using tidy() to create a new R object called table
+
+pander(table_obj, digits = 3)   # Using pander() to view the created table, with 3 sig figs 
+```
+# By using warning=FALSE as an argument, any warnings produced will be outputted 
+# in the console when knitting but will not appear in the produced document.
+
+
+# 7. Create a .pdf file from your .Rmd file ----
+# Creating .pdf documents for printing in A4 requires a bit more fiddling around. 
+# RStudio uses another document compiling system called LaTeX to make .pdf documents.
+
+# The easiest way to use LaTeX is to install the TinyTex distribution from within 
+# RStudio. First, restart your R session (Session -> Restart R), then run these 
+# line in the console:
+  
+install.packages("tinytex")
+tinytex::install_tinytex()
+# Becoming familiar with LaTeX will give you a lot more options to make your 
+# R Markdown .pdf look pretty, as LaTeX commands are mostly compatible with R 
+# Markdown, though some googling is often required.
+
+# To compile a .pdf instead of a .html document, change output: 
+# from html_document to pdf_document, or use the dropdown menu 
+# from the “Knit” button:
+
+#### Common problems when compiling a .pdf
+## -- Text is running off the page
+# Add a global_options argument at the start of your .Rmd file:
+  
+```{r global_options, include = FALSE}
+knitr::opts_chunk$set(message=FALSE,
+                      tidy.opts=list(width.cutoff=60))
+```
+# This code chunk won’t be displayed in the final document due to the 
+# include = FALSE call and should be placed immediately after the YAML header to 
+#affect everything below that.
+
+# tidy.opts = list(width.cutoff = 60) defines the margin cutoff point and wraps text to the next line. Play with the value to get it right.
+
+## -- I lose my syntax highlighting
+# Use the xelatex engine to compile your .pdf:
+  
+---
+  author: John Doe
+output: 
+  pdf_document:
+  latex_engine: xelatex
+---
+  
+# By default, R markdown uses the base LaTeX engine to compile pdfs, but this may limit certain options when it comes to formatting. There are lots of other engines to play around with as well.
+
+## -- My page margins are too big/small
+# Add a geometry argument to the YAML header
+
+---
+  title: "R Markdown Tutorial Demo"
+author: "John Godlee"
+date: "30/11/2016"
+output: 
+  pdf_document:
+  latex_engine: xelatex
+geometry: left = 0.5cm, right = 1cm, top = 1cm, bottom = 1cm
+---
+#  geometry is a LaTeX command.
+
+#### My plot/table/code is split over two pages
+# Add a page break before the dodgy element:
+  
+\pagebreak
+```{r}
+Codey codey code code
+```
+
+## -- I want to change the font
+# Add a font argument to your header section
+
+---
+  title: "R Markdown Tutorial Demo"
+author: "John Godlee"
+date: "30/11/2016"
+output:
+  pdf_document:
+  latex_engine: xelatex
+mainfont: Arial
+---
+# mainfont is a LaTeX command.
+
+#### Have a go yourself
+# At this point, if you haven’t been following through already, have a go at 
+# converting the tutorial R script (RMarkdown_Tutorial.R) into a .Rmd document 
+# using the information above as a guide.
+
+# Remember that a good R markdown document should provide a reproducible log of 
+# your code, properly commented, with subtitles, comments and code relevant 
+# output so the reader knows what is going on.
 
 # 8. R Notebooks (the future of reproducible code? Maybe?) ----
 
