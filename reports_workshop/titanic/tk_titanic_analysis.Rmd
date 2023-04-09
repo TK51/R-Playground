@@ -456,21 +456,23 @@ pred.test.rf <- predict(model_rf,test_im)[1:418]
 res_rf<- data.frame(test$PassengerId,pred.test.rf)
 names(res_rf)<-c("PassengerId","Survived")
 write.csv(res_rf,file="submission_rf.csv",row.names = F)
-Conclusion
-The mean of the right predictions:
+```
+
+## Conclusion
+###The mean of the right predictions:
   
   decision tree method: 0.77837
 random forest method: 0.77990
 logistic regression model: 0.7488
 
 ___________________________________________________________________
-updated:
+#### updated:
 
-    04/04/2023 - Made some cosmetics on some visuals (labels, theme...)
+- 04/04/2023 - Made some cosmetics on some visuals (labels, theme...)
 
 The colors picked up considering some wide-spread advice on visualization within the industry - to select the complementary colors for better readability.
 
-Used this resourse for the colour selection, actually.
+Used this [resourse](https://www.color-hex.com/color/79c9a2) for the colour selection, actually.
 
-    09/04/2023 - Including pander library for certain table ra-shaping
+- 09/04/2023 - Including pander library for certain table ra-shaping
 
