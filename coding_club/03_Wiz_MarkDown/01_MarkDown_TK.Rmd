@@ -78,12 +78,25 @@ library(dplyr)
 ```{r}
 print("yey!")
 ```
-```{r, fig.width = 4, fig.height = 3}
+```{r, fig.width = 4, fig.height = 3.5}
 A <- c("a", "a", "b", "b")
 B <- c(5, 10, 15, 20)
 dataframe <- data.frame(A, B)
 print(dataframe)
 boxplot(B~A,data=dataframe)
 ```
+
+```{r}
+dataframe
+```
+```{r}
+library(knitr)
+kable(dataframe, digits = 2)
+```
+
+
+
+
+
 
 

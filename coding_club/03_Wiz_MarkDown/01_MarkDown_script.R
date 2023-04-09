@@ -27,8 +27,10 @@ rm(list = ls())
 
 #### Libraries ----
 #install.packages("rmarkdown")          # - if you're missing one
+#install.packages("knitr")              # - if you're missing one
 library(rmarkdown)
 library(dplyr)
+library(knitr)
 
 #### Working directory ----
 # Set working directory
