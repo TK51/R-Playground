@@ -3,8 +3,8 @@ title: "RMarkdown_Tutorial_TK"
 author: "TK51"
 date: "2023-04-09"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 geometry: left = 0.5cm, right = 1cm, top = 1cm, bottom = 1cm
 ---
 

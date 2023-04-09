@@ -1,4 +1,4 @@
-# CC-2-RMarkdown
+# Works base on CC-2-RMarkdown workshop from Coding Club
 Using R Markdown to construct reproducible code
 
 This repository contains the files necessary to complete the Coding Club R Markdown tutorial - you can check it out at 
