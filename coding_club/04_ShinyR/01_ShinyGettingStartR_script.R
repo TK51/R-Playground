@@ -337,16 +337,128 @@ server <- function(input, output) {
                                             "Max" = max(yield)))
 }
 
+#### Displaying output
+# To make the outputs appear on your app in the mainPanel, they need to be added 
+# to the ui object inside mainPanel() like so:
 
+ui <- 
+  fluidPage(
+    titlePanel("Barley Yield"),
+    sidebarLayout(
+      position = "right",
+      sidebarPanel(h3("Inputs for histogram"), 
+                   selectInput("gen", "1. Select genotype", choices = c("A" = "a","B" = "b","C" = "c","D" = "d","E" = "e","F" = "f","G" = "g","H" = "h"), selected = "a"),
+                   br(),
+                   selectInput("col", "2. Select histogram colour", choices = c("blue","green","red","purple","grey"), selected = "grey"),
+                   br(),
+                   sliderInput("bin", "3. Select number of histogram bins", min=1, max=25, value= c(10)),
+                   br(),
+                   textInput("text", "4. Enter some text to be displayed", "")),
+      mainPanel(
+        plotOutput("myhist"),
+        tableOutput("mytable"),
+        textOutput("mytext")
+      )
+    )
+  )
 
+# Take this chance to preview your app again by clicking Run in RStudio.
 
+#### Additional elements
+# HTML
+# To make your app look more pretty, you can add HTML tags like in a normal HTML 
+# webpage. Below is a table of basic HTML tags, their Shiny equivalent and a 
+# description of what they do:
 
+#   HTML	Shiny	Function
+# <div>	tags$div()	Defines a block with consistent formatting
+# <br>	tags$br()	Inserts a break
+# <hr>	tags$hr()	Inserts a horizontal line
+# <p>	tags$p()	Creates a paragraph of text
+# <a>	tags$a(href = "LINK", "displayed text")	Creates a clickable link
 
+# A list of all HTML tags can be found using:
+shiny::tags
 
+# Some tags may conflict with other functions and so you should always state the 
+# source the function comes from by using tags$, e.g.:
+tags$div()
 
+# Tags can be stacked to apply many arguments to the same object/text, just as in HTML:
+  
+tags$div(style="color:red",
+         tags$p("Visit us at:"),
+         tags$a(href = "https://ourcodingclub.github.io", "Coding Club")
+)
 
+# This creates a block of text that is coloured red (style="color:red"), within 
+# that block there is a paragraph of text (tags$p("Visit us at?:")) and a link 
+# (tags$a(href = "http://ourcodingglub.github.io", "Coding Club")).
 
+# Add the code above to your Shiny app in mainPanel() and see what happens!
 
+# For more information on the arguments that can be included in popular Shiny 
+# HTML tags, RStudio have a nice wiki at 
+# [[https://shiny.rstudio.com/articles/tag-glossary.html]].
+
+#### 5. Exporting a finished app ----
+
+# As a Github repository
+# It is easy to send a Shiny app to somebody else who also has RStudio. The 
+# easiest way is to send app.R alongside any data and other resources in a zip 
+# file to be unzipped by the recipient and run through R.
+
+ 
+# If you want to quickly share the app over the internet we recommend using 
+# Github to host the file.
+ 
+# Go to Github, sign in with your account details, create a repository and 
+# upload everything from your app folder, including any Data and www folders.
+ 
+# Remember to add a file called README.md using Create new file in your new app 
+# repository, where you can write a quick explanation of the content of y
+# our app. .md files can use markdown syntax to create headers, sections, links etc.. 
+# See our tutorial on markdown and reproducible research for more markdown tips:
+
+# To send the app to another person, give them your Github username and the name 
+# of the app repo and ask them to run runGithub() in R, like this:
+
+runGitHub(repo = "repo_name", username = "user_name")
+
+# Alternatively, if your recipient doesn’t know how Github works, upload your 
+# app folder as a .zip file to Github or any other file-hosting service and they
+# can use runUrl() if you give them the url of the zipfile:
+
+runUrl("https://github.com/rstudio/shiny_example/archive/master.zip")
+
+# To learn more about Github, check out our tutorial on Git and Github.
+
+#### As a shinyapps.io app
+# You can also host Shiny apps on www.shinyapps.io, a webhosting platform run by 
+# RStudio that is especially built for Shiny apps. Go to their website and sign 
+# up using whatever method you choose, then go to www.shinyapps.io/admin/#/tokens, 
+# click Show secret and copy the rsconnect account info:
+  
+# Then open up an R session and run the copied material to link shinyapps.io with R Studio.
+# 
+# To upload your app, open your app.R and click the publish button. Select a name 
+# for your app (no spaces) and click Publish.
+  
+# The app can then be used by anyone with the URL for that app, which can be found 
+# by going to shinyapps.io and opening the app info from the dashboard:
+# 
+#   To embed an app that is hosted by shinyapps.io, in your own website you can 
+# put it in an iframe, replacing the URL with your own app URL and altering the 
+#style arguments to your own desire:
+
+<iframe src="https://johngodlee.shinyapps.io/barley_yield_exploration/" style="border:none;width:1000px;height:500px;"></iframe>
+
+#### 6. Challenge yourself to create a Shiny app ----
+# Now that you have the skills to create a Shiny app, try to create an app of your 
+# own and publish it to your shinyapps.io profile. Your app could use your own data 
+# if you have some, or one of the many datasets that come bundled with R. If you 
+# need more inspiration, have a look through the Shiny app gallery 
+# (https://shiny.rstudio.com/gallery/).
 
 
 
