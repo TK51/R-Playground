@@ -115,9 +115,9 @@ ui <- fluidPage()
 server <- function(input, output) {}
 
 # Run the app ----
-shinyApp(ui = ui, server = server
+shinyApp(ui = ui, server = server)
          
-_______________________________________________________________________
+# _______________________________________________________________________
 #### Layout of a Shiny App ----
 # Shiny apps are structured using panels, which are laid out in different 
 # arrangements. Panels can contain text, widgets, plots, tables, maps, images, etc.
@@ -148,20 +148,94 @@ _______________________________________________________________________
 # that you should only have one ui and one server object. Don’t just copy and 
 # paste the below:
 
+# Packages ----
+library(shiny)    # Required to run any Shiny app
+library(ggplot2)  # For creating pretty plots
+library(dplyr)    # For filtering and manipulating data
+library(agridat)  # The package where the data comes from
 
+# Loading data ----
+Barley <- as.data.frame(beaven.barley)
 
+# ui.R ----
+ui <- fluidPage(
+  titlePanel(""),   # Add a title panel
+  sidebarLayout(    # Make the layout a sidebarLayout
+    sidebarPanel(), # Inside the sidebarLayout, add a sidebarPanel
+    mainPanel()     # Inside the sidebarLayout, add a mainPanel
+  )
+)
 
+# server.R ----
+server <- function(input, output) {}
 
+# Run the app ----
+shinyApp(ui = ui, server = server)
 
+# - titlePanel() indicates that we would like a separate panel at the top of the 
+# page in which we can put the title.
 
+# - sidebarLayout() indicates that we want our Shiny app to have the sidebar 
+# layout, one of many layouts we saw above. Within sidebarLayout we have:
 
+# - sidebarPanel() indicates that we want a sidebar panel included in our app. 
+# Sidebar panels often contain input widgets like sliders, text input boxes, 
+# radio buttons etc.
 
+# - mainPanel() indicates that we want a larger main panel. Main panels often 
+# contain the output of the app, whether it is a table, map, plot or something else.
 
+# Input widgets
+# Now that we have our basic structure we can start to fill it with inputs and outputs.
+# 
+# The example app has four input widgets, a selectInput for genotype, a selectInput 
+# for histogram colour, a sliderInput for number of bins and a textInput to add 
+# some arbitrary text. Each of these widgets provides information on how to 
+# display the histogram and its accompanying table. In the example app, all the 
+# widgets are found in the sidebarPanel so the code for these widgets should be
+# put in the sidebarPanel command like this:
+  
+ui <- fluidPage(
+  titlePanel("Barley Yield"),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput(inputId = "gen",  # Give the input a name "genotype"
+                  label = "1. Select genotype",  # Give the input a label to be displayed in the app
+                  choices = c("A" = "a","B" = "b","C" = "c","D" = "d","E" = "e","F" = "f","G" = "g","H" = "h"), selected = "a"),  # Create the choices that can be selected. e.g. Display "A" and link to value "a"
+      selectInput(inputId = "colour", 
+                  label = "2. Select histogram colour", 
+                  choices = c("blue","green","red","purple","grey"), selected = "grey"),
+      sliderInput(inputId = "bin", 
+                  label = "3. Select number of histogram bins", 
+                  min=1, max=25, value= c(10)),
+      textInput(inputId = "text", 
+                label = "4. Enter some text to be displayed", "")
+    ),
+    mainPanel()
+  )
+)
 
+# Note that choices = c("A" = "a" ... could be replaced with 
+# choices = unique(Barley$gen) to simply use the groups directly from the dataset.
+                      
+# Spend a couple of minutes looking at this code so you understand what it means, 
+# then fill in your own app.R with the code.
+# 
+# Let’s break down selectInput() to understand what is going on:
 
+# - inputId = "genotype" gives this input the name genotype, which will become 
+# useful when referencing this input later in the app script.
 
+# - label = "1\. Select genotype" gives this input a label to be displayed above 
+# it in the app.
 
+# - choices = c("A" = "a","B" = "b", ... gives a list of choices to be displayed 
+# in the dropdown menu (A, B, etc.) and the value that is actually gathered from 
+# that choice for use in the output (a, b, etc.).
 
+# - selected = "grey" gives the value from the dropdown menu that is selected by default.
 
+# You can look into the arguments presented by the other input widgets by using 
+# the help function ?. For example, by running the code ?textInput in the R console.
 
-
+                        
