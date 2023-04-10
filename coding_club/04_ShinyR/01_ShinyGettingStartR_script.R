@@ -27,7 +27,7 @@ install.packages("shiny")
 install.packages("rsconnect")  # For publishing apps online
 install.packages("agridat")    # For the dataset in today's tutorial
 
-# 2. The Shiny app file structure ----
+#### 2. The Shiny app file structure ----
 # Next, select File/ New File/ Shiny Web App…, give the application a descriptive
 # name (no spaces) and change the application type to “Single File (app.R)”, save 
 # the app in an appropriate directory and click Create.
@@ -60,7 +60,7 @@ install.packages("agridat")    # For the dataset in today's tutorial
 ## -- www
 ##   -- A.jpg
 
-# 3. app.R layout ----
+#### 3. app.R layout ----
 # Now that the folder structure is set up, head back to RStudio to start building 
 # app.R. A basic app.R consists of these five parts:
   
@@ -128,7 +128,25 @@ _______________________________________________________________________
 # allows a lot of customisation, but is more fiddly. In this tutorial, we will 
 # be using sidebarLayout(), which creates a large panel and a smaller inset side panel.
 
+##### 4. Creating a Shiny App - Basic Syntax ----
+# To illustrate how to code a Shiny app, we will recreate a simple app that I 
+# wrote to explore some data on the productivity of Barley genotypes.
 
+# You can get the code for this app by opening app.R in the Example_app folder 
+# in the tutorial repository which you downloaded earlier.
+
+# Looking at the app and comparing to the panel layout examples in the above link, 
+# we can see that the app has a sidebarLayout with a sidebarPanel, mainPanel and 
+# titlePanel. It uses a selectInput to choose the genotype of barley shown in the
+# histogram and the table, another selectInput for the colour of the histogram, 
+# a sliderInput to choose the number of bins in the histogram and a textInput to 
+# display some text in the app. The histogram is located in the mainPanel along
+# with a summary table of the data being shown, while the inputs are in the sidebarPanel.
+
+# Go back to your app.R and fill in the code you already have with the new bits 
+# of code below, which will serve as the basic skeleton for our app. Remember 
+# that you should only have one ui and one server object. Don’t just copy and 
+# paste the below:
 
 
 

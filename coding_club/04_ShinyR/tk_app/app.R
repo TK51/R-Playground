@@ -6,6 +6,10 @@ library(agridat)  # The package where the data comes from
 
 # Loading data ----
 Barley <- as.data.frame(beaven.barley)
+# dim(Barley)
+# str(Barley)
+# head(Barley)
+# summary(Barley)
 
 # ui.R ----
 ui <- fluidPage()
@@ -15,4 +19,5 @@ server <- function(input, output) {}
 
 # Run the app ----
 shinyApp(ui = ui, server = server)
+
 
