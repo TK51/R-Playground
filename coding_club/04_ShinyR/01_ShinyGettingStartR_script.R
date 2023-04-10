@@ -238,4 +238,117 @@ ui <- fluidPage(
 # You can look into the arguments presented by the other input widgets by using 
 # the help function ?. For example, by running the code ?textInput in the R console.
 
-                        
+#### More Input Widgets
+# There are plenty of pre-made widgets in Shiny. Here is a selection, each with 
+# the minimum number of arguments needed when running the app, though many more 
+# can be added:
+#   
+# - actionButton(inputId = "action", label = "Go!")
+
+# - radioButtons(inputId = "radio", label = "Radio Buttons", choices = c("A", "B"))
+
+# - selectInput(inputId = "select", label = "select", choices = c("A", "B"))
+
+# - sliderInput(inputId = "slider", label = "slider", value = 5, min = 1, max = 100)
+
+# Notice how all of the inputs require an inputId and a label argument.
+
+#### Running a Shiny App ----
+# Take this opportunity to preview your app by clicking Run App:
+# or use the keyboard shortcut Cmd + Opt + R (Mac), Ctrl + Alt + R (Windows).
+
+# When a Shiny app is running from RStudio, the console cannot be used. To stop 
+# the app, click the Stop button in the top right of the console window or press 
+# the Esc key.
+
+#### Output
+# A Shiny app without any outputs is useless. Outputs can be in the form of plots, 
+# tables, maps or text.
+
+# As per our example app, we’re going to be using ggplot() to create a histogram. 
+# For more information on creating plots in ggplot2, see our tutorials on basic 
+# data visualisation and customising ggplot graphs.
+
+# Outputs are created by placing code in the curly brackets ({}) in the server object:
+  
+server <- function(input, output) {
+  output$plot <- renderPlot(ggplot(Barley, aes(x = yield)) +  # Create object called `output$plot` with a ggplot inside it
+                              geom_histogram(bins = 7,  # Add a histogram to the plot
+                                             fill = "grey",  # Make the fill colour grey
+                                             data = Barley,  # Use data from `Barley`
+                                             colour = "black")  # Outline the bins in black
+  )                                                       
+}
+# Look at the code above for a couple of minutes to understand what is going on, 
+# then add it to your own app.R in the appropriate place.
+
+# Basically, we are creating an object called output$plot and using renderPlot() 
+# to wrap a ggplot() command.
+ 
+#### Reactive output
+# The histogram is great, but not particularly interactive. We need to link our 
+# input widgets to our output object.
+
+# We want to select individual genotypes to display in our histogram, which the 
+# user can select using the selectInput that we called genotype earlier. Use some
+# base R wizardry, [] $ and ==, to select the data we want. Update server with 
+# the new reactive output arguments so it looks like the code below:
+
+server <- function(input, output) {
+  output$plot <- renderPlot(ggplot(Barley, aes(x = yield)) +
+                              geom_histogram(bins = 7,
+                                             fill = "grey",
+                                             data = Barley[Barley$gen == input$gen,],
+                                             colour = "black")
+  )                                                       
+}
+# - data = Barley[Barley$Genotype == input$gen,] tells geom_histogram() to only 
+# use data where the value in column gen is equal to (==) the value given by 
+# input$gen. Note the , after input$gen which indicates that we are selecting 
+# columns and that all the rows should be selected.
+
+# Next, we want to be able to change the colour of the histogram based on the 
+# value of the selectInput called colour. To do this, simply change fill = “grey” t
+# o fill = input$colour.
+
+# Next, we want to select the number of bins in the histogram using the sliderInput 
+# called bin. Simply change bins = 7 to bins = input$bin.
+# 
+# Finally, to create a table output showing some summary statistics of the selected 
+# genotype, create a new output object called output$table and use renderTable() to 
+# create a table generated using dplyr summarise(). See our tutorial on data 
+# manipulation for more information on dplyr. Update server with the output$table
+# information so it looks like the code below:
+
+server <- function(input, output) {
+  output$myhist <- renderPlot(ggplot(Barley, aes(x = yield)) + 
+                                geom_histogram(bins = input$bin, fill = input$col, group=input$gen, 
+                                               data=Barley[Barley$gen == input$gen,],
+                                               colour = "black"))
+  
+  output$mytext <- renderText(input$text)
+  
+  output$mytable <- renderTable(Barley %>%
+                                  filter(gen == input$gen) %>%
+                                  summarise("Mean" = mean(yield), 
+                                            "Median" = median(yield),
+                                            "STDEV" = sd(yield), 
+                                            "Min" = min(yield),
+                                            "Max" = max(yield)))
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+             
