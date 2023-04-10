@@ -22,6 +22,7 @@
 
 # clean the slate and start from the clear page
 rm(list = ls())
+dev.off()
 
 #### Libraries ----
 library(dplyr)     # for data manipulation
