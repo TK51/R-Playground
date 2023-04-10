@@ -3,9 +3,9 @@ title: "Titanic Analysis"
 author: "Taras the Analyst"
 date: "2023-04-09"
 output:
-  html_document: default
   pdf_document:
     latex_engine: xelatex
+  html_document: default
 geometry: left = 1.5cm, right = 1cm, top = 1cm, bottom = 1cm, margin = 1.5cm
 ---
 
@@ -82,7 +82,7 @@ The data is to be checked for missing values
 # checking the missing data
 paste("Here is missing value check:")  # that's added for some internal explanations
 colSums(is.na(full))  # showing aggregated "n/a" values within each column
-colSums(full == "")   # showing empty cells aggreaated values within each column
+colSums(full == "")   # showing empty cells aggregated values within each column
 ```
 
 
@@ -99,7 +99,6 @@ knitr::kable(list(k1, k2))
 
 
 ```{r}
-
 # cross-checking the empty records for Embarked
 filter(full, full$Embarked == "")
 
@@ -181,7 +180,8 @@ ggplot(data = train_fctrs, aes(x = Survived, fill = Sex)) + geom_bar() +
 ```
 ```{r}
 # side-by-side comparison to make things more understandable - Survived by Sex
-ggplot(data = train_fctrs, aes(x = Survived, fill = Sex)) + geom_bar(position = "dodge") + 
+ggplot(data = train_fctrs, aes(x = Survived, fill = Sex)) + 
+  geom_bar(position = "dodge") + 
   scale_y_continuous(limits = c(0, 600)) +                # making visual limits
   scale_fill_manual(values = c("#c979a0", "#79C9A2")) +   # color code for sex categories
   labs(title = "Survived by Sex",                         # setting labels
@@ -194,7 +194,8 @@ ggplot(data = train_fctrs, aes(x = Survived, fill = Sex)) + geom_bar(position = 
 ```
 ```{r}
 # side-by-side comparison to make things more understandable - Survived by Sex
-ggplot(data = train_fctrs, aes(x = Pclass, fill = Survived)) + geom_bar() +
+ggplot(data = train_fctrs, aes(x = Pclass, fill = Survived)) + 
+  geom_bar() +
   scale_y_continuous(limits = c(0, 600)) +                # making visual limits
   scale_fill_manual(values = c("#c979a0", "#79C9A2")) +   # color code for sex categories
   labs(title = "Survived by Class", 
@@ -208,7 +209,8 @@ ggplot(data = train_fctrs, aes(x = Pclass, fill = Survived)) + geom_bar() +
 
 ```{r}
 # side-by-side comparison to make things more understandable - Survived by Class
-ggplot(data = train_fctrs, aes(x = Pclass, fill = Survived)) + geom_bar(position = "dodge") +
+ggplot(data = train_fctrs, aes(x = Pclass, fill = Survived)) + 
+  geom_bar(position = "dodge") +
   scale_y_continuous(limits = c(0, 400)) +
   scale_fill_manual(values = c("#a79da1", "#79C9A2")) +   # color code for sex categories
   labs(title = "Survived by Class", 
@@ -272,30 +274,30 @@ But it is a bit skewed, if to compare the number of victims and produce column-w
 
 ### Survival as a function of Pclass:
 ```{r}
-ggplot(data = full[1:LT,],aes(x=Pclass,fill=Survived)) +
+ggplot(data = full[1:LT, ], aes(x = Pclass, fill = Survived)) +
   geom_bar(position = "fill") +
   scale_fill_manual(values = c("#a79da1", "#79C9A2")) +   # color code for sex categories
   labs(title = "Survived Proportions by Passenger Class", 
        subtitle = "The Titanic Case",
        caption = "Data from the Titanic dataset", 
        x = "\n Pclass", y = "Frequency \n")
-
 ```
-
 #### It looks like you have a better chance to survive if you were in lower ticket class.
 
 ```{r}
 # check the of Embarked versus Pclass:
-ggplot(data = full[1:LT,],aes(x=Embarked,fill=Survived))+geom_bar(position="fill")+facet_wrap(~Pclass) +
+ggplot(data = full[1:LT,],aes(x=Embarked,fill=Survived))+geom_bar(position="fill") +    
+  facet_wrap(~Pclass) +
   scale_fill_manual(values = c("#a79da1", "#79C9A2")) +   # color code for sex categories
   labs(title = "Survived Proportions by Passenger Class vs Embarked Type", 
        subtitle = "The Titanic Case",
        caption = "Data from the Titanic dataset", 
        x = "\n Embarked", y = "Frequency \n")
+
 # Now it's not so clear that there is a correlation between Embarked and Survival. 
 ```
 
-### Survivial as a function of SibSp
+### Survival as a function of SibSp
 ```{r}
 ggplot(data = full[1:LT,],aes(x=SibSp,fill=Survived))+geom_bar()+
   scale_fill_manual(values = c("#a79da1", "#79C9A2")) +   # color code for sex categories
@@ -305,7 +307,7 @@ ggplot(data = full[1:LT,],aes(x=SibSp,fill=Survived))+geom_bar()+
        x = "\n SibSp", y = "Persons \n")
 ```
 
-### Survivial as a function of Parch
+### Survival as a function of Parch
 ```{r}
 ggplot(data = full[1:LT,],aes(x=Parch,fill=Survived))+geom_bar()+
   scale_fill_manual(values = c("#a79da1", "#79C9A2")) +   # color code for sex categories
@@ -320,7 +322,8 @@ ggplot(data = full[1:LT,],aes(x=Parch,fill=Survived))+geom_bar()+
 # check the attribute of family size.
 full$FamilySize <- full$SibSp + full$Parch +1;
 full1<-full[1:LT,]
-ggplot(data = full1[!is.na(full[1:LT,]$FamilySize),],aes(x=FamilySize,fill=Survived))+geom_histogram(binwidth =1,position="fill")+
+ggplot(data = full1[!is.na(full[1:LT,]$FamilySize),], aes(x=FamilySize,fill=Survived)) + 
+  geom_histogram(binwidth =1,position="fill")+
   scale_fill_manual(values = c("#a79da1", "#79C9A2")) +   # color code for sex categories
   labs(title = "Family Size Survival Specifics", 
        subtitle = "The Titanic Case",
@@ -333,7 +336,7 @@ ggplot(data = full1[!is.na(full[1:LT,]$FamilySize),],aes(x=FamilySize,fill=Survi
 # in contrast to families with 1 member or more than 5 members.
 ```
 
-### Survival as a function of age:
+### Survival as a function of Age:
 ```{r}
 ggplot(data = full1[!(is.na(full[1:LT,]$Age)),],aes(x=Age,fill=Survived))+geom_histogram(binwidth =3)+
   scale_fill_manual(values = c("#a79da1", "#79C9A2")) +   # color code for sex categories
@@ -345,6 +348,8 @@ ggplot(data = full1[!(is.na(full[1:LT,]$Age)),],aes(x=Age,fill=Survived))+geom_h
         axis.title = element_text(size = 12, face = "bold"), 
         plot.title = element_text(size = 14, hjust = 0.5, face = "bold"))
 ```
+
+### Survival ratio by Age
 ```{r}
 ggplot(data = full1[!is.na(full[1:LT,]$Age),],aes(x=Age,fill=Survived))+geom_histogram(binwidth = 3,position="fill")+
   scale_fill_manual(values = c("#a79da1", "#79C9A2")) + 
@@ -424,8 +429,8 @@ The *train* dataset will be divided into two sets: training set (*train1*) and t
 # The train set with the important features 
 train_im<- full[1:LT,c("Survived","Pclass","Sex","Age","Fare","SibSp","Parch","Title")]
 ind<-sample(1:dim(train_im)[1],500) # Sample of 500 out of 891
-train1<-train_im[ind,] # The train set of the model
-train2<-train_im[-ind,] # The test set of the model
+train1<-train_im[ind,]              # The train set of the model
+train2<-train_im[-ind,]             # The test set of the model
 ```
 
 ```{r}
@@ -434,7 +439,7 @@ model <- glm(Survived ~.,family=binomial(link='logit'),data=train1)
 summary(model)
 ```
 
-####It results as attributes SibSp, Parch and Fare are not statisticaly significant. 
+#### It results as attributes SibSp, Parch and Fare are not statisticaly significant. 
 ```{r}
 # Let's look at the prediction of this model on the test set (train2):
 pred.train <- predict(model,train2)
@@ -466,6 +471,7 @@ recall
 F1<- 2*presicion*recall/(presicion+recall)
 F1
 ```
+
 #### F1 score on the initial test resulted at 0.879. That's pretty good
 
 ```{r}
@@ -521,17 +527,25 @@ F1_dt<- 2*presicion_dt*recall_dt/(presicion_dt+recall_dt)
 F1_dt
 ```
 
-
-
+```{r}
 # run this model on the test set:
 pred.test.dt <- predict(model_dt,test_im,type="class")[1:418]
 res_dt<- data.frame(test$PassengerId,pred.test.dt)
 names(res_dt)<-c("PassengerId","Survived")
 write.csv(res_dt,file="prediction_dt.csv",row.names = F)
+```
+
+```{r}
 # make prediction on survival using a random forest
 model_rf<-randomForest(Survived~.,data=train1)
+```
+
+```{r}
 # Let's look at the error
 plot(model_rf)
+```
+
+```{r}
 # make the prediction on the model
 pred.train.rf <- predict(model_rf,train2)
 mean(pred.train.rf==train2$Survived)
@@ -542,6 +556,9 @@ presicion
 recall
 F1<- 2*presicion*recall/(presicion+recall)
 F1
+```
+
+```{r}
 # Let's run this model on the test set:
 pred.test.rf <- predict(model_rf,test_im)[1:418]
 res_rf<- data.frame(test$PassengerId,pred.test.rf)
@@ -565,5 +582,5 @@ The colors picked up considering some wide-spread advice on visualization within
 
 Used this [resourse](https://www.color-hex.com/color/79c9a2) for the colour selection, actually.
 
-- 09/04/2023 - Including pander library for certain table ra-shaping
+- 09/04/2023 - Including pander library for certain table re-shaping
 
