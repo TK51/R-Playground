@@ -19,7 +19,7 @@ ui <-
       sidebarPanel(h3("Inputs for histogram"), 
                    selectInput("gen", "1. Select genotype", choices = c("A" = "a","B" = "b","C" = "c","D" = "d","E" = "e","F" = "f","G" = "g","H" = "h"), selected = "a"),
                    br(),
-                   selectInput("col", "2. Select histogram colour", choices = c("blue","green","red","purple","grey"), selected = "grey"),
+                   selectInput("col", "2. Select histogram colour", choices = c("blue","palegreen","red","purple","grey"), selected = "grey"),
                    br(),
                    sliderInput("bin", "3. Select number of histogram bins", min=1, max=25, value= c(10)),
                    br(),
@@ -27,7 +27,11 @@ ui <-
       mainPanel(
         plotOutput("myhist"),
         tableOutput("mytable"),
-        textOutput("mytext")
+        textOutput("mytext"),
+        tags$div(style="color:red",
+                 tags$p("Visit us at:"),
+                 tags$a(href = "https://ourcodingclub.github.io", "Coding Club")
+        )
       )
     )
   )
