@@ -30,16 +30,22 @@ die
 # check all the created object names within the environment
 ls()
 
+# play with the die
+die - 1
+die / 2
+die * die
 
+1:2
+die + 1:2
 
+1:4
+die + 1:4
 
+# matrix inner multiplication (with %*%)
+die %*% die
 
-
-
-
-
-
-
+# matrix outer multiplication (with %o%)
+die %o% die
 
 
 
