@@ -58,3 +58,5 @@ output$mytable <- renderTable(Barley %>%
 
 # Run the app ----
 shinyApp(ui = ui, server = server)
+
+# runGitHub(repo = "tk_app", username = "TK51")
