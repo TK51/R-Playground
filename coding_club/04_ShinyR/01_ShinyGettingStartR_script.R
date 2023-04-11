@@ -460,6 +460,16 @@ runUrl("https://github.com/rstudio/shiny_example/archive/master.zip")
 # need more inspiration, have a look through the Shiny app gallery 
 # (https://shiny.rstudio.com/gallery/).
 
+#_____________________________________________________________________________
+
+# run GitHub command to get the direct repo
+runGitHub(repo = "tk_app", username = "TK51")
+
+# or run as url to share for .zip download
+runUrl("https://github.com/rstudio/shiny_example/archive/master.zip")
+
+# connect to shinyapps.io
+install.packages('rsconnect')
 
 
 

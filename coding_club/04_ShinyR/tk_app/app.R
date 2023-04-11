@@ -5,58 +5,100 @@ library(dplyr)    # For filtering and manipulating data
 library(agridat)  # The package where the data comes from
 
 # Loading data ----
-Barley <- as.data.frame(beaven.barley)
-dim(Barley)
-head(Barley)
+Iris <- as.data.frame(iris)
+#dim(Iris)
+#head(Iris)
+#unique(Iris$Species)
 
+# Define UI for application that draws a histogram
+ui <- fluidPage(
 
-# ui.R ----
-ui <- 
-  fluidPage(
-    titlePanel("Barley Yield"),
-    sidebarLayout(
-      position = "right",
-      sidebarPanel(h3("Inputs for histogram"), 
-                   selectInput("gen", "1. Select genotype", choices = c("A" = "a","B" = "b","C" = "c","D" = "d","E" = "e","F" = "f","G" = "g","H" = "h"), selected = "a"),
-                   br(),
-                   selectInput("col", "2. Select histogram colour", choices = c("blue","palegreen","red","purple","grey"), selected = "grey"),
-                   br(),
-                   sliderInput("bin", "3. Select number of histogram bins", min=1, max=25, value= c(10)),
-                   br(),
-                   textInput("text", "4. Enter some text to be displayed", "")),
-      mainPanel(
-        plotOutput("myhist"),
-        tableOutput("mytable"),
-        textOutput("mytext"),
-        tags$div(style="color:red",
-                 tags$p("Visit us at:"),
-                 tags$a(href = "https://ourcodingclub.github.io", "Coding Club")
+    # Application title
+    titlePanel("The Iris Species"),
+
+    # Sidebar with a slider input for number of bins 
+    sidebarLayout(position = "right",
+        sidebarPanel(
+          
+            # input data for histogram
+            h4("Inputs for histogram"), 
+            selectInput("Species", 
+                        "1. Select specie", 
+                        choices = c("Setosa" = "setosa",
+                                    "Versicolor" = "versicolor",
+                                    "Virginica" = "virginica"), 
+                        selected = "-"),
+            br(),  # break
+            
+            # color selection for the bins
+            selectInput("col", 
+                        "2. Select histogram colour", 
+                        choices = c("palegreen","lightblue","pink","grey"), 
+                        selected = "palegreen"),
+            br(),  # break
+            
+            # number of bins selection
+            sliderInput("bins", 
+                        "3. Select number of histogram bins", 
+                        min=1, 
+                        max=25, 
+                        value= c(10)),
+            br(),  # break
+            
+            textInput("text", 
+                      "4. Enter some text to be displayed", ""),
+            
+            
+        ),
+       
+
+        # Show a plot of the generated distribution
+        mainPanel(
+           plotOutput("myViz"),
+           tableOutput("myStatsTable"),
+           textOutput("myText"),
+           
+           # hyperlink block
+           tags$div(style="color:red",
+                    tags$p("Visit author at:"),
+                    tags$a(href = "https://sites.google.com/view/tarristique", 
+                           "tarristique")
+           )
         )
-      )
     )
-  )
+)
 
-# server.R ----
+# Define server logic required to draw a histogram
 server <- function(input, output) {
-  output$myhist <- renderPlot(ggplot(Barley, aes(x = yield)) + 
-                                geom_histogram(bins = input$bin, 
-                                               fill = input$col, 
-                                               group=input$gen, 
-                                               data=Barley[Barley$gen == input$gen,],
-                                               colour = "black"))
-  
-output$mytext <- renderText(input$text)
-  
-output$mytable <- renderTable(Barley %>%
-  filter(gen == input$gen) %>%
-  summarise("Mean" = mean(yield), 
-      "Median" = median(yield),
-      "STDEV" = sd(yield), 
-      "Min" = min(yield),
-      "Max" = max(yield)))
+    
+    # creating plot output
+    output$myViz <- renderPlot(ggplot(Iris, aes(x = Sepal.Length)) + 
+                                 geom_histogram(bins = input$bins, 
+                                                fill = input$col, 
+                                                group = input$Species,
+                                                data = Iris[Iris$Species == input$Species,],
+                                                colour = "black") +
+                                 labs(x = "Sepal Length", y = "Species"))
+    
+    # creating statistics table  
+    output$myStatsTable <- renderTable(Iris %>%
+                                    filter(Species == input$Species) %>%
+                                    summarise("Mean" = mean(Sepal.Length), 
+                                              "Median" = median(Sepal.Length),
+                                              "STDEV" = sd(Sepal.Length), 
+                                              "Min" = min(Sepal.Length),
+                                              "Max" = max(Sepal.Length)))
+    
+    # making text output
+    output$myText <- renderText(input$text)
+    
 }
 
-# Run the app ----
+# Run the application 
 shinyApp(ui = ui, server = server)
 
+# Run the application from GitHub
 # runGitHub(repo = "tk_app", username = "TK51")
+
+# published at
+# https://irgayv-taras-khamardiuk.shinyapps.io/tk_iris_app/
