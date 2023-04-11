@@ -65,7 +65,31 @@ sample(x = 1:6, size = 2)  # 2 5 or 1 3 or 2 3
 # roll a die by setting x = die and size = 1 (as one element to be rolled)
 sample(x = die, size = 1) 
 
+# re-shaped function with name 'die' used directly as x
+sample(die, size = 1)
 
+# re-shaped function with name 'die' used directly as x and '1' set as size
+sample(die, 1)
+
+#### Get the help on function ARGUMENTS by using 'args()' function
+args(sample)
+# function (x, size, replace = FALSE, prob = NULL) 
+# NULL
+
+args(round)  
+# function (x, digits = 0) #
+# NULL
+
+# use functions optional arguments overriding the default ones
+round(3.1415)  # 3
+
+round(3.1415, digits = 2)  # 3.14
+
+# using arguments names prevents from mistakes in arguments selection
+# As a result, values may get passed to the wrong argument. Argument names 
+# prevent this. R will always match a value to its argument name, no matter 
+# where it appears in the order of arguments:
+sample(size = 1, x = die)  # 2
 
 
 
