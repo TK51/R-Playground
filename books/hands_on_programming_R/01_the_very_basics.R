@@ -1,0 +1,50 @@
+#### Hands-On Programming with R by Garrett Grolemund - Script
+# 2. The Very Basics
+# https://rstudio-education.github.io/hopr/basics.html
+# 2023_04_11
+# Taras Khamardiuk (https://www.kaggle.com/taraskhamardiuk)
+
+#### The Very Basics ----
+
+# clean the slate and start from the clear page
+rm(list = ls())
+
+# Working directory 
+getwd()
+setwd("/home/t51/DataAnalytics/R-Playground/books/hands_on_programming_R")
+
+# having an interval
+10:31
+
+name <- "a"
+name
+
+## Making a die (dies)
+# make a vector, a one-dimensional set of numbers
+1:6
+
+# creating an object named "die"
+die <- 1:6
+die
+
+# check all the created object names within the environment
+ls()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

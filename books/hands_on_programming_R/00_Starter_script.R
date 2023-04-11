@@ -14,10 +14,17 @@
 rm(list = ls())
 dev.off()
 
-#### 1. Downloading Shiny and tutorial resources ----
-# To get Shiny in RStudio, the first thing you need is the shiny package, by 
-# running the code below in RStudio:
+#### 1. Working directory ----
+getwd()
+setwd("/home/t51/DataAnalytics/R-Playground/books/hands_on_programming_R")
 
+#### 2. Downloading packages ----
 install.packages("shiny")
 install.packages("rsconnect")  # For publishing apps online
 install.packages("agridat")    # For the dataset in today's tutorial
+
+# Packages ----
+library(shiny)  # Required to run any Shiny app
+library(ggplot2)  # For creating pretty plots
+library(dplyr)  # For filtering and manipulating data
+library(agridat)  # The package where the data comes from
