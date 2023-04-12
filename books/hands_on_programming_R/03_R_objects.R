@@ -5,7 +5,8 @@
 # Taras Khamardiuk (https://www.kaggle.com/taraskhamardiuk)
 
 #### R Objects ----
-#### 5.1 Atomic Vectors
+#### 5.1 Atomic Vectors ----
+
 # You can make an atomic vector by grouping some values of data together with c:
 die <- c(1, 2, 3, 4, 5, 6)
 die  # 1 2 3 4 5 6
@@ -25,7 +26,7 @@ length(five)
 length(die)  
 ## 6
 
-# 5.1.1 Doubles
+#### 5.1.1 Doubles ----
 die <- c(1, 2, 3, 4, 5, 6)
 die  
 ## 1 2 3 4 5 6
@@ -33,12 +34,80 @@ die
 typeof(die)  
 ## "double" or numerics
 
-# 5.1.2 Integers
+# 5.1.2 Integers ----
 int <- c(-1L, 2L, 4L)
 int
 ## -1  2  4
 
 typeof(int)
 ## "integer"
+
+#### 5.1.3 Characters ----
+text <- c("Hello",  "World")
+text
+##  "Hello"  "World"
+
+typeof(text)
+## "character"
+
+typeof("Hello")
+## "character"
+
+#### 5.1.4 Logicals ----
+3 > 4
+## FALSE
+
+logic <- c(TRUE, FALSE, TRUE)
+logic
+##   TRUE FALSE  TRUE
+
+typeof(logic)
+## "logical"
+
+typeof(F)
+## "logical"
+
+#### 5.1.5 Complex and Raw ----
+# Complex vectors store complex numbers. To create a complex vector, 
+# add an imaginary term to a number with i:
+
+comp <- c(1 + 1i, 1 + 2i, 1 + 3i)
+comp
+## 1+1i 1+2i 1+3i
+
+typeof(comp)
+## "complex"
+
+# you can make an empty raw vector of length n with raw(n)
+raw(3)
+## 00 00 00
+
+typeof(raw(3))
+## "raw"
+
+#### Exercise 5.2 (Vector of Cards) - Create an atomic vector that stores just 
+# the face names of the cards in a royal flush
+hand <- c("ace", "king", "queen", "jack", "ten")
+hand
+## "ace"   "king"  "queen" "jack"  "ten"  - a one-dimensional group of card names
+
+typeof(hand)
+## "character"
+
+#### 5.2 Attributes ----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
