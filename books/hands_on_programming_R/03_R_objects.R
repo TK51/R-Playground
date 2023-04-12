@@ -102,6 +102,9 @@ attributes(die)
 ## NULL
 
 #### 5.2.1 Names ----
+# The most common attributes to give an atomic vector are names, 
+# dimensions (dim), and classes
+
 names(die)
 ## NULL - means that die does not have a names attribute. 
 
@@ -123,10 +126,55 @@ die
 ##  one   two three  four  five   six 
 ##    1     2     3     4     5     6 
 
+die + 1  # names won't change, just the values
+##  one   two three  four  five   six 
+##    2     3     4     5     6     7
 
+# To change the names, assign a new set of labels to names:
+names(die) <- c("uno", "dos", "tres", "quatro", "cinco", "seis")
+die
+##   uno    dos   tres quatro  cinco   seis 
+##     1      2      3      4      5      6 
 
+# To remove the names attribute, set it to NULL:
+names(die) <- NULL
+die
+##  1 2 3 4 5 6
 
+#### 5.2.2 Dim ----
+# set the dim attribute to a numeric vector of length n
+# reorganize die into a 2 × 3 matrix (which has 2 rows and 3 columns):
+dim(die) <- c(2, 3)
+die
+##      [,1] [,2] [,3]
+## [1,]    1    3    5
+## [2,]    2    4    6
 
+# or a 3 × 2 matrix (which has 3 rows and 2 columns):
+dim(die) <- c(3, 2)
+die
+##      [,1] [,2]
+## [1,]    1    4
+## [2,]    2    5
+## [3,]    3    6
+
+# or a 1 × 2 × 3 hypercube (which has 1 row, 2 columns, and 3 “slices”)
+dim(die) <- c(1, 2, 3)
+die
+## , , 1
+## 
+##      [,1] [,2]
+## [1,]    1    2
+## 
+## , , 2
+## 
+##      [,1] [,2]
+## [1,]    3    4
+## 
+## , , 3
+## 
+##      [,1] [,2]
+## [1,]    5    6
 
 
 
