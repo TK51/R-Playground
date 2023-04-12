@@ -176,6 +176,87 @@ die
 ##      [,1] [,2]
 ## [1,]    5    6
 
+#### 5.3 Matrices ----
+
+# a matrix made by column
+m <- matrix(die, nrow = 2)
+m
+##      [,1] [,2] [,3]
+## [1,]    1    3    5
+## [2,]    2    4    6
+
+# a matrix made by row
+m <- matrix(die, nrow = 2, byrow = TRUE)
+m
+##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    4    5    6
+
+#### 5.4 Arrays ----
+
+# create an array
+ar <- array(c(11:14, 21:24, 31:34), dim = c(2, 2, 3))
+ar
+## , , 1
+## 
+##      [,1] [,2]
+## [1,]   11   13
+## [2,]   12   14
+## 
+## , , 2
+## 
+##      [,1] [,2]
+## [1,]   21   23
+## [2,]   22   24
+## 
+## , , 3
+## 
+##      [,1] [,2]
+## [1,]   31   33
+## [2,]   32   34
+
+# Exercise 5.3 (Make a Matrix) Create the following matrix, which stores the
+# name and suit of every card in a royal flush.
+##      [,1]    [,2]    
+## [1,] "ace"   "spades"
+## [2,] "king"  "spades"
+## [3,] "queen" "spades"
+## [4,] "jack"  "spades"
+## [5,] "ten"   "spades"
+# Solution. 
+# There is more than one way to build this matrix, but in every case, you 
+# will need to start by making a character vector with 10 values. 
+# If you start with the following character vector, you can turn it into a 
+# matrix with any of the following three commands:
+hand1 <- c("ace", "king", "queen", "jack", "ten", "spades", "spades", 
+           "spades", "spades", "spades")
+
+matrix(hand1, nrow = 5)
+matrix(hand1, ncol = 2)
+dim(hand1) <- c(5, 2)
+dim(hand1)
+
+# You can also start with a character vector that lists the cards in a 
+# slightly different order. In this case, you will need to ask R to fill 
+# the matrix row by row instead of column by column:
+
+hand2 <- c("ace", "spades", "king", "spades", "queen", "spades", "jack", 
+           "spades", "ten", "spades")
+
+matrix(hand2, nrow = 5, byrow = TRUE)
+matrix(hand2, ncol = 2, byrow = TRUE)
+dim(hand2)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
