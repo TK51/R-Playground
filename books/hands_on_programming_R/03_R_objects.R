@@ -95,7 +95,33 @@ typeof(hand)
 ## "character"
 
 #### 5.2 Attributes ----
+# You can see which attributes an object has with attributes. attributes will 
+# return NULL if an object has no attributes. An atomic vector, like die,
+# won’t have any attributes unless you give it some:
+attributes(die)
+## NULL
 
+#### 5.2.1 Names ----
+names(die)
+## NULL - means that die does not have a names attribute. 
+
+#You can give one to die by assigning a character vector to the output of names. 
+# The vector should include one name for each element in die:
+  
+names(die) <- c("one", "two", "three", "four", "five", "six")
+
+# Now die has a names attribute:
+names(die)
+## "one"   "two"   "three" "four"  "five"  "six" 
+
+attributes(die)
+## $names
+## [1] "one"   "two"   "three" "four"  "five"  "six"
+
+# R will display the names above the elements of die whenever you look at the vector:
+die
+##  one   two three  four  five   six 
+##    1     2     3     4     5     6 
 
 
 
