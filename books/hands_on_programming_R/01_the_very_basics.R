@@ -139,16 +139,22 @@ roll
 roll()
 ## 8
 
-roll <- function(die = 1:6) {                   # function name with default args
+roll2 <- function(die = 1:6) {                   # function name with default args
   dice <- sample(die, size = 2, replace = TRUE) # body
   #sum(dice)                                    # output
   dice                                          # output
 }
-roll()
+roll2()
 
 # a function with changed defaults
 roll(die = 5:9)
 
+roll <- function(die = 1:6) {                   # function name with default args
+  dice <- sample(die, size = 2, replace = TRUE)  # body
+  sum(dice)                                      # output
+  # dice                                         # output
+}
+roll()
 
 
 
