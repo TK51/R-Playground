@@ -91,14 +91,63 @@ round(3.1415, digits = 2)  # 3.14
 # where it appears in the order of arguments:
 sample(size = 1, x = die)  # 2
 
+# simulate a pair of dies, but by default, sample builds a sample without replacement
+sample(x = die, size = 2)  # 2 6
 
+# You can recreate this behavior in sample by adding the argument replace = TRUE
+sample(die, size = 2, replace = TRUE)  # 2 2
 
+# This is the correct way to simulate a pair of dice:
+sample(die, size = 2, replace = TRUE)  # 2 4
 
+# making two dice
+dice <- sample(die, size = 2, replace = TRUE)
+dice  # 2 4 Once you save a set of results to an R object, those results do not change
 
+# To recap, you already have working R code that simulates rolling a pair of dice:
+die <- 1:6
+dice <- sample(die, size = 2, replace = TRUE)
+dice
+sum(dice)
 
+# We’re going to write a function named roll()  to roll your virtual dice
+# the function will work like this: each time you call roll(), 
+# R will return the sum of rolling two dice
 
+# Every function in R has three basic parts: 
+# a name, a body of code, and a set of arguments
+my_function <- function() {}
 
+roll <- function() {                             # function name
+  die <- 1:6                                     # body
+  dice <- sample(die, size = 2, replace = TRUE)  # body
+  sum(dice)                                      # output
+}
 
+roll()  # 7
+
+# If you type in a function’s name without the parentheses, R will show you the 
+# code that is stored inside the function. If you type in the name with the
+# parentheses, R will run that code:
+
+roll
+## function() {
+##   die <- 1:6
+##   dice <- sample(die, size = 2, replace = TRUE)
+##   sum(dice)
+## }
+roll()
+## 8
+
+roll <- function(die = 1:6) {                   # function name with default args
+  dice <- sample(die, size = 2, replace = TRUE) # body
+  #sum(dice)                                    # output
+  dice                                          # output
+}
+roll()
+
+# a function with changed defaults
+roll(die = 5:9)
 
 
 
