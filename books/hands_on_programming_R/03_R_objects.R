@@ -279,6 +279,90 @@ typeof(now)
 class(now)
 ## "POSIXct" "POSIXt"
 
+unclass(now)
+## 1681359567
+
+# what day it was a million seconds after 12:00 a.m. Jan. 1, 1970?
+mil <- 1000000
+mil
+## 1e+06
+
+class(mil) <- c("POSIXct", "POSIXt")
+mil
+## "1970-01-12 14:46:40 CET"
+
+#### 5.5.2 Factors ----
+# Factors make it easy to put categorical variables into a statistical model 
+# because the variables are already coded as numbers.
+
+# To make a factor, pass an atomic vector into the factor function
+gender <- factor(c("male", "female", "female", "male"))
+
+typeof(gender)
+## "integer"
+
+attributes(gender)
+## $levels
+## [1] "female" "male"  
+## 
+## $class
+## [1] "factor"
+
+# see exactly how R is storing your factor with unclass:
+unclass(gender)
+## [1] 2 1 1 2
+## attr(,"levels")
+## [1] "female" "male" 
+
+gender
+## male   female female male  
+## Levels: female male
+
+# convert a factor to a character string with the as.character function
+as.character(gender)
+## "male"   "female" "female" "male"
+
+# Exercise 5.4 (Write a Card) 
+# Make a virtual playing card by combining “ace,” “heart,” and 1 into a vector. 
+# What type of atomic vector will result? Check if you are right.
+
+# Solution. 
+# You may have guessed that this exercise would not go well. Each atomic vector 
+# can only store one type of data. As a result, R coerces all of your values to 
+# character strings:
+card <- c("ace", "hearts", 1)
+card
+## "ace"    "hearts" "1" 
+typeof(card)
+## "character"
+
+#### 5.6 Coercion ----
+# R always follows the same rules when it coerces data types
+# So how does R coerce data types?
+# If a character string is present in an atomic vector, R will convert everything
+# else in the vector to character strings. If a vector only contains logicals 
+# and numbers, R will convert the logicals to numbers; every TRUE becomes a 1, 
+#and every FALSE
+
+# R uses the same coercion rules when you try to do math with logical values. 
+# So the following code:
+
+sum(c(TRUE, TRUE, FALSE, FALSE))
+# will become:
+  
+sum(c(1, 1, 0, 0))
+## 2
+
+
+
+
+
+
+
+
+
+
+
 
 
 
