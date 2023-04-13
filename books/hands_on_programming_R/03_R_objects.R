@@ -247,10 +247,37 @@ matrix(hand2, nrow = 5, byrow = TRUE)
 matrix(hand2, ncol = 2, byrow = TRUE)
 dim(hand2)
 
+#### 5.5 Class ----
+dim(die) <- c(2, 3)
+typeof(die)
+##  "double"
 
+class(die)
+##  "array"
 
+attributes(die)
+## $dim
+## [1] 2 3
 
+class("Hello")
+##  "character"
 
+class(5)
+##  "numeric"
+
+class(hand1)
+## "matrix" "array" 
+
+#### 5.5.1 Dates and Times ----
+now <- Sys.time()
+now
+## "2023-04-13 06:19:26 CEST"
+
+typeof(now)
+##  "double"
+
+class(now)
+## "POSIXct" "POSIXt"
 
 
 
