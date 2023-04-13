@@ -406,6 +406,111 @@ card
 ## [1] 1
 
 #### 5.8 Data Frames ----
+# Data frames are the two-dimensional version of a list. think of a data frame 
+# as R’s equivalent to the Excel spreadsheet because it stores data in 
+# a similar format
+
+# Create a data frame with the data.frame function, Give data.frame any number 
+# of vectors, each separated with a comma. Each vector should be set equal to 
+#a name that describes the vector
+df <- data.frame(face = c("ace", "two", "six"),  
+                 suit = c("clubs", "clubs", "clubs"), 
+                 value = c(1, 2, 3))
+df
+## face  suit value
+##  ace clubs     1
+##  two clubs     2
+##  six clubs     3
+
+typeof(df)
+## "list"
+
+class(df)
+## "data.frame"
+
+str(df)
+## 'data.frame':    3 obs. of  3 variables:
+##  $ face : Factor w/ 3 levels "ace","six","two": 1 3 2
+##  $ suit : Factor w/ 1 level "clubs": 1 1 1
+##  $ value: num  1 2 3
+
+# create a data frame with family members
+family <- data.frame(role = c("father", "mother", "son", "daughter"),
+                     name = c("Taras", "Anna", "Oleksandr", "Taisiia"),
+                     birth = c("1983", "1994", "2018", "2021"))
+family
+##     role      name birth
+##   father     Taras  1983
+##   mother      Anna  1994
+##     son  Oleksandr  2018
+## daughter   Taisiia  2021
+
+family$role
+## "father"   "mother"   "son"      "daughter"
+
+typeof(family)  # "list"
+class(family)   # "data.frame"
+str(family)     # 'data.frame':	4 obs. of  3 variables
+
+# make a data frame with factors by default
+df <- data.frame(face = c("ace", "two", "six"),  
+                 suit = c("clubs", "clubs", "clubs"), 
+                 value = c(1, 2, 3),
+                 stringsAsFactors = TRUE)
+str(df)
+
+# make a data frame with no factors by default
+df <- data.frame(face = c("ace", "two", "six"),  
+                 suit = c("clubs", "clubs", "clubs"), 
+                 value = c(1, 2, 3),
+                 stringsAsFactors = FALSE)
+str(df)
+
+# create a deck of 52 cards
+# create this data frame with data.frame, but look at the typing involved! 
+# You need to write three vectors, each with 52 elements:
+
+deck <- data.frame(
+  face = c("king", "queen", "jack", "ten", "nine", "eight", "seven", "six",
+           "five", "four", "three", "two", "ace", "king", "queen", "jack", "ten", 
+           "nine", "eight", "seven", "six", "five", "four", "three", "two", "ace", 
+           "king", "queen", "jack", "ten", "nine", "eight", "seven", "six", "five", 
+           "four", "three", "two", "ace", "king", "queen", "jack", "ten", "nine", 
+           "eight", "seven", "six", "five", "four", "three", "two", "ace"),  
+  suit = c("spades", "spades", "spades", "spades", "spades", "spades", 
+           "spades", "spades", "spades", "spades", "spades", "spades", "spades", 
+           "clubs", "clubs", "clubs", "clubs", "clubs", "clubs", "clubs", "clubs", 
+           "clubs", "clubs", "clubs", "clubs", "clubs", "diamonds", "diamonds", 
+           "diamonds", "diamonds", "diamonds", "diamonds", "diamonds", "diamonds", 
+           "diamonds", "diamonds", "diamonds", "diamonds", "diamonds", "hearts", 
+           "hearts", "hearts", "hearts", "hearts", "hearts", "hearts", "hearts", 
+           "hearts", "hearts", "hearts", "hearts", "hearts"), 
+  value = c(13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 13, 12, 11, 10, 9, 8, 
+            7, 6, 5, 4, 3, 2, 1, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 13, 12, 11, 
+            10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
+)
+
+deck
+##     face     suit value
+## 1   king   spades    13
+## 2  queen   spades    12
+## 3   jack   spades    11
+## 4    ten   spades    10
+## ...
+## 51   two   hearts     2
+## 52   ace   hearts     1
+
+head(deck)
+
+# save a copy of deck as a new .csv file
+write.csv(deck, 
+          file = "books/hands_on_programming_R/datasets/cards.csv", 
+          row.names = FALSE)
+
+# row.names - excludes row numbers from the file
+
+
+
 
 
 
