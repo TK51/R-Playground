@@ -322,7 +322,7 @@ gender
 as.character(gender)
 ## "male"   "female" "female" "male"
 
-# Exercise 5.4 (Write a Card) 
+#### Exercise 5.4 (Write a Card) 
 # Make a virtual playing card by combining “ace,” “heart,” and 1 into a vector. 
 # What type of atomic vector will result? Check if you are right.
 
@@ -353,12 +353,59 @@ sum(c(TRUE, TRUE, FALSE, FALSE))
 sum(c(1, 1, 0, 0))
 ## 2
 
+mean(c(TRUE, TRUE, FALSE, FALSE))
+## 0.5 - given the above it calculates the average of 1, 1, 0, 0
 
+# You can explicitly ask R to convert data from one type to another with the as 
+# functions. R will convert the data whenever there is a sensible way to do so:
+as.character(1)
+## "1"
 
+as.logical(1)
+## TRUE
 
+as.numeric(FALSE)
+## 0
 
+#### 5.7 Lists ----
+# Lists are like atomic vectors because they group data into a one-dimensional set.
+# list creates a list the same way c creates a vector. Separate each element 
+# in the list with a comma:
+list1 <- list(10:30, "R", list(TRUE, FALSE))
+list1
+## [[1]]
+## [1] 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26
+## [18] 27 28 29 30
+## 
+## [[2]]
+## [1] "R"
+##
+## [[3]]
+## [[3]][[1]]
+## [1] TRUE
+##
+## [[3]][[2]]
+## [1] FALSE
 
+#### Exercise 5.5 (Use a List to Make a Card) 
+# Use a list to store a single playing card, like the ace of hearts, which has 
+# a point value of one. The list should save the face of the card, the suit, 
+# and the point value in separate elements.
+# Solution. You can create your card like this. In the following example, the 
+# first element of the list is a character vector (of length 1). The second 
+#element is also a character vector, and the third element is a numeric vector:
+card <- list("ace", "hearts", 1)
+card
+## [[1]]
+## [1] "ace"
+##
+## [[2]]
+## [1] "hearts"
+##
+## [[3]]
+## [1] 1
 
+#### 5.8 Data Frames ----
 
 
 
