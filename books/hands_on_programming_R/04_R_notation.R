@@ -178,7 +178,7 @@ deck[ , "value"]
 
 #### 6.2 Deal a Card ----
 
-# Exercise 6.1 (Deal a Card) 
+#### Exercise 6.1 (Deal a Card) 
 
 # Complete the following code to make a function that returns the first row of a data frame:
 deal <- function(cards) {
@@ -221,6 +221,137 @@ head(deck2)
 ##    ten spades    10
 ##   nine spades     9
 ##  eight spades     8
+
+# What do you get? A new data frame whose order hasn’t changed at all. What if 
+# you asked R to extract the rows in a different order? For example, you could 
+# ask for row 2, then row 1, and then the rest of the cards:
+
+deck3 <- deck[c(2, 1, 3:52), ]
+
+head(deck3)
+##   face   suit value
+##  queen spades    12
+##   king spades    13
+##   jack spades    11
+##    ten spades    10
+##   nine spades     9
+##  eight spades     8
+
+# R complies. You’ll get all the rows back, and they’ll come in the order you 
+# ask for them. If you want the rows to come in a random order, then you need to
+# sort the integers from 1 to 52 into a random order and use the results as a 
+# row index. How could you generate such a random collection of integers? With 
+#our friendly neighborhood sample function:
+
+random <- sample(1:52, size = 52)
+random
+##  35 28 39  9 18 29 26 45 47 48 23 22 21 16 32 38  1 15 20
+##  11  2  4 14 49 34 25  8  6 10 41 46 17 33  5  7 44  3 27
+##  50 12 51 40 52 24 19 13 42 37 43 36 31 30
+
+deck4 <- deck[random, ]
+head(deck4)
+##   face     suit value
+##   five diamonds     5
+##  queen diamonds    12
+##    ace diamonds     1
+##   five   spades     5
+##   nine    clubs     9
+##   jack diamonds    11
+
+# Now the new set is truly shuffled. You’ll be finished once you wrap these 
+# steps into a function.
+
+#### Exercise 6.2 (Shuffle a Deck) 
+# Use the preceding ideas to write a shuffle function. shuffle should take a data frame and return a shuffled copy of the data frame.
+# Solution. Your shuffle function will look like the one that follows:
+shuffle <- function(cards) { 
+    random <- sample(1:52, size = 52)
+    cards[random, ]
+  }
+# Nice work! Now you can shuffle your cards between each deal:
+  
+deal(deck)
+## face   suit value
+## king spades    13
+
+deck2 <- shuffle(deck) 
+
+deal(deck2)
+## face  suit value
+## jack clubs    11
+
+#### 6.4 Dollar Signs and Double Brackets ----
+# Two types of object in R obey an optional second system of notation. 
+# You can extract values from data frames and lists with the $ syntax
+deck$value
+## 13 12 11 10  9  8  7  6  5  4  3  2  1 13 12 11 10  9  8  7
+##  6  5  4  3  2  1 13 12 11 10  9  8  7  6  5  4  3  2  1 13
+## 12 11 10  9  8  7  6  5  4  3  2  1
+
+# un a function like mean or median on the values in a variable
+mean(deck$value)
+## 7
+
+median(deck$value)
+## 7
+
+# You can use the same $ notation with the elements of a list, if they have names
+lst <- list(numbers = c(1, 2), logical = TRUE, strings = c("a", "b", "c"))
+lst
+## $numbers
+## [1] 1 2
+
+## $logical
+## [1] TRUE
+
+## $strings
+## [1] "a" "b" "c"
+
+# And then subset it:
+lst[1]
+## $numbers
+## [1] 1 2
+
+# When you use the $ notation, R will return the selected values as they are, 
+# with no list structure around them:
+lst$numbers
+## 1 2
+
+# You can then immediately feed the results to a function:
+sum(lst$numbers)
+## 3
+
+# If the elements in your list do not have names (or you do not wish to use the 
+# names), you can use two brackets, instead of one, to subset the list. This 
+# notation will do the same thing as the $ notation:
+lst[[1]]
+## 1 2
+
+# In other words, if you subset a list with single-bracket notation, R will 
+# return a smaller list. If you subset a list with double-bracket notation, R 
+# will return just the values that were inside an element of the list. You can 
+# combine this feature with any of R’s indexing methods:  
+lst["numbers"]
+## $numbers
+## [1] 1 2
+
+lst[["numbers"]]
+## 1 2
+
+#### 6.5 Summary ----
+# You have learned how to access values that have been stored in R. You can 
+# retrieve a copy of values that live inside a data frame and use the copies for
+# new computations.
+
+# In fact, you can use R’s notation system to access values in any R object. 
+# To use it, write the name of an object followed by brackets and indexes. 
+# If your object is one-dimensional, like a vector, you only need to supply one 
+# index. If it is two-dimensional, like a data frame, you need to supply two 
+# indexes separated by a comma. And, if it is n-dimensional, you need to 
+# supply n indexes, each separated by a comma.
+
+
 
 
 
