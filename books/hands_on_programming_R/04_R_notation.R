@@ -19,10 +19,34 @@ head(deck)
 # - deal cards from the deck (one card at a time, whenever card is on top)
 
 #### 6.1 Selecting Values ----
+# To extract a value or set of values from a data frame, write the data frame’s 
+# name followed by a pair of hard brackets:
+deck[ , ]
+# Between the brackets will go two indexes separated by a comma^
+# - the first index to subset the rows of the data frame and 
+# - the second index to subset the columns.
 
+# There are six different ways to write an index for R, create indexes with:
+# -- Positive integers
+# -- Negative integers
+# -- Zero
+# -- Blank spaces
+# -- Logical values
+# -- Names
 
+#### 6.1.1 Positive Integers ----
 
+#### ----
 
+#### ----
+
+#### ----
+
+#### ----
+
+#### ----
+
+#### ----
 
 
 
