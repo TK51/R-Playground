@@ -221,6 +221,12 @@ head(deck3)
 ## 44 nine   hearts     9
 ## 13  ace   spades    14  # an ace
 
+#### The Game of Hearts (hearts valued, other cards value = 0) ----
+# In hearts, every card has a value of zero, except cards in the suit of hearts 
+# and the queen of spades. Each card in the suit of hearts has a value of 1:
+
+
+
 #### 7.0.1 Changing Values in Place ----
 
 
