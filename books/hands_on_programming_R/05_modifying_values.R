@@ -225,6 +225,79 @@ head(deck3)
 # In hearts, every card has a value of zero, except cards in the suit of hearts 
 # and the queen of spades. Each card in the suit of hearts has a value of 1:
 
+deck4 <- deck
+deck4$value <- 0
+
+head(deck4, 13)
+##   face   suit value
+##   king spades     0
+##  queen spades     0
+##   jack spades     0
+##    ten spades     0
+##   nine spades     0
+##  eight spades     0
+##  seven spades     0
+##    six spades     0
+##   five spades     0
+##   four spades     0
+##  three spades     0
+##    two spades     0
+##    ace spades     0
+
+#### Exercise 7.2 (Score the Deck for Hearts) 
+# Assign a value of 1 to every card in deck4 that has a suit of hearts.
+#### Solution.
+# To do this, first write a test that identifies cards in the hearts suit:
+
+deck4$suit == "hearts"
+##  FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE
+##   TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##   TRUE  TRUE  TRUE
+
+# Then use your test to select the values of these cards:
+deck4$value[deck4$suit == "hearts"]
+## 0 0 0 0 0 0 0 0 0 0 0 0 0
+
+# Finally, assign a new number to these values:
+deck4$value[deck4$suit == "hearts"] <- 1
+
+# Now all of your hearts cards have been updated:
+deck4$value[deck4$suit == "hearts"]
+## 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+# In hearts, the queen of spades has the most unusual value of all: she’s worth 
+# 13 points. It should be simple to change her value, but she’s surprisingly
+# hard to find. You could find all of the queens:
+
+deck4[deck4$face == "queen", ]
+##   face     suit value
+##  queen   spades     0
+##  queen    clubs     0
+##  queen diamonds     0
+##  queen   hearts     1
+
+# But that’s three cards too many. On the other hand, you could find all of 
+# the cards in spades:
+deck4[deck4$suit == "spades", ]
+
+# use a Boolean operator to locate the queen of spades in your deck:
+deck4$face == "queen" & deck4$suit == "spades"
+##  FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+##  FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  FALSE FALSE FALSE
+
+# save the results of this test to its own object
+queenOfSpades <- deck4$face == "queen" & deck4$suit == "spades"
 
 
 #### 7.0.1 Changing Values in Place ----
