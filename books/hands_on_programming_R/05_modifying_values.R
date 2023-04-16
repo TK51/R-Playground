@@ -299,6 +299,53 @@ deck4$face == "queen" & deck4$suit == "spades"
 # save the results of this test to its own object
 queenOfSpades <- deck4$face == "queen" & deck4$suit == "spades"
 
+# use the test as an index to select the value of the queen of spades. 
+# Make sure the test actually selects the correct value:
+deck4[queenOfSpades, ]
+##  face   suit value
+## queen spades     0
+
+deck4$value[queenOfSpades]
+## 0
+
+# Now that you’ve found the queen of spades, you can update her value:
+deck4$value[queenOfSpades] <- 13
+
+deck4[queenOfSpades, ]
+##  face   suit value
+## queen spades     13
+
+#### Logical games ----
+#### Exercise 7.3 (Practice with Tests) 
+# If you think you have the hang of logical tests, try converting these sentences 
+# into tests written with R code. To help you out, I’ve defined some R objects 
+# after the sentences that you can use to test your answers:
+
+# - Is w positive?
+# - Is x greater than 10 and less than 20?
+# - Is object y the word February?
+# - Is every value in z a day of the week?
+w <- c(-1, 0, 1)
+x <- c(5, 15)
+y <- "February"
+z <- c("Monday", "Tuesday", "Friday")
+#### Solution. 
+# Here are some model answers. If you got stuck, be sure to re-read how R 
+# evaluates logical tests that use Boolean values:
+w > 0
+10 < x & x < 20
+y == "February"
+all(z %in% c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", 
+             "Saturday", "Sunday"))
+
+#### The Game of BlackJack ----
+
+
+
+
+
+
+
 
 #### 7.0.1 Changing Values in Place ----
 
