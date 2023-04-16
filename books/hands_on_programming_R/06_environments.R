@@ -41,12 +41,75 @@ parenvs(all = TRUE)
 ## 2  <environment: package:pryr>     2  "package:pryr"  
 ## ... ... ...
 
+#### 8.2 Working with Environments ----
+# refer to any of the environments in your tree with as.environment. 
+# as.environment takes an environment name (as a character string) 
+# and returns the corresponding environment:
 
+as.environment("package:stats")
+## <environment: package:stats>
+## attr(,"name")
+## [1] "package:stats"
+## attr(,"path")
+## [1] "/usr/lib/R/library/stats"
 
+# Three environments in your tree also come with their own accessor functions.
+# These are the global environment (R_GlobalEnv), the base environment (base), 
+# and the empty environment (R_EmptyEnv). You can refer to them with:
+globalenv()
+## <environment: R_GlobalEnv>
 
+baseenv()
+## <environment: base>
 
+emptyenv()
+##<environment: R_EmptyEnv>
 
+# Next, you can look up an environment’s parent with parent.env:
+parent.env(globalenv())
+## <environment: package:pryr>
+## attr(,"name")
+## [1] "package:pryr"
+## attr(,"path")
+## [1] "/home/t51/R/x86_64-pc-linux-gnu-library/4.2/pryr"
 
+# Notice that the empty environment is the only R environment without a parent:
+parent.env(emptyenv())
+## Error in parent.env(emptyenv()) : the empty environment has no parent
+
+# view the objects saved in an environment with ls or ls.str. ls will return just 
+# the object names, but ls.str will display a little about each object’s structure:
+
+ls(emptyenv())
+## character(0)
+
+# the global environment has some familiar faces. It is where R has saved all of 
+# the objects that you’ve created so far.
+ls(globalenv())
+##  "deal"    "deck"    "deck2"   "deck3"   "deck4"   "deck5"  
+##  "die"     "gender"  "hand"    "lst"     "mat"     "mil"    
+##  "new"     "now"     "shuffle" "vec"  
+
+# use R’s $ syntax to access an object in a specific environment. 
+# For example, you can access deck from the global environment:
+
+head(globalenv()$deck, 3)
+##  face   suit value
+##  king spades    13
+## queen spades    12
+##  jack spades    11
+
+# use the assign function to save an object into a particular environment. 
+# First give assign the name of the new object (as a character string). 
+# Then give assign the value of the new object, and finally the environment to 
+# save the object in:
+
+assign("new", "Hello Global", envir = globalenv())
+
+globalenv()$new
+## "Hello Global"
+
+#### 8.2.1 The Active Environment ----
 
 
 
