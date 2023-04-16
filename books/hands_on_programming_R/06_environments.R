@@ -26,6 +26,33 @@ head(deck)
 # manipulates objects like deck. R does all of these things with the help of an 
 # environment system.
 
+#### 8.1 Environments ----
+# You can see R’s environment system with the parenvs function in the pryr package
+# (note parenvs came in the pryr package when this book was first published). 
+# parenvs(all = TRUE) will return a list of the environments that your R session 
+# is using. The actual output will vary from session to session depending on 
+# which packages you have loaded. Here’s the output from my current session:
+
+install.packages("pryr")
+library(pryr)
+parenvs(all = TRUE)
+##    label                            name   
+## 1  <environment: R_GlobalEnv>      1  ""       
+## 2  <environment: package:pryr>     2  "package:pryr"  
+## ... ... ...
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
