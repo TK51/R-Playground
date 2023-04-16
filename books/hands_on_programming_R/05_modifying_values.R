@@ -339,6 +339,135 @@ all(z %in% c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
              "Saturday", "Sunday"))
 
 #### The Game of BlackJack ----
+# In blackjack, each number card has a value equal to its face value. Each face 
+# card (king, queen, or jack) has a value of 10. Finally, each ace has a value 
+# of 11 or 1, depending on the final results of the game.
+
+# begin with the new deck
+deck5 <- deck
+
+head(deck5, 13)
+##   king spades    13
+##  queen spades    12
+##   jack spades    11
+##    ten spades    10
+##   nine spades     9
+##  eight spades     8
+##  seven spades     7
+##    six spades     6
+##   five spades     5
+##   four spades     4
+##  three spades     3
+##    two spades     2
+##    ace spades     1
+
+# change the value of the face cards in one fell swoop with %in%:
+facecard <- deck5$face %in% c("king", "queen", "jack")
+
+deck5[facecard, ]
+##   face     suit value
+##   king   spades    13
+##  queen   spades    12
+##   jack   spades    11
+##   king    clubs    13
+##  queen    clubs    12
+##   jack    clubs    11
+##   king diamonds    13
+##  queen diamonds    12
+##   jack diamonds    11
+##   king   hearts    13
+##  queen   hearts    12
+##   jack   hearts    11
+
+deck5$value[facecard] <- 10
+
+head(deck5, 13)
+##   face   suit value
+##   king spades    10
+##  queen spades    10
+##   jack spades    10
+##    ten spades    10
+##   nine spades     9
+##  eight spades     8
+##  seven spades     7
+##    six spades     6
+##   five spades     5
+##   four spades     4
+##  three spades     3
+##    two spades     2
+##    ace spades     1
+
+# there's no info at the moment to assign for aces - 1 or 11...
+
+#### 7.0.3 Missing Information ----
+
+# NA character is a special symbol in R. It stands for “not available” and can 
+# be used as a placeholder for missing information
+1 + NA
+## NA
+
+NA == 1
+## NA
+
+# Generally, NAs will propagate whenever you use them in an R operation or 
+# function. This can save you from making errors based on missing data.
+
+#### 7.0.3.1 na.rm ----
+
+# if even one of the values is NA, your result will be NA:
+c(NA, 1:50)
+## NA  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16
+## 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33
+## 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50
+
+mean(c(NA, 1:50))
+## NA
+
+# Most R functions come with the optional argument, na.rm, which stands for NA 
+# remove. R will ignore NAs when it evaluates a function if you add the 
+# argument na.rm = TRUE:
+
+mean(c(NA, 1:50), na.rm = TRUE)
+## 25.5
+
+#### 7.0.3.2 is.na ----
+# R supplies a special function that can test whether a value is an NA. The 
+# function is sensibly named is.na:
+
+is.na(NA)
+## TRUE
+
+vec <- c(1, 2, 3, NA)
+is.na(vec)
+## FALSE FALSE FALSE  TRUE
+
+# Let’s set all of your ace values to NA
+# You can set your ace values to NA in the same way that you would set them to a number:
+
+deck5$value[deck5$face == "ace"] <- NA
+
+head(deck5, 13)
+##   face   suit value
+##   king spades    10
+##  queen spades    10
+##   jack spades    10
+##    ten spades    10
+##   nine spades     9
+##  eight spades     8
+##  seven spades     7
+##    six spades     6
+##   five spades     5
+##   four spades     4
+##  three spades     3
+##    two spades     2
+##    ace spades    NA
+
+# Congratulations. Your deck is now ready for a game of blackjack.
+
+#### 7.0.4 Summary ----
+# You can modify values in place inside an R object when you combine R’s notation 
+# syntax with the assignment operator, <-. This lets you update your data and 
+# clean your data sets
 
 
 
@@ -347,8 +476,9 @@ all(z %in% c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
 
 
 
-#### 7.0.1 Changing Values in Place ----
 
 
 
-#### 7.0.1 Changing Values in Place ----
+
+
+
