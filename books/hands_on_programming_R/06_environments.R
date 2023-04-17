@@ -126,9 +126,68 @@ environment()
 # active environment
 # 3 .When R does not find an object in an environment, R looks in the environment’s parent environment, then the parent of the parent, and so on, until R finds the object or reaches the empty environment.
 
+#### 8.4 Assignment ----
+# When you assign a value to an object, R saves the value in the active 
+# environment under the object’s name. If an object with the same name already 
+# exists in the active environment, R will overwrite it.
 
+# For example, an object named new exists in the global environment:
 
+new
+## "Hello Global"
 
+# save a new object named new to the global environment with this command. 
+# R will overwrite the old object as a result:
+new <- "Hello Active"
+new
+## "Hello Active"
+
+# Every time R runs a function, it creates a new active environment to evaluate 
+# the function in.
+
+#### 8.5 Evaluation ----
+# R creates a new environment each time it evaluates a function. 
+
+# use the following function to explore R’s runtime environments. We want to 
+# know what the environments look like: what are their parent environments,
+# and what objects do they contain? show_env is designed to tell us:
+show_env <- function(){
+  list(ran.in = environment(), 
+       parent = parent.env(environment()), 
+       objects = ls.str(environment()))
+}
+# show_env is itself a function, so when we call show_env(), R will create a 
+# runtime environment to evaluate the function in. The results of show_env will 
+# tell us the name of the runtime environment, its parent, and which objects 
+# the runtime environment contains:
+
+show_env()
+## $ran.in
+## <environment: 0x556b5b679688>
+## 
+## $parent
+## <environment: R_GlobalEnv>
+## 
+## $objects
+
+# if to run show_env again, the new environment will be created. R creates a new 
+# environment each time you run a function. The environment is a child of the 
+# global environment.
+
+# look up a function’s origin environment by running environment on the function:
+environment(show_env)
+## <environment: R_GlobalEnv>
+
+# For example, the environment of parenvs is the pryr package:
+environment(parenvs)
+## <environment: namespace:pryr>
+
+# In other words, the parent of a runtime environment will not always be the 
+# global environment; it will be whichever environment the function was first 
+# created in.
+
+# IMPORTANT: Any objects created by the function are stored in a safe, out-of-the-way 
+# runtime environment.
 
 
 
