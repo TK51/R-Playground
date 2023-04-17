@@ -189,6 +189,159 @@ environment(parenvs)
 # IMPORTANT: Any objects created by the function are stored in a safe, out-of-the-way 
 # runtime environment.
 
+# To recap, R stores its objects in an environment system. At any moment of time,
+# R is working closely with a single active environment. It stores new objects 
+# in this environment, and it uses the environment as a starting point when it 
+# searches for existing objects. R’s active environment is usually the global 
+# environment, but R will adjust the active environment to do things like run 
+# functions in a safe manner.
+
+# How can you use this knowledge to fix the deal and shuffle functions?
+  
+# First, let’s start with a warm-up question. Suppose I redefine deal at the 
+# command line like this:
+deal <- function() {
+  deck[1, ]
+}
+# Notice that deal no longer takes an argument, and it calls the deck object, 
+# which lives in the global environment.
+
+#### Exercise 8.1 (Will deal work?) ---- 
+# Will R be able to find deck and return an answer when I call the new version 
+# of deal, such as deal()?
+#### Solution. 
+# Yes. deal will still work the same as before. R will run deal in a runtime 
+# environment that is a child of the global environment. Why will it be a child 
+# of the global environment? Because the global environment is the origin 
+# environment of deal (we defined deal in the global environment):
+
+environment(deal)
+## <environment: R_GlobalEnv>
+
+# When deal calls deck, R will need to look up the deck object. R’s scoping 
+# rules will lead it to the version of deck in the global environment, 
+# deal works as expected as a result:
+
+deal()
+##  face   suit value
+##  king spades    13
+
+# Recall that deal returns the top card of deck but does not remove the card 
+# from the deck. As a result, deal always returns the same card:
+
+deal()
+##  face   suit value
+##  king spades    13
+
+deal()
+##  face   suit value
+##  king spades    13
+
+# save a prisitine copy of deck and then remove the top card:
+DECK <- deck
+
+deck <- deck[-1, ]
+
+head(deck, 3)
+##  face   suit value
+## queen spades    12
+##  jack spades    11
+##   ten spades    10
+
+#### Exercise 8.2 (Overwrite deck) ----
+# Rewrite the deck <- deck[-1, ] line of deal to assign deck[-1, ] to an object 
+# named deck in the global environment. Hint: consider the assign function.
+#### Solution. 
+# You can assign an object to a specific environment with the assign function:
+  deal <- function() {
+    card <- deck[1, ]
+    assign("deck", deck[-1, ], envir = globalenv())
+    card
+  }
+# Now deal will finally clean up the global copy of deck, and we can deal cards 
+# just as we would in real life:
+  
+deal()
+##  face   suit value
+## queen spades    12
+
+deal()
+## face   suit value
+## jack spades    11
+
+deal()
+## face   suit value
+##  ten spades    10
+# Let’s turn our attention to the shuffle function:
+  
+shuffle <- function(cards) { 
+    random <- sample(1:52, size = 52)
+    cards[random, ]
+  }
+# shuffle(deck) doesn’t shuffle the deck object; it returns a shuffled copy of the deck object:
+  
+head(deck, 3)
+##  face   suit value
+##  nine spades     9
+## eight spades     8
+## seven spades     7
+
+a <- shuffle(deck)
+
+head(deck, 3)
+##  face   suit value
+##  nine spades     9
+## eight spades     8
+## seven spades     7
+
+head(a, 3)
+##  face     suit value
+##   ace diamonds     1
+## seven    clubs     7
+##   two    clubs     2
+
+# This behavior is now undesirable in two ways. First, shuffle fails to shuffle deck. Second, shuffle returns a copy of deck, which may be missing the cards that have been dealt away. It would be better if shuffle returned the dealt cards to the deck and then shuffled. This is what happens when you shuffle a deck of cards in real life.
+
+#### Exercise 8.3 (Rewrite shuffle) ----
+# Rewrite shuffle so that it replaces the copy of deck that lives in the global 
+# environment with a shuffled version of DECK, the intact copy of deck that also 
+# lives in the global environment. The new version of shuffle should have no 
+# arguments and return no output.
+#### Solution. 
+# You can update shuffle in the same way that you updated deck. The following 
+# version will do the job:
+  shuffle <- function(){
+    random <- sample(1:52, size = 52)
+    assign("deck", DECK[random, ], envir = globalenv())
+  }
+# Since DECK lives in the global environment, shuffle’s environment of origin, 
+# shuffle will be able to find DECK at runtime. R will search for DECK first in 
+# shuffle’s runtime environment, and then in shuffle’s origin environment—the 
+# global environment—which is where DECK is stored.
+
+# The second line of shuffle will create a reordered copy of DECK and save it 
+# as deck in the global environment. This will overwrite the previous, 
+# nonshuffled version of deck.
+
+#### 8.6 Closures ----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
